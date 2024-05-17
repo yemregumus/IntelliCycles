@@ -25,5 +25,5 @@
 
 ### Backend
 
-<a href="https://github.com/busycaesar">Dev Shah</a>
-<a href="https://github.com/yemregumus">Yunus</a>
+- <a href="https://github.com/busycaesar">Dev Shah</a>
+- <a href="https://github.com/yemregumus">Yunus</a>
