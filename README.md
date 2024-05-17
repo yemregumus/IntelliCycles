@@ -6,7 +6,7 @@
 
 ### Frontend
 
-<img src="https://skillicons.dev/icons?i=react,tailwindcss" />
+<img src="https://skillicons.dev/icons?i=react,vite,tailwindcss" />
 
 ### Backend
 
