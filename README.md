@@ -10,7 +10,7 @@
 
 ### Backend
 
-<img src="https://skillicons.dev/icons?i=node,express" />
+<img src="https://skillicons.dev/icons?i=nodejs,express" />
 
 ### Database
 
