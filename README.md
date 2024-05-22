@@ -2,6 +2,8 @@
 
 ## Description
 
+Final year project, Computer Programming and Analysis, Seneca Polytechnic
+
 ## Tech Stack
 
 ### Frontend
@@ -17,11 +19,17 @@
 <img src="https://skillicons.dev/icons?i=mongodb" />
 
 ## How it looks?
+
 ## Features
+
 ## How to run the project?
+
 ## Author
 
 ### Frontend
+
+- <a href="">Hashmeet Singh Saini</a>
+- <a href="">Toyosi</a>
 
 ### Backend
 
