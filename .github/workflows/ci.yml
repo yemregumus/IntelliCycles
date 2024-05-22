@@ -1,0 +1,30 @@
+# .github/workflows/ci.yml
+
+# CI Workflow
+name: s
+
+# This workflow is expected to run whenever the commited code is pushed or PR is raised to the Master branch!
+on:
+  push:
+    branches:
+      - Master
+      - Development
+
+# This job is expected to run whenever the above condition is fulfilled!
+jobs:
+  ci-script:
+    name: CI
+
+    # This job is required to run on ubuntu!
+    runs-on: ubuntu-latest
+
+    # Following are the steps which will be performed to complete this job!
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Once the node is setup, installing all the node dependencies and running lint tests!
+      - name: Run script
+
+        # Using ci to install all the exact dependencies!
+        run: npm run ci
