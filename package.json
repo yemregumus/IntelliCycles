@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "preci": "chmod u+x scripts/ci.sh",
+    "ci": "bash -c scripts/ci.sh"
+  }
+}
