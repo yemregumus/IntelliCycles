@@ -1,8 +1,8 @@
 #!/bin/bash
 
-// CI: Backend
+# CI: Backend
 
-cd backend || exit 1
+cd Backend || exit 1
 
 npm install
 
