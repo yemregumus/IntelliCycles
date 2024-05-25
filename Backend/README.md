@@ -25,3 +25,19 @@ body: data, // will contain the data, if requested.
 - `/auth/validate-user`: Validate an existing user.
 
 **Expects**: Username and password in the body of the request object.
+
+## How to run the project?
+
+**Note**: You must be in `/Backend` directory.
+
+### Dev mode
+
+```bash
+npm run dev
+```
+
+### Dev mode
+
+```bash
+npm start
+```
