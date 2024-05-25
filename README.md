@@ -16,7 +16,7 @@ Final year project, Computer Programming and Analysis, Seneca Polytechnic
 
 ### Database
 
-<img src="https://skillicons.dev/icons?i=mongodb" />
+<img src="https://skillicons.dev/icons?i=postgres" />
 
 ## How it looks?
 
