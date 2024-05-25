@@ -28,7 +28,7 @@ Final year project, Computer Programming and Analysis, Seneca Polytechnic
 
 ### Frontend
 
-- <a href="">Hashmeet Singh Saini</a>
+- <a href="https://github.com/hashmeet02">Hashmeet Singh Saini</a>
 - <a href="">Toyosi</a>
 
 ### Backend
