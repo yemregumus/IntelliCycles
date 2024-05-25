@@ -17,4 +17,4 @@ trap closeServer SIGINT
 
 cd dockerCompose || exit 1
 
-docker compose -f docker-compose.yml up -d || exit 1
+docker compose -f docker-compose.yml up || exit 1
