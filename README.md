@@ -8,15 +8,15 @@ Final year project, Computer Programming and Analysis, Seneca Polytechnic
 
 ### Frontend
 
-<img src="https://skillicons.dev/icons?i=react,vite,tailwindcss" />
+<img src="https://skillicons.dev/icons?i=react,vite,tailwindcss,bootstrap" />
 
 ### Backend
 
-<img src="https://skillicons.dev/icons?i=nodejs,express" />
+<img src="https://skillicons.dev/icons?i=nodejs,express,docker,jest" />
 
 ### Database
 
-<img src="https://skillicons.dev/icons?i=mongodb" />
+<img src="https://skillicons.dev/icons?i=postgres" />
 
 ## How it looks?
 

@@ -36,7 +36,7 @@ body: data, // will contain the data, if requested.
 npm run dev
 ```
 
-### Dev mode
+### Production mode
 
 ```bash
 npm start
