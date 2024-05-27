@@ -20,7 +20,7 @@ const Schedule = () =>{
           <Col className="border-x-2 text-3xl">.</Col>
           <Col className="border-x-2 text-3xl">.</Col>
           <Col className="border-x-2 text-3xl">.</Col>
-          <Col className="border-x-2 text-3xl">..</Col>
+          <Col className="border-x-2 text-3xl">.</Col>
         </Row>
         <Row>
           <Col className="border-x-2 text-3xl">.</Col>
