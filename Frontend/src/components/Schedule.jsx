@@ -4,16 +4,16 @@ import { IoMdAdd } from "react-icons/io";
 
 const Schedule = () => {
   return (
-    <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-70 p-5 h-full flex flex-col justify-between">
+    <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-70 py-3 px-5 h-full flex flex-col justify-between">
       <div>
-        <Row>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">S</Col>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">M</Col>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">T</Col>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">W</Col>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">T</Col>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">F</Col>
-          <Col className="border-2 bg-emerald-950 rounded-full max-w-14 text-3xl mx-auto">S</Col>
+        <Row className="pb-4">
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">S</Col>
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">M</Col>
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">T</Col>
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">W</Col>
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">T</Col>
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">F</Col>
+          <Col className="border-2 bg-sky-800 rounded-full max-w-14 text-3xl mx-auto p-2">S</Col>
         </Row>
         <Row>
           <Col className="border-x-2 text-3xl">.</Col>
@@ -70,7 +70,7 @@ const Schedule = () => {
           <Col className="border-x-2 text-3xl">.</Col>
         </Row>
       </div>
-      <IoMdAdd className="bg-black p-3 rounded-full mx-auto" color="white" size={80} />
+      <IoMdAdd className="bg-teal-800 hover:bg-teal-950 transition duration-200 p-3 rounded-full mx-auto" color="white" size={80} />
     </Container>
   );
 };
