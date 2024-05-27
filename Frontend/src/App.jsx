@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getHealthCheck } from "../api";
 import { Home } from "./pages";
+import { NavBar } from "./components";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [health, setHealth] = useState();
@@ -13,9 +15,11 @@ function App() {
 
   return (
     <>
-      <h1>Welcome</h1>
-      <Home/>
-      <h2 className="underline">{health}</h2>
+      <div className="min-h-screen bg-gradient-to-r from-[#540056] to-[#000C4B]">
+        <NavBar />
+        <Home />
+        <h2 className="underline text-white">{health}</h2>
+      </div>
     </>
   );
 }
