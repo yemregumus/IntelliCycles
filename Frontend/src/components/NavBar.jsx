@@ -18,7 +18,9 @@ const NavBar = () => {
                         <Nav.Link href="#Habits">Habits</Nav.Link>
                         <Nav.Link href="#Calendar">Calendar</Nav.Link>
                         <Nav.Link href="#Account">Account</Nav.Link>
+                        <Nav.Link href="#Register">Register</Nav.Link>
                     </Nav>
+                    
                 </Navbar.Collapse>
             </Container>
         </Navbar>
