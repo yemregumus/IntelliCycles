@@ -5,7 +5,7 @@ import {Row, Col} from "react-bootstrap"
 const Home = () => {
     console.log("Rendering Home Page");
     return(
-        <div>
+        <div className="items-center">
             <Row className="mx-4 h-full">
                 <Col md={2}>
                     <IntelliWandWindow/>
