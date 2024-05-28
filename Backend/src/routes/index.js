@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { resMessage } = require("./responseFormat");
+const resMessage = require("./responseFormat");
 const info = require("../../package.json");
 const pool = require("../db");
 
