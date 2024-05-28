@@ -4,11 +4,13 @@
 
 All the APIs returns an object with the same properties as described below.
 
+```
 {
 ok: success, // will contain a boolean number indicating the success/failure of the request.
 message: message, // will contain a message according to the status of the request.
 body: data, // will contain the data, if requested.
 };
+```
 
 ## GET
 
