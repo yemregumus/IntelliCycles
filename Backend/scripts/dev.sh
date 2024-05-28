@@ -5,9 +5,11 @@
 # Procedures to close the server.
 closeServer() {
 
+    echo "Close dev server."
+
     cd dockerCompose
     
-    docker compose down
+    docker compose -f docker-compose.dev.yml down
 
     exit 0
 }
@@ -19,10 +21,14 @@ trap closeServer SIGINT
 
 cd dockerCompose || exit 1
 
+echo "Start PostgreSQL container."
+
 docker compose -f docker-compose.dev.yml up --build -d || exit 1
 
 cd ..
 
 clear
+
+echo "Start server in dev mode."
 
 npm run api-dev || exit 1

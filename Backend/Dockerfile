@@ -16,8 +16,6 @@ COPY ./src ./src
 
 FROM node:20.10.0
 
-ENV PORT=8080
-
 WORKDIR /backend
 
 COPY --from=development /backend /backend
