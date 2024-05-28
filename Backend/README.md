@@ -18,7 +18,7 @@ body: data, // will contain the data, if requested.
 
 **Description**: Health check.
 
-**Return**: Version of the project in the body of the response.
+**Returns**: Version of the project in the body of the response.
 
 ## POST
 
