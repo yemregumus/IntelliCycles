@@ -14,19 +14,29 @@ body: data, // will contain the data, if requested.
 
 ## GET
 
-- `/`: Health check.
+### `/`
+
+**Description**: Health check.
 
 **Return**: Version of the project in the body of the response.
 
 ## POST
 
-- `/auth/register-user`: Register a new user.
+### `/auth/register-user`
 
-**Expects**: Username and password in the body of the request object.
+**Description**: Register a new user.
 
-- `/auth/validate-user`: Validate an existing user.
+**Expects**: 
 
-**Expects**: Username and password in the body of the request object.
+- Request Body: firstName, lastName, username, email, password.
+
+### `/auth/validate-user`
+
+**Description**: Validate a registered user.
+
+**Expects**: 
+
+- Request Body: username, password.
 
 ## How to run the project?
 
