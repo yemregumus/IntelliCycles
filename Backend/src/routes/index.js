@@ -8,13 +8,21 @@ router.use("/api", require("./api"));
 
 // Temp test route
 router.get("/test", async (req, res) => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS sample_table (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      age INT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
   try {
-    console.log("Testing DB");
-    const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
+    await pool.query(createTableQuery);
+    console.log("Table created successfully.");
+    res.status(200).json(resMessage(true, "Table Created"));
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json(resMessage(false, "Error while creating table."));
+    console.error("Error creating table:", err);
   }
 });
 
