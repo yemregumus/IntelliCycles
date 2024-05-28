@@ -1,6 +1,5 @@
 # Backend - IntelliCycles, PRJ 666
-
-# APIs
+# API Documentation
 
 All the APIs returns an object with the same properties as described below.
 
@@ -22,7 +21,7 @@ body: data, // will contain the data, if requested.
 
 ## POST
 
-### `/auth/register-user`
+### `/api/auth/register-user`
 
 **Description**: Register a new user.
 
@@ -30,7 +29,7 @@ body: data, // will contain the data, if requested.
 
 - Request Body: firstName, lastName, username, email, password.
 
-### `/auth/validate-user`
+### `/api/auth/validate-user`
 
 **Description**: Validate a registered user.
 
