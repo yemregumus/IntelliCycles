@@ -5,7 +5,9 @@
 # Procedures to close the server.
 closeServer() {
     
-    docker compose down
+    echo "Close prod server."
+
+    docker compose -f docker-compose.yml down
 
     exit 0
 }
@@ -17,4 +19,6 @@ trap closeServer SIGINT
 
 cd dockerCompose || exit 1
 
-docker compose -f docker-compose.yml up || exit 1
+echo "Start PostgreSQL and server container."
+
+docker compose -f docker-compose.yml up --build || exit 1
