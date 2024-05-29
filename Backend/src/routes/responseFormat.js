@@ -6,4 +6,4 @@ const resMessage = (success, message, data) => {
   };
 };
 
-module.exports = { resMessage };
+module.exports = resMessage;

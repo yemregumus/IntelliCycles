@@ -1,30 +1,41 @@
 # Backend - IntelliCycles, PRJ 666
-
-# APIs
+# API Documentation
 
 All the APIs returns an object with the same properties as described below.
 
+```
 {
 ok: success, // will contain a boolean number indicating the success/failure of the request.
 message: message, // will contain a message according to the status of the request.
 body: data, // will contain the data, if requested.
 };
+```
 
 ## GET
 
-- `/`: Health check.
+### `/`
 
-**Return**: Version of the project in the body of the response.
+**Description**: Health check.
+
+**Returns**: Version of the project in the body of the response.
 
 ## POST
 
-- `/auth/register-user`: Register a new user.
+### `/api/auth/register-user`
 
-**Expects**: Username and password in the body of the request object.
+**Description**: Register a new user.
 
-- `/auth/validate-user`: Validate an existing user.
+**Expects**: 
 
-**Expects**: Username and password in the body of the request object.
+- Request Body: firstName, lastName, username, email, password.
+
+### `/api/auth/validate-user`
+
+**Description**: Validate a registered user.
+
+**Expects**: 
+
+- Request Body: username, password.
 
 ## How to run the project?
 
