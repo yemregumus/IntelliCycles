@@ -14,29 +14,37 @@ body: data, // will contain the data, if requested.
 
 ## GET
 
-### `/`
+- ### `/`
 
 **Description**: Health check.
 
-**Return**: Version of the project in the body of the response.
+**Returns**: Version of the project in the body of the response.
 
 ## POST
 
-### `/auth/register-user`
+- ### `/auth/register-user`
 
 **Description**: Register a new user.
 
-**Expects**: 
+**Expects**:
 
-- Request Body: firstName, lastName, username, email, password.
+    - Request Body: firstName, lastName, username, email, password.
 
-### `/auth/validate-user`
+**Returns**:
+
+    - Body: JWT Token.
+
+- ### `/auth/validate-user`
 
 **Description**: Validate a registered user.
 
-**Expects**: 
+**Expects**:
 
-- Request Body: username, password.
+    - Request Body: username, password.
+
+**Returns**:
+
+    - Body: JWT Token.
 
 ## How to run the project?
 
