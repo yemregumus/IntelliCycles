@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getHealthCheck } from "../api";
-import { Home, Register } from "./pages";
+import { Home, Register, Add } from "./pages";
 import { NavBar } from "./components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,7 +20,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Uncomment and define these routes as needed */}
+          <Route path="/add" element={<Add />} />
           {/* <Route path="/tasks" element={<Tasks />} />
           <Route path="/reminders" element={<Reminders />} />
           <Route path="/habits" element={<Habits />} />
