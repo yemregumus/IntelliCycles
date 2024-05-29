@@ -6,7 +6,7 @@ import avatar2 from '../assets/avatar2.png';
 import avatar3 from '../assets/avatar3.png';
 import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
-import { FaPlusCircle } from "react-icons/fa";
+//import { FaPlusCircle } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 
 
@@ -60,7 +60,7 @@ function Register() {
                                 />
                             ))}
                         </div>
-                        <FaPlusCircle className="transition duration-150 p-3 rounded-full mx-auto" color="white" size={80} />
+                        <IoMdAdd className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto" color="white" size={80}/>
 
                     </Container>
                 </Col>
