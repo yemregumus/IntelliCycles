@@ -1,20 +1,20 @@
 # Backend - IntelliCycles, PRJ 666
 
-# APIs
+# API Documentation
 
 All the APIs returns an object with the same properties as described below.
 
 ```
 {
-ok: success, // will contain a boolean number indicating the success/failure of the request.
-message: message, // will contain a message according to the status of the request.
-body: data, // will contain the data, if requested.
+    ok: success, // will contain a boolean number indicating the success/failure of the request.
+    message: message, // will contain a message according to the status of the request.
+    body: data, // will contain the data, if requested.
 };
 ```
 
 ## GET
 
-- ### `/`
+### `/`
 
 **Description**: Health check.
 
@@ -22,7 +22,7 @@ body: data, // will contain the data, if requested.
 
 ## POST
 
-- ### `/auth/register-user`
+### `/api/auth/register-user`
 
 **Description**: Register a new user.
 
@@ -34,7 +34,7 @@ body: data, // will contain the data, if requested.
 
     - Body: JWT Token.
 
-- ### `/auth/validate-user`
+### `/auth/validate-user`
 
 **Description**: Validate a registered user.
 
