@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const { passport } = require("./jwt");
 
 const app = express();
 
-app.use(cors({ origin: "*" }));
+app.use(cors());
+app.use(express.json());
+app.use(passport.initialize());
 
-app.use("/api", require("./API"));
+app.use("/", require("./routes"));
 
 module.exports = app;
