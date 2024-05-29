@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Form, Button, Row, Col, Container, OverlayTrigger, Tooltip, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { InfoCircle } from 'react-bootstrap-icons';
-import { useState } from 'react';
 import avatar1 from '../assets/avatar.png';
 import avatar2 from '../assets/avatar2.png';
 import avatar3 from '../assets/avatar3.png';
@@ -13,6 +12,7 @@ import { IoMdAdd } from "react-icons/io";
 
 function Register() {
     const [formData, setFormData] = useState({
+        avatar: '',
         email: '',
         username: '',
         year: '',
@@ -38,6 +38,8 @@ function Register() {
           <strong>Premium:</strong> Access to all features.
         </Tooltip>
     );
+    const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
+    const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
 
     console.log("Rendering Register Page");
   return (
@@ -45,13 +47,18 @@ function Register() {
                 <Col md={3}>
                     <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-70 p-5">
                         
-                        <h3 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '2em', fontWeight: 'bold' }}>Choose your Avatar</h3>
+                        <h3 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '2em', fontWeight: 'bold' }}>Choose your Avatar </h3>
                         <div className="d-flex flex-wrap">
-                            <img src={avatar1} alt="Avatar 1" className="m-2" style={{ width: '100px', height: '100px' }}/>
-                            <img src={avatar2} alt="Avatar 2" className="m-2" style={{ width: '100px', height: '100px' }}/>
-                            <img src={avatar3} alt="Avatar 3" className="m-2" style={{ width: '100px', height: '100px' }}/>
-                            <img src={avatar4} alt="Avatar 4" className="m-2" style={{ width: '100px', height: '100px' }}/>
-                            <img src={avatar5} alt="Avatar 5" className="m-2" style={{ width: '100px', height: '100px' }}/>
+                            {avatars.map((avatar, index) => (
+                                <img 
+                                    key={index}
+                                    src={avatar} 
+                                    alt={`Avatar ${index + 1}`} 
+                                    className="m-2" 
+                                    style={{ width: '100px', height: '100px' }} 
+                                    onClick={() => setSelectedAvatar(avatar)}
+                                />
+                            ))}
                         </div>
                         <FaPlusCircle className="transition duration-150 p-3 rounded-full mx-auto" color="white" size={80} />
 
@@ -61,6 +68,11 @@ function Register() {
                     <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-70 p-5">
                     <h3 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '2em', fontWeight: 'bold' }}>Create New Account</h3>
             <Form onSubmit={handleSubmit} style={{padding: '10px', borderRadius: '8px'}}>
+                <Form.Group controlId="formAvatar" className="mb-3">
+                    <Col sm={12}>
+                        <div className="d-flex align-items-center justify-content-center"><img src={selectedAvatar} alt="Selected Avatar" className="m-2" style={{ width: '200px', height: '200px' }}/></div>
+                    </Col>
+                </Form.Group>
                 <Form.Group as={Row} controlId="formEmail" className="mb-3">
                     <Form.Label column sm={2}>
                     Email ID
