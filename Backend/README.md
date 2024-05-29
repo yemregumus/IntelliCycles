@@ -28,11 +28,11 @@ All the APIs returns an object with the same properties as described below.
 
 **Expects**:
 
-    - Request Body: firstName, lastName, username, email, password.
+- Request Body: firstName, lastName, username, email, password.
 
 **Returns**:
 
-    - Body: JWT Token.
+- Body: JWT Token.
 
 ### `/auth/validate-user`
 
@@ -40,11 +40,11 @@ All the APIs returns an object with the same properties as described below.
 
 **Expects**:
 
-    - Request Body: username, password.
+- Request Body: username, password.
 
 **Returns**:
 
-    - Body: JWT Token.
+- Body: JWT Token.
 
 ## How to run the project?
 
