@@ -9,7 +9,7 @@ const Schedule = () => {
   return (
     <Container className="text-white mt-4 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 px-5 h-full flex flex-col justify-between">
       <div>
-        <div className="text-center bg-sky-700 border-sky-950 border-2 rounded-full text-2xl py-3 max-w-52 mx-auto" >
+        <div className="text-center border-b-2 text-3xl py-3 max-w-52 mx-auto" >
           ADD
         </div>
         <Row>
