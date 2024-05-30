@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getHealthCheck } from "../api";
-import { Home, Register, Add, Welcome, Tasks, Reminders, Habits, Calendar, Account } from "./pages";
+import { Home, Register, Add, Welcome, Tasks, Reminders, Habits, Calendar, Account, IntelliWand } from "./pages";
 import { NavBar } from "./components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -28,6 +28,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/account" element={<Account />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/intelliwand" element={<IntelliWand />} />
         </Routes>
         <h2 className="underline text-white">{health}</h2>
       </div>
