@@ -7,7 +7,7 @@ const IntelliWandWindow = () => {
     const navigate = useNavigate();
     return (
         <Container className="text-white text-center mt-4 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 h-full flex flex-col justify-between">
-            <div className="bg-sky-700 border-sky-950 border-2 rounded-full text-2xl py-3">
+            <div className="border-b-2 text-3xl py-3">
                 IntelliWand
             </div>
             <div className="flex-grow"></div>
