@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {Row, Col} from "react-bootstrap"
 
 const Welcome = () => {
     const navigate = useNavigate();
@@ -49,9 +50,14 @@ const Welcome = () => {
                         Without further ado Sign-in/Register for the account today!
                     </p>
                     <br />
-                    <div className="bg-teal-800 text-3xl hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto w-64" onClick={() => navigate('/register')}>
-                        Sign-In/Register
-                    </div>
+                    <Row>
+                      <Col className="bg-teal-800 text-3xl hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-5 w-64" onClick={() => navigate('/signin')}>
+                          Sign-In
+                      </Col>
+                      <Col className="bg-teal-800 text-3xl hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-5 w-64" onClick={() => navigate('/register')}>
+                          Register
+                      </Col>
+                    </Row>
                 </div>
             </div>
         </>
