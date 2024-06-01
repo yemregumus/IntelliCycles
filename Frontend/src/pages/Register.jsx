@@ -44,7 +44,7 @@ function Register() {
     return (
         <Row className="mx-4 h-full">
             <Col md={3}>
-                <Container className="text-white text-center my-5 rounded-3xl bg-gray-900 bg-opacity-70 p-3 h-6/6">
+                <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
                     <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Choose your Avatar</h3>
                     <div className="flex flex-wrap justify-center">
                         {avatars.map((avatar, index) => (
@@ -60,7 +60,7 @@ function Register() {
                 </Container>
             </Col>
             <Col md={9}>
-                <Container className="text-white text-center my-5 rounded-3xl bg-gray-900 bg-opacity-70 p-3 h-6/6">
+                <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
                     <h3 className="text-center mb-2 text-3xl border-b-2 pb-3 max-w-96 mx-auto">Create New Account</h3>
                     <Form onSubmit={handleSubmit} className="p-4 rounded-xl">
                         <Form.Group controlId="formAvatar" className="mb-3">
