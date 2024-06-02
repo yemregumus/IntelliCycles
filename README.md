@@ -24,6 +24,14 @@ Final year project, Computer Programming and Analysis, Seneca Polytechnic
 
 ## How to run the project?
 
+**Note**: You must be in `/Frontend` directory.
+
+### Dev mode
+
+```bash
+npm run dev
+```
+
 ## Author
 
 ### Frontend

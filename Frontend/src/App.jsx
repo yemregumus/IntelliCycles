@@ -4,6 +4,7 @@ import { getHealthCheck } from "../api";
 import { Home, Register, Add, Welcome, Tasks, Reminders, Habits, 
   Calendar, Account, IntelliWand, SignIn } from "./pages";
 import { NavBar } from "./components";
+import { Toaster } from "react-hot-toast";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gradient-to-r from-[#540056] to-[#000C4B]">
         <NavBar />
+        <Toaster position='bottom-right' toastOptions={{ duration: 3000 }} />
         <Routes>
           <Route path="/" element= {<Welcome />} />
           <Route path="/home" element={<Home />} />

@@ -8,11 +8,19 @@ import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
 import { IoMdAdd } from "react-icons/io";
+import {toast} from 'react-hot-toast';
+
 
 function Register() {
-    const navigate= useNavigate()
+    const navigate= useNavigate();
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
+    const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
+
     const [formData, setFormData] = useState({
         avatar: '',
+        firstName: '',
+        lastName: '',
         email: '',
         username: '',
         year: '',
@@ -21,14 +29,36 @@ function Register() {
         membership: ''
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        const { avatar, firstName, lastName, email, username, password, year, month, day, membership } = formData;
+        if(password !== confirmPassword) {
+            toast.error('Passwords do not match');
+            return;
+        }
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/register-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ avatar, firstName, lastName, username, email, password, year, month, day, membership }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                sessionStorage.setItem('jwt', data.token);
+                toast.success('Login successful, Welcome');
+                navigate('/home');
+            } else {
+                // Handle error
+                console.error('Failed to login');
+                toast.error(response.error);
+            }
+        } catch (error) {
+            console.error('Failed to login', error);
+            toast.error(error.message);
+        }
     };
 
     const renderTooltip = (props) => (
@@ -38,13 +68,11 @@ function Register() {
         </Tooltip>
     );
 
-    const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
-    const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
-
+    
     return (
         <Row className="mx-4 h-full">
             <Col md={3}>
-                <Container className="text-white text-center my-5 rounded-3xl bg-gray-900 bg-opacity-70 p-3 h-6/6">
+            <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
                     <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Choose your Avatar</h3>
                     <div className="flex flex-wrap justify-center">
                         {avatars.map((avatar, index) => (
@@ -78,7 +106,7 @@ function Register() {
                                     placeholder="First Name"
                                     name="firstName"
                                     value={formData.firstName}
-                                    onChange={handleChange}
+                                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                                     required
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
@@ -90,7 +118,7 @@ function Register() {
                                     placeholder="Last Name"
                                     name="lastName"
                                     value={formData.lastName}
-                                    onChange={handleChange}
+                                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                                     required
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
@@ -104,7 +132,7 @@ function Register() {
                                     placeholder="john.doe@gmail.com"
                                     name="email"
                                     value={formData.email}
-                                    onChange={handleChange}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     required
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
@@ -118,7 +146,35 @@ function Register() {
                                     placeholder="Enter username"
                                     name="username"
                                     value={formData.username}
-                                    onChange={handleChange}
+                                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                                    required
+                                    className="bg-black text-white placeholder-stone-400 rounded-full"
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} controlId="formPassword" className="mb-4">
+                            <Form.Label column sm={2} className="text-left">Password</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Enter password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                    required
+                                    className="bg-black text-white placeholder-stone-400 rounded-full"
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} controlId="formConfirmPassword" className="mb-4">
+                            <Form.Label column sm={2} className="text-left">Confirm Password</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Confirm password"
+                                    name="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
@@ -133,7 +189,8 @@ function Register() {
                                             as="select"
                                             name="year"
                                             value={formData.year}
-                                            onChange={handleChange}
+                                            onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+
                                             required
                                             className="bg-black text-white placeholder-stone-400 rounded-full"
                                         >
@@ -149,7 +206,7 @@ function Register() {
                                             as="select"
                                             name="month"
                                             value={formData.month}
-                                            onChange={handleChange}
+                                            onChange={(e) => setFormData({ ...formData, month: e.target.value })}
                                             required
                                             className="bg-black text-white placeholder-stone-400 rounded-full"
                                         >
@@ -167,7 +224,7 @@ function Register() {
                                             as="select"
                                             name="day"
                                             value={formData.day}
-                                            onChange={handleChange}
+                                            onChange={(e) => setFormData({ ...formData, day: e.target.value })}
                                             required
                                             className="bg-black text-white placeholder-stone-400 rounded-full"
                                         >
