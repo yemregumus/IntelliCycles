@@ -5,6 +5,7 @@ import {toast} from 'react-hot-toast';
 
 
 const SignIn = () => {
+    const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
     const navigate= useNavigate();
     const [formData, setFormData] = useState({
         username: '',

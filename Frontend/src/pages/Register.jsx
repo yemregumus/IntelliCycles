@@ -12,6 +12,7 @@ import {toast} from 'react-hot-toast';
 
 
 function Register() {
+    const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
     const navigate= useNavigate();
     const [confirmPassword, setConfirmPassword] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
@@ -38,7 +39,7 @@ function Register() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:8080/api/auth/register-user', {
+            const response = await fetch(`${apiUrl}/api/auth/register-user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
