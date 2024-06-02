@@ -49,7 +49,7 @@ function Register() {
 
             if (response.ok) {
                 const data = await response.json();
-                sessionStorage.setItem('jwt', data.token);
+                sessionStorage.setItem('jwt', data.body);
                 toast.success('Login successful, Welcome');
                 navigate('/home');
             } else {

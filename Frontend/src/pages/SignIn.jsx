@@ -12,25 +12,6 @@ const SignIn = () => {
         password: ''
     });
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const response = await fetch('https://localhost:8080/validate-user', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(formData),
-    //     });
-    
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         sessionStorage.setItem('jwt', data.token);
-    //     } else {
-    //         // Handle error
-    //         console.error('Failed to login');
-    //     }
-    // };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { username, password } = formData;
@@ -45,7 +26,7 @@ const SignIn = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                sessionStorage.setItem('jwt', data.token);
+                sessionStorage.setItem('jwt', data.body);
                 toast.success('Login successful, Welcome');
                 navigate('/home');
             } else {
