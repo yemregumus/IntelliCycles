@@ -6,6 +6,7 @@ import { Home, Register, Add, Welcome, Tasks, Reminders, Habits,
 import { NavBar } from "./components";
 import { Toaster } from "react-hot-toast";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RouteGuard from "./components/RouteGuard";
 
 function App() {
   const [health, setHealth] = useState('');
@@ -23,15 +24,15 @@ function App() {
         <Toaster position='bottom-right' toastOptions={{ duration: 3000 }} />
         <Routes>
           <Route path="/" element= {<Welcome />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/tasks" element={<Tasks />} />
-          <Route path="/reminders" element={<Reminders />} />
-          <Route path="/habits" element={<Habits />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/home" element={<RouteGuard><Home /></RouteGuard>} />
+          <Route path="/add" element={<RouteGuard><Add /></RouteGuard>} />
+          <Route path="/tasks" element={<RouteGuard><Tasks /></RouteGuard>} />
+          <Route path="/reminders" element={<RouteGuard><Reminders /></RouteGuard>} />
+          <Route path="/habits" element={<RouteGuard><Habits /></RouteGuard>} />
+          <Route path="/calendar" element={<RouteGuard><Calendar /></RouteGuard>} />
+          <Route path="/account" element={<RouteGuard><Account /></RouteGuard>} />
+          <Route path="/intelliwand" element={<RouteGuard><IntelliWand /></RouteGuard>} />
           <Route path="/register" element={<Register />} />
-          <Route path="/intelliwand" element={<IntelliWand />} />
           <Route path="/signin" element={<SignIn />} />
         </Routes>
         <h2 className="underline text-white">{health}</h2>
