@@ -23,6 +23,7 @@ function Register() {
         lastName: '',
         email: '',
         username: '',
+        password: '',
         year: '',
         month: '',
         day: '',

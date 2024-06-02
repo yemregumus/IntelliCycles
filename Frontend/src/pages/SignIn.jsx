@@ -96,7 +96,7 @@ const SignIn = () => {
                     </Col>
                 </Form.Group>
                 <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/register')}>Don't have an account?</div>
-                <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/home')}>Forgot password or username ?</div>
+                <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/')}>Forgot password or username ?</div>
             </Form>
         
         </Container>
