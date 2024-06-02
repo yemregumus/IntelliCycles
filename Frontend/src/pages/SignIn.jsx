@@ -58,13 +58,13 @@ const SignIn = () => {
         }
     };
 
-    return(
-        <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
-            <h3 className="text-center mb-2 text-3xl border-b-2 pb-3 max-w-96 mx-auto">Login</h3>
+    return (
+        <Container className="text-white text-center my-5 max-w-[40rem] rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
+            <h3 className="text-center mb-2 text-3xl border-b-2 pb-3 max-w-96 mx-auto">Sign In</h3>
             <Form onSubmit={handleSubmit} className="p-4 rounded-xl">
-                <Form.Group as={Row} controlId="formUsername" className="mb-4">
+                <Form.Group as={Row} controlId="formUsername" className="mb-4 justify-content-center">
                     <Form.Label column sm={2} className="text-left">Username</Form.Label>
-                    <Col sm={10}>
+                    <Col sm={10} md={8} lg={6}>
                         <Form.Control
                             type="text"
                             placeholder="Enter username"
@@ -72,21 +72,21 @@ const SignIn = () => {
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                             required
-                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                            className="bg-black text-white placeholder-stone-400 rounded-full max-w-52 mx-auto"
                         />
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="formPassword" className="mb-4">
+                <Form.Group as={Row} controlId="formPassword" className="mb-4 justify-content-center">
                     <Form.Label column sm={2} className="text-left">Password</Form.Label>
-                    <Col sm={10}>
+                    <Col sm={10} md={8} lg={6}>
                         <Form.Control
                             type="password"
-                            placeholder=" Enter password"
+                            placeholder="Enter password"
                             name="password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             required
-                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                            className="bg-black text-white placeholder-stone-400 rounded-full max-w-52 mx-auto"
                         />
                     </Col>
                 </Form.Group>
@@ -96,11 +96,10 @@ const SignIn = () => {
                     </Col>
                 </Form.Group>
                 <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/register')}>Don't have an account?</div>
-                <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/')}>Forgot password or username ?</div>
+                {/* <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/')}>Forgot password or username ?</div> */}
             </Form>
-        
         </Container>
-    )
+    );
 }
 
-export default SignIn
+export default SignIn;
