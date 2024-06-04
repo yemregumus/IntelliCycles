@@ -4,6 +4,14 @@ const {
   addNewUser,
   isUniqueUser,
   validateUser,
+  dbHealthCheck,
 } = require("./dbQueries");
 
-module.exports = { pool, createTables, addNewUser, isUniqueUser, validateUser };
+module.exports = {
+  pool,
+  createTables,
+  addNewUser,
+  isUniqueUser,
+  validateUser,
+  dbHealthCheck,
+};

@@ -110,4 +110,20 @@ const addNewUser = (firstName, lastName, username, email, password) => {
   });
 };
 
-module.exports = { createTables, addNewUser, isUniqueUser, validateUser };
+const dbHealthCheck = () => {
+  return new Promise((resolve, reject) => {
+    const healthCheckQuery = `SELECT CURRENT_TIMESTAMP as health_check_time;`;
+    pool
+      .query(healthCheckQuery)
+      .then((result) => resolve(result.rows[0].health_check_time))
+      .catch((error) => reject(`Database error while health check. ${error}`));
+  });
+};
+
+module.exports = {
+  createTables,
+  addNewUser,
+  isUniqueUser,
+  validateUser,
+  dbHealthCheck,
+};
