@@ -20,6 +20,12 @@ All the APIs returns an object with the same properties as described below.
 
 **Returns**: Version of the project in the body of the response.
 
+### `/api/user/:userId`
+
+**Description**: Get user information.
+
+**Returns**: Firstname, lastname and username of the user.
+
 ## POST
 
 ### `/api/auth/register-user`
