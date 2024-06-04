@@ -5,6 +5,7 @@ const {
   isUniqueUser,
   validateUser,
   dbHealthCheck,
+  getUserInfo,
 } = require("./dbQueries");
 
 module.exports = {
@@ -14,4 +15,5 @@ module.exports = {
   isUniqueUser,
   validateUser,
   dbHealthCheck,
+  getUserInfo,
 };

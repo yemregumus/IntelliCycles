@@ -110,6 +110,24 @@ const addNewUser = (firstName, lastName, username, email, password) => {
   });
 };
 
+const getUserInfo = (id) => {
+  return new Promise((resolve, reject) => {
+    const getUserInfoQuery = `SELECT firstname, lastname, username FROM users WHERE id=${id};`;
+    pool
+      .query(getUserInfoQuery)
+      .then((result) =>
+        resolve({
+          firstname: result.rows[0].firstname,
+          lastname: result.rows[0].lastname,
+          username: result.rows[0].username,
+        })
+      )
+      .catch((error) =>
+        reject(`Database error while getting user info. ${error}`)
+      );
+  });
+};
+
 const dbHealthCheck = () => {
   return new Promise((resolve, reject) => {
     const healthCheckQuery = `SELECT CURRENT_TIMESTAMP as health_check_time;`;
@@ -126,4 +144,5 @@ module.exports = {
   isUniqueUser,
   validateUser,
   dbHealthCheck,
+  getUserInfo,
 };
