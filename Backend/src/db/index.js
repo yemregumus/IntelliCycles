@@ -6,6 +6,7 @@ const {
   validateUser,
   dbHealthCheck,
   getUserInfo,
+  deleteUser,
 } = require("./dbQueries");
 
 module.exports = {
@@ -16,4 +17,5 @@ module.exports = {
   validateUser,
   dbHealthCheck,
   getUserInfo,
+  deleteUser,
 };

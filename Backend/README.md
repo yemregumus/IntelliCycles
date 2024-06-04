@@ -52,6 +52,12 @@ All the APIs returns an object with the same properties as described below.
 
 - Body: JWT Token.
 
+## DELETE
+
+### `/api/user/:userId`
+
+**Description**: Delete the user.
+
 ## How to run the project?
 
 **Note**: You must be in `/Backend` directory.

@@ -18,8 +18,16 @@ const hashPassword = async (password) => {
 
 router.post("/register-user", async (req, res) => {
   // Get the user data.
-  const { firstName, lastName, username, email, password } = req.body;
-
+  const {
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+    dateOfBirth,
+    avatar,
+  } = req.body;
+  console.log(`Request to register a new user ${firstName}.`);
   try {
     // Make sure the username and email are unique.
     const { isUnique, message } = await isUniqueUser(username, email);
@@ -35,7 +43,9 @@ router.post("/register-user", async (req, res) => {
       lastName,
       username,
       email,
-      hashedPassword
+      hashedPassword,
+      dateOfBirth,
+      avatar
     );
 
     const token = generateJWTToken(_id, _username);
@@ -51,7 +61,7 @@ router.post("/register-user", async (req, res) => {
 router.post("/validate-user", async (req, res) => {
   // Get the user data.
   const { username, password } = req.body;
-
+  console.log(`Request to validate the user ${username}.`);
   try {
     // Validate the credentials.
     const { isValid, message } = await validateUser(username, password);
