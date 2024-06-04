@@ -8,7 +8,7 @@ const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
 const numRows = 12;
 const numCols = 7;
 
-const Schedule = () => {
+const Schedule = ({type}) => {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ const Schedule = () => {
           {[...Array(numRows)].map((_, rowIndex) => (
             <Row key={rowIndex}>
               {[...Array(numCols)].map((_, colIndex) => (
-                <Col key={colIndex} className="border-x-2 border-rose-900 text-3xl"><Badge/></Col>
+                <Col key={colIndex} className="border-x-2 border-rose-900 text-3xl"><Badge type= {type}/></Col>
               ))}
             </Row>
           ))}

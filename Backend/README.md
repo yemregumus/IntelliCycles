@@ -20,6 +20,12 @@ All the APIs returns an object with the same properties as described below.
 
 **Returns**: Version of the project in the body of the response.
 
+### `/api/user/:userId`
+
+**Description**: Get user information.
+
+**Returns**: Firstname, lastname and username of the user.
+
 ## POST
 
 ### `/api/auth/register-user`
@@ -28,11 +34,11 @@ All the APIs returns an object with the same properties as described below.
 
 **Expects**:
 
-    - Request Body: firstName, lastName, username, email, password.
+- Request Body: firstName, lastName, username, email, password.
 
 **Returns**:
 
-    - Body: JWT Token.
+- Body: JWT Token.
 
 ### `/auth/validate-user`
 
@@ -40,11 +46,11 @@ All the APIs returns an object with the same properties as described below.
 
 **Expects**:
 
-    - Request Body: username, password.
+- Request Body: username, password.
 
 **Returns**:
 
-    - Body: JWT Token.
+- Body: JWT Token.
 
 ## How to run the project?
 

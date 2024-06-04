@@ -3,7 +3,6 @@ import {Schedule, IntelliWandWindow} from "../components";
 import {Row, Col} from "react-bootstrap"
 
 const Home = () => {
-    console.log("Rendering Home Page");
     return(
         <div className="items-center">
             <Row className="mx-4 h-full">
@@ -11,7 +10,7 @@ const Home = () => {
                     <IntelliWandWindow/>
                 </Col>
                 <Col md={10}>
-                    <Schedule/>
+                    <Schedule type="Task"/>
                 </Col>
             </Row>
         </div>
