@@ -1,17 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const resMessage = require("../responseFormat");
-const { addNewUser, isUniqueUser, validateUser } = require("../../db");
+const { getUserInfo } = require("../../db");
 
-router.post("/:id", async (req, res) => {
-  // Get the user data.
+router.get("/:id", async (req, res) => {
+  // Get the user id.
   const { id } = req.params;
 
   try {
-    // Validate the credentials.
+    // Get user information.
     const { firstname, lastname, username } = await getUserInfo(id);
 
-    res.status(200).json(resMessage(true, `User information sent.`, { firstname, lastname, username }));
+    res.status(200).json(
+      resMessage(true, `User ${id} information sent.`, {
+        firstname,
+        lastname,
+        username,
+      })
+    );
   } catch (error) {
     res.status(500).json(resMessage(false, error));
   }

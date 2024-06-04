@@ -110,4 +110,39 @@ const addNewUser = (firstName, lastName, username, email, password) => {
   });
 };
 
-module.exports = { createTables, addNewUser, isUniqueUser, validateUser };
+const getUserInfo = (id) => {
+  return new Promise((resolve, reject) => {
+    const getUserInfoQuery = `SELECT firstname, lastname, username FROM users WHERE id=${id};`;
+    pool
+      .query(getUserInfoQuery)
+      .then((result) =>
+        resolve({
+          firstname: result.rows[0].firstname,
+          lastname: result.rows[0].lastname,
+          username: result.rows[0].username,
+        })
+      )
+      .catch((error) =>
+        reject(`Database error while getting user info. ${error}`)
+      );
+  });
+};
+
+const dbHealthCheck = () => {
+  return new Promise((resolve, reject) => {
+    const healthCheckQuery = `SELECT CURRENT_TIMESTAMP as health_check_time;`;
+    pool
+      .query(healthCheckQuery)
+      .then((result) => resolve(result.rows[0].health_check_time))
+      .catch((error) => reject(`Database error while health check. ${error}`));
+  });
+};
+
+module.exports = {
+  createTables,
+  addNewUser,
+  isUniqueUser,
+  validateUser,
+  dbHealthCheck,
+  getUserInfo,
+};
