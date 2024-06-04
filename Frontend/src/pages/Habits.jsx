@@ -1,19 +1,20 @@
-import React from "react"
-import {IntelliWandWindow, AddForm} from "../components";
+import React from "react";
+import {Schedule, IntelliWandWindow} from "../components";
 import {Row, Col} from "react-bootstrap"
 
-const Add = () =>{
-    return (
+const Habits = () => {
+    return(
         <div className="items-center">
-            <Row className="mx-4 my-16 h-full">
+            <Row className="mx-4 h-full">
                 <Col md={2}>
                     <IntelliWandWindow/>
                 </Col>
                 <Col md={10}>
-                    <AddForm type="task"/>
+                    <Schedule type="Habit"/>
                 </Col>
             </Row>
         </div>
     )
+    
 }
-export default Add;
+export default Habits;
