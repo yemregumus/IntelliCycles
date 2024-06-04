@@ -115,13 +115,14 @@ const getUserInfo = (id) => {
     const getUserInfoQuery = `SELECT firstname, lastname, username FROM users WHERE id=${id};`;
     pool
       .query(getUserInfoQuery)
-      .then((result) =>
+      .then((result) => {
+        const { firstname, lastname, username } = result.rows[0];
         resolve({
-          firstname: result.rows[0].firstname,
-          lastname: result.rows[0].lastname,
-          username: result.rows[0].username,
-        })
-      )
+          firstname: firstname,
+          lastname: lastname,
+          username: username,
+        });
+      })
       .catch((error) =>
         reject(`Database error while getting user info. ${error}`)
       );
