@@ -25,11 +25,11 @@ function App() {
         <Routes>
           <Route path="/" element= {<Welcome />} />
           <Route path="/home" element={<RouteGuard><Home /></RouteGuard>} />
-          <Route path="/add" element={<RouteGuard><Add /></RouteGuard>} />
           <Route path="/tasks" element={<RouteGuard><Tasks /></RouteGuard>} />
           <Route path="/reminders" element={<RouteGuard><Reminders /></RouteGuard>} />
           <Route path="/habits" element={<RouteGuard><Habits /></RouteGuard>} />
           <Route path="/calendar" element={<RouteGuard><Calendar /></RouteGuard>} />
+          <Route path="/add/:type" element={<RouteGuard><Add /></RouteGuard>} />
           <Route path="/account" element={<RouteGuard><Account /></RouteGuard>} />
           <Route path="/intelliwand" element={<RouteGuard><IntelliWand /></RouteGuard>} />
           <Route path="/register" element={<Register />} />

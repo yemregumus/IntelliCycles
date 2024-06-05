@@ -10,7 +10,7 @@ const Reminders = () => {
                     <IntelliWandWindow/>
                 </Col>
                 <Col md={10}>
-                    <Schedule type="Reminder"/>
+                    <Schedule type="reminder"/>
                 </Col>
             </Row>
         </div>
