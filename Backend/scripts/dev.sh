@@ -9,7 +9,7 @@ closeServer() {
 
     cd dockerCompose
     
-    docker compose -f docker-compose.dev.yml down
+    sudo docker compose -f docker-compose.dev.yml down
 
     exit 0
 }
