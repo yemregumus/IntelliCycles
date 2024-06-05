@@ -24,7 +24,7 @@ All the APIs returns an object with the same properties as described below.
 
 **Description**: Get user information.
 
-**Returns**: Firstname, lastname and username of the user.
+**Returns**: firstname, lastname and username of the user.
 
 ## POST
 
