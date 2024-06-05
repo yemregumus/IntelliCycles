@@ -51,37 +51,24 @@ const isUniqueUser = async (username, email) => {
   }
 };
 
-const validateUser = async (username, password) => {
-  try {
-    // Query to fetch user data from the database based on the provided username
-    const query = 'SELECT password FROM "user" WHERE username = $1';
-    const result = await pool.query(query, [username]);
+const getUserPassword = (id) => {
+  return new Promise((resolve, reject) => {
+    let where = "id";
+    if (isNaN(id)) where = "username";
 
-    // If no user found with the provided username, return false
-    if (result.rows.length === 0)
-      return {
-        isValid: false,
-        message: `No user found with the username ${username}.`,
-      };
-
-    // Retrieve the hashed password from the database
-    const hashedPassword = result.rows[0].password;
-
-    // Comparing the hashed password and the received password.
-    const passwordCompare = await bcrypt.compare(password, hashedPassword);
-
-    if (passwordCompare)
-      return {
-        isValid: true,
-      };
-
-    return {
-      isValid: false,
-      message: `The password is incorrect for ${username}.`,
-    };
-  } catch (error) {
-    throw new Error(`Error verifying user credentials: ${error}`);
-  }
+    // Query to fetch user data from the database based on the provided username/id.
+    const query = `SELECT password FROM "user" WHERE ${where} = $1`;
+    pool
+      .query(query, [id])
+      .then((result) => {
+        if (result.rows.length === 0)
+          reject(new Error(`No user found with the username ${username}.`));
+        resolve(result.rows[0].password);
+      })
+      .catch((error) =>
+        reject(new Error(`Error getting the user password: ${error}`))
+      );
+  });
 };
 
 const addNewUser = (
@@ -114,6 +101,53 @@ const addNewUser = (
         resolve({ _id: id, _username: username });
       })
       .catch((error) => reject(`Database error while adding ${firstName}`));
+  });
+};
+
+const updateUser = (id, firstName, lastName, email, avatar) => {
+  return new Promise((resolve, reject) => {
+    const updateUserQuery = `
+        UPDATE "user" 
+        SET firstname = $1,
+            lastname = $2,
+            email = $3,
+            avatar = $4
+        WHERE id = $5;
+        `;
+    pool
+      .query(updateUserQuery, [firstName, lastName, email, avatar, id])
+      .then((result) => {
+        if (result.rowCount <= 0)
+          reject(new Error(`No user found with id ${id}.`));
+        resolve(`${firstName}'s profile information is updated.`);
+      })
+      .catch((error) => {
+        reject(
+          new Error(`Database error while updathing ${firstName}. ${error}`)
+        );
+      });
+  });
+};
+
+const updateUserPassword = (id, newPassword) => {
+  return new Promise((resolve, reject) => {
+    const updateUserPasswordQuery = `
+        UPDATE "user" 
+        SET password = $1
+        WHERE id = $2;
+        `;
+    pool
+      .query(updateUserPasswordQuery, [newPassword, id])
+      .then((result) => {
+        if (result.rowCount <= 0)
+          reject(new Error(`No user found with id ${id}.`));
+        resolve(`${id}'s password is updated.`);
+      })
+      .catch((error) => {
+        reject(
+          new Error(`Database error while updathing ${id}'s password. ${error}`)
+        );
+      });
   });
 };
 
@@ -179,8 +213,10 @@ module.exports = {
   createTables,
   addNewUser,
   isUniqueUser,
-  validateUser,
   dbHealthCheck,
   getUserInfo,
   deleteUser,
+  updateUser,
+  getUserPassword,
+  updateUserPassword,
 };
