@@ -1,8 +1,8 @@
-# IntelliCycles, PRJ 666
+# IntelliCycles
 
 ## Description
 
-Final year project, Computer Programming and Analysis, Seneca Polytechnic
+
 
 ## Tech Stack
 
