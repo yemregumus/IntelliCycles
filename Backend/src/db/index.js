@@ -3,9 +3,12 @@ const {
   createTables,
   addNewUser,
   isUniqueUser,
-  validateUser,
   dbHealthCheck,
   getUserInfo,
+  deleteUser,
+  updateUser,
+  getUserPassword,
+  updateUserPassword,
 } = require("./dbQueries");
 
 module.exports = {
@@ -13,7 +16,10 @@ module.exports = {
   createTables,
   addNewUser,
   isUniqueUser,
-  validateUser,
   dbHealthCheck,
   getUserInfo,
+  deleteUser,
+  updateUser,
+  getUserPassword,
+  updateUserPassword,
 };

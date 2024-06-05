@@ -34,7 +34,7 @@ All the APIs returns an object with the same properties as described below.
 
 **Expects**:
 
-- Request Body: firstName, lastName, username, email, password.
+- Request Body: firstName, lastName, username, email, password, avatar.
 
 **Returns**:
 
@@ -51,6 +51,30 @@ All the APIs returns an object with the same properties as described below.
 **Returns**:
 
 - Body: JWT Token.
+
+## PATCH
+
+### `/api/user/:userId`
+
+**Description**: Update the user information.
+
+**Expects**:
+
+- Request Body: firstName, lastName, email, avatar.
+
+### `/api/user/password/:userId`
+
+**Description**: Update the user password.
+
+**Expects**:
+
+- Request Body: oldPassword, newPassword.
+
+## DELETE
+
+### `/api/user/:userId`
+
+**Description**: Delete the user.
 
 ## How to run the project?
 

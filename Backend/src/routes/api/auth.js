@@ -1,25 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const resMessage = require("../responseFormat");
-const { addNewUser, isUniqueUser, validateUser } = require("../../db");
-require("dotenv").config();
-const bcrypt = require("bcrypt");
+const { addNewUser, isUniqueUser, getUserPassword } = require("../../db");
 const { generateJWTToken } = require("../../jwt");
-
-// Function to hash the password
-const hashPassword = async (password) => {
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    return hashedPassword;
-  } catch (error) {
-    throw new Error(`Error hashing password: ${error}`);
-  }
-};
+const { hashPassword, checkPassword } = require("./password");
 
 router.post("/register-user", async (req, res) => {
   // Get the user data.
-  const { firstName, lastName, username, email, password } = req.body;
-
+  const {
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+    dateOfBirth,
+    avatar,
+  } = req.body;
+  console.log(`Request to register a new user ${firstName}.`);
   try {
     // Make sure the username and email are unique.
     const { isUnique, message } = await isUniqueUser(username, email);
@@ -35,7 +32,9 @@ router.post("/register-user", async (req, res) => {
       lastName,
       username,
       email,
-      hashedPassword
+      hashedPassword,
+      dateOfBirth,
+      avatar
     );
 
     const token = generateJWTToken(_id, _username);
@@ -51,19 +50,34 @@ router.post("/register-user", async (req, res) => {
 router.post("/validate-user", async (req, res) => {
   // Get the user data.
   const { username, password } = req.body;
-
+  console.log(`Request to validate the user ${username}.`);
   try {
-    // Validate the credentials.
-    const { isValid, message } = await validateUser(username, password);
+    // Make sure the username and password are included.
+    if (!username || !password)
+      return res
+        .status(400)
+        .json(
+          resMessage(
+            false,
+            `Insufficient information received. Please check the requirements of this api.`
+          )
+        );
 
-    // Return the appropriate response.
-    if (!isValid) return res.status(401).json(resMessage(false, message));
+    // Get the stored password.
+    const storedPassword = await getUserPassword(username);
 
+    // Try to match the stored password with the received password.
+    if (!checkPassword(password, storedPassword))
+      return res
+        .status(401)
+        .json(resMessage(false, `The password for ${username} is incorrect.`));
+
+    // Generate the token for the user.
     const token = generateJWTToken(username, password);
 
     res.status(200).json(resMessage(true, `${username} is validated.`, token));
   } catch (error) {
-    res.status(500).json(resMessage(false, error));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
