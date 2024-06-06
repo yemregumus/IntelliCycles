@@ -41,26 +41,12 @@ const Account = () => {
     }, []);
 
 
-
-
     return(
         <Row className="mx-4 h-full">
             <Col md={12}>
-                {/* <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 px-5 flex flex-col justify-between">
-                    <div className="flex items-center justify-center">
-                        <img src={avatar5} alt="Profile Avatar" className="m-1 w-40 h-40" />
-                        <div className="mx-auto text-white text-4xl text-center my-3 max-w-[70rem]">
-                        <div className="border-b-2 pb-3">
-                            Jane Doe
-                        </div>
-                        </div>
-                        <IoIosCog className="hover:bg-teal-950 transition duration-150 p-2 rounded-full mx-auto" color="white" size={80} onClick={() => navigate('/account')}/>
-                    </div>
-                </Container> */}
-
                 <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 px-5 flex flex-col justify-between">
                     <div className="flex items-center justify-between">
-                        <img src={avatar5} alt="Profile Avatar" className="m-1 w-40 h-40" />
+                        <img src={user.avatar} alt="Profile Avatar" className="m-1 w-40 h-40" />
                         <div className="flex-1 mx-4 text-white text-4xl text-center my-3">
                             <div className="border-b-2 pb-3">
                                 {user.firstName} {user.lastName}
@@ -70,7 +56,6 @@ const Account = () => {
                     </div>
                 </Container>
             </Col>
-
 
             <Col md={3}>
                 <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
@@ -89,10 +74,11 @@ const Account = () => {
                 </Container>
             </Col>
             <Col md={9}>
-                <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
-                <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Personal Stats</h3>
-                
-                    
+                <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6 relative">
+                    <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Personal Stats</h3>
+                    <div className="absolute bottom-4 right-4">
+                        {/* <IoIosCog className="hover:bg-teal-950 transition duration-150 p-2 rounded-full" color="white" size={60} onClick={() => navigate('/register')} /> */}
+                    </div>
                 </Container>
             </Col>
         </Row>
