@@ -36,7 +36,6 @@ const Account = () => {
             } else {
                 console.error('Failed to fetch user', response.status, response.statusText);
             }
-
         };
         fetchUser();
     }, []);
