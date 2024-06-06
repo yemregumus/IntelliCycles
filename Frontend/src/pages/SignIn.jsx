@@ -16,7 +16,7 @@ const SignIn = () => {
         e.preventDefault();
         const { username, password } = formData;
         try {
-            const response = await fetch('http://localhost:8080/api/auth/validate-user', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/validate-user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

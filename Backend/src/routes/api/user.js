@@ -20,11 +20,10 @@ router.get("/:id", async (req, res) => {
     // Get user information.
     const { firstName, lastName, username, dateOfBirth, avatar } =
       await getUserInfo(id);
-
     res.status(200).json(
       resMessage(true, `User ${id} information sent.`, {
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         username,
         dateOfBirth,
         avatar,
@@ -32,6 +31,7 @@ router.get("/:id", async (req, res) => {
     );
   } catch (error) {
     res.status(500).json(resMessage(false, error));
+    console.error(error);
   }
 });
 

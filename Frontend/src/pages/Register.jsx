@@ -7,13 +7,12 @@ import avatar3 from '../assets/avatar3.png';
 import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
-import { IoMdAdd } from "react-icons/io";
 import {toast} from 'react-hot-toast';
 
 
 function Register() {
     const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
-    const navigate= useNavigate();
+    const navigate = useNavigate();
     const [confirmPassword, setConfirmPassword] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
     const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
@@ -34,6 +33,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { avatar, firstName, lastName, email, username, password, year, month, day, membership } = formData;
+        const dateOfBirth = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         if(password !== confirmPassword) {
             toast.error('Passwords do not match');
             return;
@@ -44,7 +44,7 @@ function Register() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ avatar, firstName, lastName, username, email, password, year, month, day, membership }),
+                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, username, email, password, dateOfBirth, membership }),
             });
 
             if (response.ok) {
@@ -83,7 +83,7 @@ function Register() {
                                 src={avatar}
                                 alt={`Avatar ${index + 1}`}
                                 className="m-2 w-24 h-24 cursor-pointer"
-                                onClick={() => setSelectedAvatar(avatar)}
+                                onClick={() => {setSelectedAvatar(avatar); setFormData({ ...formData, avatar });}}
                             />
                         ))}
                     </div>
