@@ -8,47 +8,29 @@ const createTables = () => {
     pool
       .query(createTableQuery)
       .then(resolve("All tables created."))
-      .catch(reject("Database error while creating all the tables."));
+      .catch(
+        reject(new Error("Database error while creating all the tables."))
+      );
   });
 };
 
 const isUniqueUser = async (username, email) => {
-  try {
-    // Query for username as well as email.
-    const usernameResult = await pool.query(
-      'SELECT * FROM "user" WHERE username = $1',
-      [username]
-    );
-    const emailResult = await pool.query(
-      'SELECT * FROM "user" WHERE email = $1',
-      [email]
-    );
-
-    // Get the bool value to make sure both the queries return 0 result.
-    const isUsernameUnique = usernameResult.rows.length === 0;
-    const isEmailUnique = emailResult.rows.length === 0;
-
-    // Return the result as well as a proper error message according to the bool value.
-    if (!isUsernameUnique && !isEmailUnique)
-      return {
-        isUnique: false,
-        message: "Email and username are already taken.",
-      };
-    else if (!isUsernameUnique)
-      return {
-        isUnique: false,
-        message: "Username is already taken.",
-      };
-    else if (!isEmailUnique)
-      return {
-        isUnique: false,
-        message: "Email is already taken.",
-      };
-
-    return { isUnique: true };
-  } catch (error) {
-    throw new Error(`Database error while checking uniqueness: ${error}`);
-  }
+  return new Promise((resolve, reject) => {
+    pool
+      .query(
+        'SELECT username, email FROM "user" WHERE username = $1 OR email = $2',
+        [username, email]
+      )
+      .then((result) => {
+        if (!result.rowCount) resolve(true);
+        if (result.rows[0].username === username)
+          reject(new Error(`The username is already taken.`));
+        reject(new Error(`The email is already taken.`));
+      })
+      .catch((error) =>
+        reject(new Error(`Database error while checking uniqueness: ${error}`))
+      );
+  });
 };
 
 const getUserPassword = (id) => {
@@ -61,9 +43,26 @@ const getUserPassword = (id) => {
     pool
       .query(query, [id])
       .then((result) => {
-        if (result.rows.length === 0)
+        if (!result.rowCount)
           reject(new Error(`No user found with the username ${username}.`));
         resolve(result.rows[0].password);
+      })
+      .catch((error) =>
+        reject(new Error(`Error getting the user password: ${error}`))
+      );
+  });
+};
+
+const getUserId = (username) => {
+  return new Promise((resolve, reject) => {
+    // Query to fetch user id from the database.
+    const getUserIdQuery = `SELECT id FROM "user" WHERE username = $1`;
+    pool
+      .query(getUserIdQuery, [username])
+      .then((result) => {
+        if (!result.rowCount)
+          reject(new Error(`No user found with the username ${username}.`));
+        resolve(result.rows[0].id);
       })
       .catch((error) =>
         reject(new Error(`Error getting the user password: ${error}`))
@@ -100,7 +99,9 @@ const addNewUser = (
         const { id, username } = result.rows[0];
         resolve({ _id: id, _username: username });
       })
-      .catch((error) => reject(`Database error while adding ${firstName}`));
+      .catch((error) =>
+        reject(new Error(`Database error while adding ${firstName}`))
+      );
   });
 };
 
@@ -117,8 +118,7 @@ const updateUser = (id, firstName, lastName, email, avatar) => {
     pool
       .query(updateUserQuery, [firstName, lastName, email, avatar, id])
       .then((result) => {
-        if (result.rowCount <= 0)
-          reject(new Error(`No user found with id ${id}.`));
+        if (!result.rowCount) reject(new Error(`No user found with id ${id}.`));
         resolve(`${firstName}'s profile information is updated.`);
       })
       .catch((error) => {
@@ -139,8 +139,7 @@ const updateUserPassword = (id, newPassword) => {
     pool
       .query(updateUserPasswordQuery, [newPassword, id])
       .then((result) => {
-        if (result.rowCount <= 0)
-          reject(new Error(`No user found with id ${id}.`));
+        if (!result.rowCount) reject(new Error(`No user found with id ${id}.`));
         resolve(`${id}'s password is updated.`);
       })
       .catch((error) => {
@@ -160,22 +159,20 @@ const getUserInfo = (id) => {
     pool
       .query(getUserInfoQuery)
       .then((result) => {
-        try {
-          const { firstname, lastname, username, dateofbirth, avatar } =
-            result.rows[0];
-          resolve({
-            firstName: firstname,
-            lastName: lastname,
-            username: username,
-            dateOfBirth: dateofbirth,
-            avatar: avatar,
-          });
-        } catch (error) {
-          reject(`Database error. Invalid user id, ${id}.`);
-        }
+        if (!result.rowCount)
+          reject(new Error(`Database error. Invalid user id, ${id}.`));
+        const { firstname, lastname, username, dateofbirth, avatar } =
+          result.rows[0];
+        resolve({
+          firstName: firstname,
+          lastName: lastname,
+          username: username,
+          dateOfBirth: dateofbirth,
+          avatar: avatar,
+        });
       })
       .catch((error) =>
-        reject(`Database error while getting user info. ${error}`)
+        reject(new Error(`Database error while getting user info. ${error}`))
       );
   });
 };
@@ -190,11 +187,11 @@ const deleteUser = (id) => {
       .query(deleteUserQuery)
       .then((result) => {
         if (!result.rowCount)
-          reject(`Database error. No user found with ${id}.`);
+          reject(new Error(`Database error. No user found with ${id}.`));
         resolve(`User ${id} deleted successfully.`);
       })
       .catch((error) =>
-        reject(`Database error while deleting the user. ${error}`)
+        reject(new Error(`Database error while deleting the user. ${error}`))
       );
   });
 };
@@ -205,7 +202,9 @@ const dbHealthCheck = () => {
     pool
       .query(healthCheckQuery)
       .then((result) => resolve(result.rows[0].health_check_time))
-      .catch((error) => reject(`Database error while health check. ${error}`));
+      .catch((error) =>
+        reject(new Error(`Database error while health check. ${error}`))
+      );
   });
 };
 
@@ -219,4 +218,5 @@ module.exports = {
   updateUser,
   getUserPassword,
   updateUserPassword,
+  getUserId,
 };
