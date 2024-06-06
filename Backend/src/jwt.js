@@ -28,11 +28,7 @@ const generateJWTToken = (id, username) => {
     _username: username,
   };
 
-  const options = {
-    expiresIn: "1h",
-  };
-  
-  return jwt.sign(payLoad, jwtOptions.secretOrKey, options);
+  return jwt.sign(payLoad, jwtOptions.secretOrKey);
 };
 
 module.exports = {

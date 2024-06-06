@@ -17,21 +17,31 @@ router.get("/:id", async (req, res) => {
   console.log(`Requesting information for user ${id}.`);
 
   try {
+    if (!id)
+      return res
+        .status(400)
+        .json(
+          resMessage(
+            false,
+            `Insufficient information received. Please check the requirements of this api.`
+          )
+        );
+
     // Get user information.
     const { firstName, lastName, username, dateOfBirth, avatar } =
       await getUserInfo(id);
 
     res.status(200).json(
       resMessage(true, `User ${id} information sent.`, {
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         username,
         dateOfBirth,
         avatar,
       })
     );
   } catch (error) {
-    res.status(500).json(resMessage(false, error));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
@@ -40,6 +50,16 @@ router.patch("/:id", async (req, res) => {
   const { firstName, lastName, email, avatar } = req.body;
   // Get the user id.
   const { id } = req.params;
+
+  if (!id)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
 
   console.log(`Request to update an existing user ${firstName}'s information.`);
 
@@ -67,6 +87,16 @@ router.patch("/password/:id", async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   // Get the user id.
   const { id } = req.params;
+
+  if (!id)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
 
   console.log(`Request to update an existing user ${id}'s password.`);
 
@@ -104,12 +134,23 @@ router.patch("/password/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   // Get the user id.
   const { id } = req.params;
+
+  if (!id)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
+
   console.log(`Request to delete the user ${id}.`);
   try {
     const result = await deleteUser(id);
     res.status(200).json(resMessage(true, result));
   } catch (error) {
-    res.status(500).json(resMessage(false, error));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
