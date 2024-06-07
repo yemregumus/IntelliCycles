@@ -4,7 +4,7 @@ import {Row, Col} from "react-bootstrap"
 import { useParams } from 'react-router-dom';
 
 const Add = () =>{
-    const  type = useParams();
+    const  {type} = useParams();
     return (
         <div className="items-center">
             <Row className="mx-4 my-16 h-full">
