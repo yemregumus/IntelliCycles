@@ -11,6 +11,8 @@ import { IoMdAdd } from "react-icons/io";
 import { IoIosCog } from "react-icons/io";
 import { getUserIdFromToken } from "../utils/auth";
 import { getToken } from "../utils/auth";
+import { Person } from "react-bootstrap-icons";
+import PersonalStats from "../components/PersonalStats";
 
 
 const Account = () => {
@@ -76,6 +78,7 @@ const Account = () => {
             <Col md={9}>
                 <Container className="text-white text-center my-5 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6 relative">
                     <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Personal Stats</h3>
+                    <PersonalStats />
                     <div className="absolute bottom-4 right-4">
                         {/* <IoIosCog className="hover:bg-teal-950 transition duration-150 p-2 rounded-full" color="white" size={60} onClick={() => navigate('/register')} /> */}
                     </div>
