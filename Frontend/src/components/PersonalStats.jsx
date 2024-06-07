@@ -8,7 +8,6 @@ function PersonalStats() {
         <StatsGrid />
         <div className="flex flex-row gap-4 w-full">
             <StatsChart />
-            {/* <BuyerProfilePieChart /> */}
         </div>
         
     </div>
