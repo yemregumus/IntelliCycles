@@ -73,7 +73,6 @@ const AddTaskForm = ({ formData, handleChange }) => (
           name="repeat"
           value={formData.repeat}
           onChange={handleChange}
-          required
           className="bg-stone-400 placeholder-stone-950 rounded-full"
         >
           <option value="">Select Repeat</option>

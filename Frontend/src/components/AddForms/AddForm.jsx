@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import {AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm} from "../AddForms"
+import { AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm } from "../AddForms";
 import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
@@ -11,8 +11,8 @@ const AddForm = ({ type }) => {
     type: type || "task",
     name: "",
     description: "",
-    dateTime: "",
     color: "",
+    reminder: "",
     repeat: "",
     due: "",
     streak: "",
@@ -21,11 +21,20 @@ const AddForm = ({ type }) => {
     complete: false,
   });
 
+  useEffect(() => {
+    if (type) {
+      setFormData((prevData) => ({
+        ...prevData,
+        type: type,
+      }));
+    }
+  }, [type]);
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type: inputType, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: inputType === "checkbox" ? checked : value,
     });
   };
 
@@ -34,16 +43,14 @@ const AddForm = ({ type }) => {
     console.log(formData);
   };
 
-  const getRadioClass = (type) => {
-    return formData.type === type
+  const getRadioClass = (radioType) => {
+    return formData.type === radioType
       ? 'text-black bg-white rounded-full px-16 transition duration-150'
       : 'text-white transition duration-150';
   };
 
   const renderFormSection = () => {
     switch (formData.type) {
-      case "task":
-        return <AddTaskForm formData={formData} handleChange={handleChange} />;
       case "reminder":
         return <AddReminderForm formData={formData} handleChange={handleChange} />;
       case "habit":
@@ -51,7 +58,7 @@ const AddForm = ({ type }) => {
       case "event":
         return <AddEventForm formData={formData} handleChange={handleChange} />;
       default:
-        return null;
+        return <AddTaskForm formData={formData} handleChange={handleChange} />;
     }
   };
 
