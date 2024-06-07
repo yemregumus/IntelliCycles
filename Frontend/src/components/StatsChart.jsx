@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -6,72 +6,84 @@ const data = [
       name: 'JAN',
       tasks: 0,
       habits: 0,
+      events: 0,
       reminders: 0,
     },
     {
       name: 'FEB',
       tasks: 0,
       habits: 0,
+      events: 0,
       reminders: 0,
     },
     {
       name: 'MAR',
       tasks: 0,
       habits: 0,
+      events: 0,
       reminders: 0,
     },
     {
       name: 'APR',
       tasks: 0,
       habits: 0,
+      events: 0,
       reminders: 0,
     },
     {
       name: 'MAY',
       tasks: 20,
       habits: 10,
-      reminders: 0,
+      events: 30,
+      reminders: 10,
     },
     {
       name: 'JUN',
       tasks: 30,
       habits: 15,
+      events: 39,
       reminders: 5,
     },
     {
       name: 'JUL',
       tasks: 0,
       habits: 0,
+      events: 0,
       reminders: 0,
     },
     {
         name: 'AUG',
         tasks: 0,
         habits: 0,
+        events: 0,
         reminders: 0,
       },
       {
         name: 'SEP',
         tasks: 0,
         habits: 0,
+        events: 0,
         reminders: 0,
       },
       {
         name: 'OCT',
         tasks: 0,
         habits: 0,
+        events: 0,
         reminders: 0,
       },
       {
         name: 'NOV',
         tasks: 0,
         habits: 0,
+        events: 0,
         reminders: 0,
       },
       {
         name: 'DEC',
         tasks: 0,
         habits: 0,
+        events: 0,
         reminders: 0,
       },
 ];
@@ -96,9 +108,10 @@ function StatsChart () {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="tasks" stackId="1" stroke="#8884d8" fill="#8884d8" />
-                <Area type="monotone" dataKey="habits" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-                <Area type="monotone" dataKey="reminders" stackId="1" stroke="#ffc658" fill="#ffc658" />
+                <Area type="monotone" dataKey="habits" stackId="1" stroke="#0d9488" fill="#0d9488" />
+                <Area type="monotone" dataKey="tasks" stackId="1" stroke="#7c2d12" fill="#7c2d12" />
+                <Area type="monotone" dataKey="events" stackId="1" stroke="#ca8a04" fill="#ca8a04" />
+                <Area type="monotone" dataKey="reminders" stackId="1" stroke="#4d7c0f" fill="#4d7c0f" />
                 </AreaChart>
             </ResponsiveContainer>
         </div>
