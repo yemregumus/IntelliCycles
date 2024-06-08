@@ -72,7 +72,7 @@ function Register() {
 
     
     return (
-        <Row className="mx-4 h-full">
+        <Row className="mx-4 h-full items-center">
             <Col md={3}>
                 <Container className="text-white text-center my-3 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
                     <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Choose your Avatar</h3>
