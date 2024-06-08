@@ -94,7 +94,7 @@ function ProfileSettings() {
 
     
     return (
-        <Row className="mx-4 h-full">
+        <Row className="mx-32 my-16 h-full items-center">
             <Col md={3}>
                 <Container className="text-white text-center my-3 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
                     <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Change your Avatar</h3>
@@ -111,11 +111,11 @@ function ProfileSettings() {
                     </div>
                 </Container>
                 <Col className="flex flex-column justify-between">
-                                <Button type="button" className="bg-amber-500 border-amber-950 hover:bg-amber-700 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
-                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-zinc-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
+                                <Button type="button" className="bg-amber-600 border-amber-950 hover:bg-amber-700 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
+                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
                 </Col>
             </Col>
-            <Col md={9}>
+            <Col md={9} className='max-w-3/6'>
                 <Container className="text-white text-center my-3 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
                     <h3 className="text-center mb-1 text-3xl border-b-2 pb-3 max-w-96 mx-auto">Profile Settings</h3>
                     <Form onSubmit={handleSubmit} className="p-4 rounded-xl">
@@ -257,7 +257,7 @@ function ProfileSettings() {
                             <Col className="flex justify-center">
                                 <Button type="submit" disabled={!isFormChanged} className={`${isFormChanged ? "bg-teal-800 border-teal-950 hover:bg-teal-950" : "bg-black border-black"} border-2 transition duration-150 text-2xl rounded-full mx-auto px-4`}>Update Profile</Button>
                                 <Button type="button" className="bg-teal-800 hover:bg-teal-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4" onClick={() => setShowPasswordDialog(true)}>Change Password</Button>
-                                <Button type="button" onClick={() => navigate('/account')} className="bg-slate-400 hover:bg-slate-800 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Cancel</Button>
+                                <Button type="button" onClick={() => navigate('/account')} className="bg-slate-600 hover:bg-slate-800 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Cancel</Button>
                             </Col>
                         </Form.Group>
                     </Form>
