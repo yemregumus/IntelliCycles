@@ -67,7 +67,7 @@ function ProfileSettings() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, email, membership}),
+                body: JSON.stringify({ avatar: avatar, firstName, lastName, email, membership}),
             });
 
             if (response.ok) {
@@ -172,19 +172,6 @@ function ProfileSettings() {
                                 />
                             </Col>
                         </Form.Group>
-                        {/* <Form.Group as={Row} controlId="formPassword" className="mb-4">
-                            <Form.Label column sm={2} className="text-left">Password</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Enter password"
-                                    name="password"
-                                    value={user.password}
-                                    disabled={true}
-                                    className="bg-black text-white placeholder-stone-400 rounded-full"
-                                />
-                            </Col>
-                        </Form.Group> */}
                         <Form.Group as={Row} controlId="formDateOfBirth" className="mb-4">
                             <Form.Label column sm={2} className="text-left">Date of Birth</Form.Label>
                             <Col sm={10}>
