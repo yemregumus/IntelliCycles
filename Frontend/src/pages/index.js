@@ -9,3 +9,4 @@ export { default as Event } from "./Event";
 export { default as Account } from "./Account";
 export { default as IntelliWand } from "./IntelliWand";
 export { default as SignIn } from "./SignIn"
+export { default as ProfileSettings } from "./ProfileSettings"

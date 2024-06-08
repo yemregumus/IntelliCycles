@@ -90,7 +90,7 @@ const data = [
 
 function StatsChart () {
   return (
-    <div className="h-[22rem] bg-black p-4 rounded-sm border border-gray-200 flex flex-col flex-1">
+    <div className="h-[22rem] bg-black p-10 rounded-sm border border-gray-200 flex flex-col flex-1">
         <div className="mt-3 w-full flex-1 text-xs">
             <ResponsiveContainer width="100%" height="100%">
                 <AreaChart

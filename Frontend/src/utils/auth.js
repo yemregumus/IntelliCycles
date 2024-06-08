@@ -36,3 +36,7 @@ export const getUserIdFromToken = () => {
 export const getToken = () => {
     return sessionStorage.getItem('jwt');
 }
+
+export const removeToken = () => {
+    sessionStorage.removeItem('jwt');
+}
