@@ -10,6 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fullcalendar/core": "^6.1.14",
+    "@fullcalendar/daygrid": "^6.1.14",
+    "@fullcalendar/interaction": "^6.1.14",
+    "@fullcalendar/list": "^6.1.14",
+    "@fullcalendar/multimonth": "^6.1.14",
+    "@fullcalendar/react": "^6.1.14",
+    "@fullcalendar/timegrid": "^6.1.14",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
