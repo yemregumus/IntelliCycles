@@ -163,14 +163,14 @@ function ProfileSettings() {
                         <Form.Group as={Row} controlId="formUsername" className="mb-4 items-center">
                             <Form.Label column sm={2} className="text-left">Username</Form.Label>
                             <Col sm={10} className='text-left'>
-                                {user.username}
-                                {/* <Form.Control
+                                {/* {user.username} */}
+                                <Form.Control
                                     type="text"
                                     name="username"
                                     value={user.username}
-                                    className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
+                                    className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
                                     disabled={true}
-                                /> */}
+                                />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formDateOfBirth" className="mb-4">
@@ -178,24 +178,24 @@ function ProfileSettings() {
                             <Col sm={10}>
                                 <Row>
                                     <Col className='text-left'>
-                                        {year}/{month}/{day}
-                                        {/* <Form.Control
+                                        {/* {year}/{month}/{day} */}
+                                        <Form.Control
                                             as="select"
                                             name="year"
                                             value={year}
-                                            className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
+                                            className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
                                             disabled={true}
                                         >
                                             <option key={year} value={year}>{year}</option>
-                                        </Form.Control> */}
+                                        </Form.Control>
                                     </Col>
                                     <Col>
-                                        {/* <Form.Control
+                                        <Form.Control
                                             as="select"
                                             name="month"
                                             value={month}
                                             required
-                                            className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
+                                            className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
                                             disabled={true}
                                         >
                                             <option value="">Month</option>
@@ -205,20 +205,20 @@ function ProfileSettings() {
                                             ].map((month, index) => (
                                                 <option key={index + 1} value={index + 1}>{month}</option>
                                             ))}
-                                        </Form.Control> */}
+                                        </Form.Control>
                                     </Col>
-                                    {/* <Col>
+                                    <Col>
                                         <Form.Control
                                             as="select"
                                             name="day"
                                             value={isNaN(day) ? 'Day' : day}
                                             required
-                                            className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
+                                            className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
                                             disabled={true}
                                         >
                                             <option value="">{isNaN(day) ? 'Day' : day}</option>
                                         </Form.Control>
-                                    </Col> */}
+                                    </Col>
                                 </Row>
                             </Col>
                         </Form.Group>
