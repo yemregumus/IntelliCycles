@@ -88,7 +88,8 @@ router.post("/validate-user", async (req, res) => {
     const storedPassword = await getUserPassword(username);
 
     // Try to match the stored password with the received password.
-    if (!checkPassword(password, storedPassword))
+    const isMatch = await checkPassword(password, storedPassword);
+    if (!isMatch)
       return res
         .status(401)
         .json(resMessage(false, `The password for ${username} is incorrect.`));

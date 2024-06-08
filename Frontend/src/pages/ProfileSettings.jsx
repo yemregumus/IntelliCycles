@@ -7,8 +7,9 @@ import avatar3 from '../assets/avatar3.png';
 import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
-import { getUserIdFromToken, getToken } from '../utils/auth';
+import { getUserIdFromToken, getToken, removeToken } from '../utils/auth';
 import {toast} from 'react-hot-toast';
+import PasswordDialog from '../components/PasswordDialog';
 
 function ProfileSettings() {
     const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
@@ -17,13 +18,17 @@ function ProfileSettings() {
     const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
     const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
     const [isFormChanged, setIsFormChanged] = useState(false);
+    const [showPasswordDialog, setShowPasswordDialog] = useState(false);
     const [user, setUser] = useState({ avatar: '', firstName: '', lastName: '', username:'', email: '', password: '', dateOfBirth: '', membership: ''});
+    const date = new Date(user.dateOfBirth);
+    const year = date && !isNaN(date) ? date.getUTCFullYear() : '';
+    const month = date && !isNaN(date) ? date.getUTCMonth() + 1 : '';
+    const day = date && !isNaN(date) ? date.getUTCDate() : '';
+    const userId = getUserIdFromToken();
 
     useEffect(() => {
         const fetchUser = async () => {
-            const userId = getUserIdFromToken();
-            console.log(`USER ID: ${userId}`);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/user/${userId}`, {
+            const response = await fetch(`${apiUrl}/api/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,8 +37,19 @@ function ProfileSettings() {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('User data:', data);
-                setUser({firstName: data.body.firstName, lastName: data.body.lastName, username: data.body.username, email: data.body.email, password: data.body.password, avatar: data.body.avatar});
+                setUser({
+                    avatar: data.body.avatar || avatar5, 
+                    firstName: data.body.firstName || 'Jane', 
+                    lastName: data.body.lastName || 'Doe', 
+                    username: data.body.username || 'JaneDoe', 
+                    email: data.body.email || '', 
+                    password: data.body.password || '', 
+                    dateOfBirth: data.body.dateOfBirth || '', 
+                    membership: data.body.membership || 'basic', 
+                    year: year || '', 
+                    month: month || '', 
+                    day: day || ''
+                });
             } else {
                 console.error('Failed to fetch user', response.status, response.statusText);
             }
@@ -43,25 +59,21 @@ function ProfileSettings() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { avatar, firstName, lastName, email, username, password, year, month, day, membership } = user;
-        const dateOfBirth = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        if(password !== confirmPassword) {
-            toast.error('Passwords do not match');
-            return;
-        }
+        const { avatar, firstName, lastName, email, membership } = user;
+       
         try {
-            const response = await fetch(`${apiUrl}/api/user/:userId`, {
-                method: 'POST',
+            const response = await fetch(`${apiUrl}/api/user/${userId}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, email}),
+                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, email, membership}),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 toast.success('Profile update successful');
-                navigate('/home');
+                navigate('/account');
             } else {
                 // Handle error
                 console.error('Failed to update profile', response.status, response.statusText);
@@ -98,6 +110,10 @@ function ProfileSettings() {
                         ))}
                     </div>
                 </Container>
+                <Col className="flex flex-column justify-between">
+                                <Button type="button" className="bg-teal-800 border-teal-950 hover:bg-teal-950 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
+                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
+                </Col>
             </Col>
             <Col md={9}>
                 <Container className="text-white text-center my-3 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
@@ -115,7 +131,6 @@ function ProfileSettings() {
                             <Col sm={4}>
                                 <Form.Control
                                     type="text"
-                                    placeholder="First Name"
                                     name="firstName"
                                     value={user.firstName}
                                     onChange={(e) => {setUser({ ...user, firstName: e.target.value });setIsFormChanged(true);}}
@@ -126,7 +141,6 @@ function ProfileSettings() {
                             <Col sm={4}>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Last Name"
                                     name="lastName"
                                     value={user.lastName}
                                 onChange={(e) => {setUser({ ...user, lastName: e.target.value }); setIsFormChanged(true);}}
@@ -139,7 +153,6 @@ function ProfileSettings() {
                             <Col sm={10}>
                                 <Form.Control
                                     type="email"
-                                    placeholder="john.doe@gmail.com"
                                     name="email"
                                     value={user.email}
                                     onChange={(e) => {setUser({ ...user, email: e.target.value }); setIsFormChanged(true);}}
@@ -194,27 +207,21 @@ function ProfileSettings() {
                                         <Form.Control
                                             as="select"
                                             name="year"
-                                            value={user.year}
-                                            onChange={(e) => setUser({ ...user, year: e.target.value })}
-
-                                            required
+                                            value={year}
                                             className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            disabled={true}
                                         >
-                                            <option value="">Year</option>
-                                            {Array.from({ length: 100 }, (_, i) => {
-                                                const year = new Date().getFullYear() - i;
-                                                return <option key={year} value={year}>{year}</option>;
-                                            })}
+                                            <option key={year} value={year}>{year}</option>
                                         </Form.Control>
                                     </Col>
                                     <Col>
                                         <Form.Control
                                             as="select"
                                             name="month"
-                                            value={user.month}
-                                            onChange={(e) => setUser({ ...user, month: e.target.value })}
+                                            value={month}
                                             required
                                             className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            disabled={true}
                                         >
                                             <option value="">Month</option>
                                             {[
@@ -229,15 +236,12 @@ function ProfileSettings() {
                                         <Form.Control
                                             as="select"
                                             name="day"
-                                            value={user.day}
-                                            onChange={(e) => setUser({ ...user, day: e.target.value })}
+                                            value={isNaN(day) ? 'Day' : day}
                                             required
                                             className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            disabled={true}
                                         >
-                                            <option value="">Day</option>
-                                            {Array.from({ length: 31 }, (_, i) => (
-                                                <option key={i + 1} value={i + 1}>{i + 1}</option>
-                                            ))}
+                                            <option value="">{isNaN(day) ? 'Day' : day}</option>
                                         </Form.Control>
                                     </Col>
                                 </Row>
@@ -266,7 +270,7 @@ function ProfileSettings() {
                         <Form.Group as={Row} className="mb-4">
                             <Col className="flex justify-center">
                                 <Button type="submit" disabled={!isFormChanged} className={`${isFormChanged ? "bg-teal-800 border-teal-950 hover:bg-teal-950" : "bg-black border-black"} border-2 transition duration-150 text-2xl rounded-full mx-auto px-4`}>Update Profile</Button>
-                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Change Password</Button>
+                                <Button type="button" className="bg-sky-700 hover:bg-cyan-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4" onClick={() => setShowPasswordDialog(true)}>Change Password</Button>
                                 <Button type="button" onClick={() => navigate('/account')} className="bg-slate-400 hover:bg-slate-800 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Cancel</Button>
                             </Col>
                         </Form.Group>
@@ -274,6 +278,8 @@ function ProfileSettings() {
                     
                 </Container>
             </Col>
+
+            <PasswordDialog show={showPasswordDialog} handleClose={() => setShowPasswordDialog(false)} apiUrl={apiUrl}/>
         </Row>
     );
 }
