@@ -111,8 +111,8 @@ function ProfileSettings() {
                     </div>
                 </Container>
                 <Col className="flex flex-column justify-between">
-                                <Button type="button" className="bg-zinc-800 border-zinc-950 hover:bg-zinc-950 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
-                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
+                                <Button type="button" className="bg-amber-500 border-amber-950 hover:bg-amber-700 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
+                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-zinc-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
                 </Col>
             </Col>
             <Col md={9}>
@@ -167,7 +167,7 @@ function ProfileSettings() {
                                     type="text"
                                     name="username"
                                     value={user.username}
-                                    className="bg-black text-white placeholder-stone-400 rounded-full"
+                                    className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
                                     disabled={true}
                                 />
                             </Col>
@@ -194,7 +194,7 @@ function ProfileSettings() {
                                             as="select"
                                             name="year"
                                             value={year}
-                                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
                                             disabled={true}
                                         >
                                             <option key={year} value={year}>{year}</option>
@@ -206,7 +206,7 @@ function ProfileSettings() {
                                             name="month"
                                             value={month}
                                             required
-                                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
                                             disabled={true}
                                         >
                                             <option value="">Month</option>
@@ -224,7 +224,7 @@ function ProfileSettings() {
                                             name="day"
                                             value={isNaN(day) ? 'Day' : day}
                                             required
-                                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
                                             disabled={true}
                                         >
                                             <option value="">{isNaN(day) ? 'Day' : day}</option>
@@ -256,7 +256,7 @@ function ProfileSettings() {
                         <Form.Group as={Row} className="mb-4">
                             <Col className="flex justify-center">
                                 <Button type="submit" disabled={!isFormChanged} className={`${isFormChanged ? "bg-teal-800 border-teal-950 hover:bg-teal-950" : "bg-black border-black"} border-2 transition duration-150 text-2xl rounded-full mx-auto px-4`}>Update Profile</Button>
-                                <Button type="button" className="bg-sky-700 hover:bg-cyan-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4" onClick={() => setShowPasswordDialog(true)}>Change Password</Button>
+                                <Button type="button" className="bg-teal-800 hover:bg-teal-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4" onClick={() => setShowPasswordDialog(true)}>Change Password</Button>
                                 <Button type="button" onClick={() => navigate('/account')} className="bg-slate-400 hover:bg-slate-800 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Cancel</Button>
                             </Col>
                         </Form.Group>
