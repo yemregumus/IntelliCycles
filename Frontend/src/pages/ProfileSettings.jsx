@@ -111,7 +111,7 @@ function ProfileSettings() {
                     </div>
                 </Container>
                 <Col className="flex flex-column justify-between">
-                                <Button type="button" className="bg-teal-800 border-teal-950 hover:bg-teal-950 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
+                                <Button type="button" className="bg-zinc-800 border-zinc-950 hover:bg-zinc-950 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
                                 <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
                 </Col>
             </Col>
@@ -172,7 +172,7 @@ function ProfileSettings() {
                                 />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formPassword" className="mb-4">
+                        {/* <Form.Group as={Row} controlId="formPassword" className="mb-4">
                             <Form.Label column sm={2} className="text-left">Password</Form.Label>
                             <Col sm={10}>
                                 <Form.Control
@@ -180,21 +180,7 @@ function ProfileSettings() {
                                     placeholder="Enter password"
                                     name="password"
                                     value={user.password}
-                                    onChange={(e) => {setUser({ ...user, password: e.target.value }); setIsFormChanged(true);}}
-                                    className="bg-black text-white placeholder-stone-400 rounded-full"
-                                />
-                            </Col>
-                        </Form.Group>
-                        {/* <Form.Group as={Row} controlId="formConfirmPassword" className="mb-4">
-                            <Form.Label column sm={2} className="text-left">Confirm Password</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Confirm password"
-                                    name="confirmPassword"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
+                                    disabled={true}
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
                             </Col>

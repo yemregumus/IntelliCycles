@@ -31,12 +31,16 @@ const SignIn = () => {
                 navigate('/home');
             } else {
                 // Handle error
+
                 console.error('Failed to login', response.status, response.statusText);
+                setFormData({ ...formData, password: '' });
                 toast.error('Username or password is incorrect. Please try again.');
             }
         } catch (error) {
             console.error('Failed to login', error);
+            setFormData({ ...formData, password: '' });
             toast.error(error.message);
+
         }
     };
 
