@@ -111,7 +111,7 @@ function ProfileSettings() {
                     </div>
                 </Container>
                 <Col className="flex flex-column justify-between">
-                                <Button type="button" className="bg-amber-600 border-amber-950 hover:bg-amber-700 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
+                                <Button type="button" className="bg-gray-600 border-gray-950 hover:bg-gray-800 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
                                 <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
                 </Col>
             </Col>
@@ -160,24 +160,26 @@ function ProfileSettings() {
                                 />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formUsername" className="mb-4">
+                        <Form.Group as={Row} controlId="formUsername" className="mb-4 items-center">
                             <Form.Label column sm={2} className="text-left">Username</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
+                            <Col sm={10} className='text-left'>
+                                {user.username}
+                                {/* <Form.Control
                                     type="text"
                                     name="username"
                                     value={user.username}
                                     className="bg-black text-zinc-500 placeholder-stone-400 rounded-full"
                                     disabled={true}
-                                />
+                                /> */}
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formDateOfBirth" className="mb-4">
                             <Form.Label column sm={2} className="text-left">Date of Birth</Form.Label>
                             <Col sm={10}>
                                 <Row>
-                                    <Col>
-                                        <Form.Control
+                                    <Col className='text-left'>
+                                        {year}/{month}/{day}
+                                        {/* <Form.Control
                                             as="select"
                                             name="year"
                                             value={year}
@@ -185,10 +187,10 @@ function ProfileSettings() {
                                             disabled={true}
                                         >
                                             <option key={year} value={year}>{year}</option>
-                                        </Form.Control>
+                                        </Form.Control> */}
                                     </Col>
                                     <Col>
-                                        <Form.Control
+                                        {/* <Form.Control
                                             as="select"
                                             name="month"
                                             value={month}
@@ -203,9 +205,9 @@ function ProfileSettings() {
                                             ].map((month, index) => (
                                                 <option key={index + 1} value={index + 1}>{month}</option>
                                             ))}
-                                        </Form.Control>
+                                        </Form.Control> */}
                                     </Col>
-                                    <Col>
+                                    {/* <Col>
                                         <Form.Control
                                             as="select"
                                             name="day"
@@ -216,7 +218,7 @@ function ProfileSettings() {
                                         >
                                             <option value="">{isNaN(day) ? 'Day' : day}</option>
                                         </Form.Control>
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                             </Col>
                         </Form.Group>
