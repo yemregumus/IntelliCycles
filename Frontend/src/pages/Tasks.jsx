@@ -10,7 +10,7 @@ const Tasks = () => {
                     <IntelliWandWindow/>
                 </Col>
                 <Col md={10}>
-                    <Schedule type="Task"/>
+                    <Schedule type="task"/>
                 </Col>
             </Row>
         </div>

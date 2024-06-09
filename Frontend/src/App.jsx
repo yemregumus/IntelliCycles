@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getHealthCheck } from "../api";
 import { Home, Register, Add, Welcome, Tasks, Reminders, Habits, 
-  Calendar, Account, IntelliWand, SignIn } from "./pages";
+  Event, Account, IntelliWand, SignIn, ProfileSettings } from "./pages";
 import { NavBar } from "./components";
 import { Toaster } from "react-hot-toast";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,12 +25,13 @@ function App() {
         <Routes>
           <Route path="/" element= {<Welcome />} />
           <Route path="/home" element={<RouteGuard><Home /></RouteGuard>} />
-          <Route path="/add" element={<RouteGuard><Add /></RouteGuard>} />
           <Route path="/tasks" element={<RouteGuard><Tasks /></RouteGuard>} />
           <Route path="/reminders" element={<RouteGuard><Reminders /></RouteGuard>} />
           <Route path="/habits" element={<RouteGuard><Habits /></RouteGuard>} />
-          <Route path="/calendar" element={<RouteGuard><Calendar /></RouteGuard>} />
+          <Route path="/calendar" element={<RouteGuard><Event /></RouteGuard>} />
+          <Route path="/add/:type" element={<RouteGuard><Add /></RouteGuard>} />
           <Route path="/account" element={<RouteGuard><Account /></RouteGuard>} />
+          <Route path="/settings" element={<RouteGuard><ProfileSettings /></RouteGuard>} />
           <Route path="/intelliwand" element={<RouteGuard><IntelliWand /></RouteGuard>} />
           <Route path="/register" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />

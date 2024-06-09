@@ -10,7 +10,7 @@ const Habits = () => {
                     <IntelliWandWindow/>
                 </Col>
                 <Col md={10}>
-                    <Schedule type="Habit"/>
+                    <Schedule type="habit"/>
                 </Col>
             </Row>
         </div>

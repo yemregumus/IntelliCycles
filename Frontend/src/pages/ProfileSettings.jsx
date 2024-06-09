@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { InfoCircle } from 'react-bootstrap-icons';
 import avatar1 from '../assets/avatar.png';
@@ -7,58 +7,80 @@ import avatar3 from '../assets/avatar3.png';
 import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
+import { getUserIdFromToken, getToken, removeToken } from '../utils/auth';
 import {toast} from 'react-hot-toast';
+import PasswordDialog from '../components/PasswordDialog';
 
-
-function Register() {
+function ProfileSettings() {
     const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
     const navigate = useNavigate();
     const [confirmPassword, setConfirmPassword] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
     const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
+    const [isFormChanged, setIsFormChanged] = useState(false);
+    const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+    const [user, setUser] = useState({ avatar: '', firstName: '', lastName: '', username:'', email: '', password: '', dateOfBirth: '', membership: ''});
+    const date = new Date(user.dateOfBirth);
+    const year = date && !isNaN(date) ? date.getUTCFullYear() : '';
+    const month = date && !isNaN(date) ? date.getUTCMonth() + 1 : '';
+    const day = date && !isNaN(date) ? date.getUTCDate() : '';
+    const userId = getUserIdFromToken();
 
-    const [formData, setFormData] = useState({
-        avatar: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        username: '',
-        password: '',
-        year: '',
-        month: '',
-        day: '',
-        membership: ''
-    });
+    useEffect(() => {
+        const fetchUser = async () => {
+            const response = await fetch(`${apiUrl}/api/user/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getToken()}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setUser({
+                    avatar: data.body.avatar || avatar5, 
+                    firstName: data.body.firstName || 'Jane', 
+                    lastName: data.body.lastName || 'Doe', 
+                    username: data.body.username || 'JaneDoe', 
+                    email: data.body.email || '', 
+                    password: data.body.password || '', 
+                    dateOfBirth: data.body.dateOfBirth || '', 
+                    membership: data.body.membership || 'basic', 
+                    year: year || '', 
+                    month: month || '', 
+                    day: day || ''
+                });
+            } else {
+                console.error('Failed to fetch user', response.status, response.statusText);
+            }
+        };
+        fetchUser();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { avatar, firstName, lastName, email, username, password, year, month, day, membership } = formData;
-        const dateOfBirth = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        if(password !== confirmPassword) {
-            toast.error('Passwords do not match');
-            return;
-        }
+        const { avatar, firstName, lastName, email, membership } = user;
+       
         try {
-            const response = await fetch(`${apiUrl}/api/auth/register-user`, {
-                method: 'POST',
+            const response = await fetch(`${apiUrl}/api/user/${userId}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, username, email, password, dateOfBirth, membership }),
+                body: JSON.stringify({ avatar: avatar, firstName, lastName, email, membership}),
             });
 
             if (response.ok) {
                 const data = await response.json();
-                sessionStorage.setItem('jwt', data.body);
-                toast.success('Login successful, Welcome');
-                navigate('/home');
+                toast.success('Profile update successful');
+                navigate('/account');
             } else {
                 // Handle error
-                console.error('Failed to login');
+                console.error('Failed to update profile', response.status, response.statusText);
                 toast.error(response.error);
             }
         } catch (error) {
-            console.error('Failed to login', error);
+            console.error('Failed to update ', error);
             toast.error(error.message);
         }
     };
@@ -72,10 +94,10 @@ function Register() {
 
     
     return (
-        <Row className="mx-4 h-full items-center">
+        <Row className="mx-32 my-16 h-full items-center">
             <Col md={3}>
                 <Container className="text-white text-center my-3 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
-                    <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Choose your Avatar</h3>
+                    <h3 className="text-center mb-4 text-3xl border-b-2 pb-3 max-w-50">Change your Avatar</h3>
                     <div className="flex flex-wrap justify-center">
                         {avatars.map((avatar, index) => (
                             <img
@@ -83,20 +105,24 @@ function Register() {
                                 src={avatar}
                                 alt={`Avatar ${index + 1}`}
                                 className="m-2 w-24 h-24 cursor-pointer"
-                                onClick={() => {setSelectedAvatar(avatar); setFormData({ ...formData, avatar });}}
+                                onClick={() => {setSelectedAvatar(avatar); setUser({ ...user, avatar }); setIsFormChanged(true);}}
                             />
                         ))}
                     </div>
                 </Container>
+                <Col className="flex flex-column justify-between">
+                                <Button type="button" className="bg-gray-600 border-gray-950 hover:bg-gray-800 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
+                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
+                </Col>
             </Col>
-            <Col md={9}>
+            <Col md={9} className='max-w-3/6'>
                 <Container className="text-white text-center my-3 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 h-6/6">
-                    <h3 className="text-center mb-1 text-3xl border-b-2 pb-3 max-w-96 mx-auto">Create New Account</h3>
+                    <h3 className="text-center mb-1 text-3xl border-b-2 pb-3 max-w-96 mx-auto">Profile Settings</h3>
                     <Form onSubmit={handleSubmit} className="p-4 rounded-xl">
                         <Form.Group controlId="formAvatar" className="mb-3">
                             <Col sm={12}>
                                 <div className="flex justify-center">
-                                    <img src={selectedAvatar} alt="Selected Avatar" className="mb-1 w-36 h-36" />
+                                    <img src={user.avatar} alt="Selected Avatar" className="mb-1 w-36 h-36" />
                                 </div>
                             </Col>
                         </Form.Group>
@@ -105,11 +131,9 @@ function Register() {
                             <Col sm={4}>
                                 <Form.Control
                                     type="text"
-                                    placeholder="First Name"
                                     name="firstName"
-                                    value={formData.firstName}
-                                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                                    required
+                                    value={user.firstName}
+                                    onChange={(e) => {setUser({ ...user, firstName: e.target.value });setIsFormChanged(true);}}
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
                             </Col>
@@ -117,11 +141,9 @@ function Register() {
                             <Col sm={4}>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Last Name"
                                     name="lastName"
-                                    value={formData.lastName}
-                                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                                    required
+                                    value={user.lastName}
+                                onChange={(e) => {setUser({ ...user, lastName: e.target.value }); setIsFormChanged(true);}}
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
                             </Col>
@@ -131,54 +153,23 @@ function Register() {
                             <Col sm={10}>
                                 <Form.Control
                                     type="email"
-                                    placeholder="john.doe@gmail.com"
                                     name="email"
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    required
+                                    value={user.email}
+                                    onChange={(e) => {setUser({ ...user, email: e.target.value }); setIsFormChanged(true);}}
                                     className="bg-black text-white placeholder-stone-400 rounded-full"
                                 />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formUsername" className="mb-4">
+                        <Form.Group as={Row} controlId="formUsername" className="mb-4 items-center">
                             <Form.Label column sm={2} className="text-left">Username</Form.Label>
-                            <Col sm={10}>
+                            <Col sm={10} className='text-left'>
+                                {/* {user.username} */}
                                 <Form.Control
                                     type="text"
-                                    placeholder="Enter username"
                                     name="username"
-                                    value={formData.username}
-                                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                                    required
-                                    className="bg-black text-white placeholder-stone-400 rounded-full"
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} controlId="formPassword" className="mb-4">
-                            <Form.Label column sm={2} className="text-left">Password</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Enter password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    required
-                                    className="bg-black text-white placeholder-stone-400 rounded-full"
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} controlId="formConfirmPassword" className="mb-4">
-                            <Form.Label column sm={2} className="text-left">Confirm Password</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Confirm password"
-                                    name="confirmPassword"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
-                                    className="bg-black text-white placeholder-stone-400 rounded-full"
+                                    value={user.username}
+                                    className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
+                                    disabled={true}
                                 />
                             </Col>
                         </Form.Group>
@@ -186,31 +177,26 @@ function Register() {
                             <Form.Label column sm={2} className="text-left">Date of Birth</Form.Label>
                             <Col sm={10}>
                                 <Row>
-                                    <Col>
+                                    <Col className='text-left'>
+                                        {/* {year}/{month}/{day} */}
                                         <Form.Control
                                             as="select"
                                             name="year"
-                                            value={formData.year}
-                                            onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-
-                                            required
-                                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            value={year}
+                                            className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
+                                            disabled={true}
                                         >
-                                            <option value="">Year</option>
-                                            {Array.from({ length: 100 }, (_, i) => {
-                                                const year = new Date().getFullYear() - i;
-                                                return <option key={year} value={year}>{year}</option>;
-                                            })}
+                                            <option key={year} value={year}>{year}</option>
                                         </Form.Control>
                                     </Col>
                                     <Col>
                                         <Form.Control
                                             as="select"
                                             name="month"
-                                            value={formData.month}
-                                            onChange={(e) => setFormData({ ...formData, month: e.target.value })}
+                                            value={month}
                                             required
-                                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
+                                            disabled={true}
                                         >
                                             <option value="">Month</option>
                                             {[
@@ -225,15 +211,12 @@ function Register() {
                                         <Form.Control
                                             as="select"
                                             name="day"
-                                            value={formData.day}
-                                            onChange={(e) => setFormData({ ...formData, day: e.target.value })}
+                                            value={isNaN(day) ? 'Day' : day}
                                             required
-                                            className="bg-black text-white placeholder-stone-400 rounded-full"
+                                            className="bg-black text-white opacity-50 placeholder-stone-400 rounded-full"
+                                            disabled={true}
                                         >
-                                            <option value="">Day</option>
-                                            {Array.from({ length: 31 }, (_, i) => (
-                                                <option key={i + 1} value={i + 1}>{i + 1}</option>
-                                            ))}
+                                            <option value="">{isNaN(day) ? 'Day' : day}</option>
                                         </Form.Control>
                                     </Col>
                                 </Row>
@@ -244,10 +227,10 @@ function Register() {
                             <Col sm={10} className="flex items-center justify-left">
                                 <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                     <label className="btn btn-secondary bg-black">
-                                        <input type="radio" name="membership" id="basic" autoComplete="on" checked={formData.membership === 'basic'} onChange={() => setFormData({ ...formData, membership: 'basic' })} /> Basic
+                                        <input type="radio" name="membership" id="basic" autoComplete="on" checked={user.membership === 'basic'} onChange={() => {setUser({ ...user, membership: 'basic' }); setIsFormChanged(true);}} /> Basic
                                     </label>
                                     <label className="btn btn-secondary bg-black">
-                                        <input type="radio" name="membership" id="premium" autoComplete="off" checked={formData.membership === 'premium'} onChange={() => setFormData({ ...formData, membership: 'premium' })} /> Premium
+                                        <input type="radio" name="membership" id="premium" autoComplete="off" checked={user.membership === 'premium'} onChange={() => {setUser({ ...user, membership: 'premium' }); setIsFormChanged(true);}} /> Premium
                                     </label>
                                 </div>
                                 <OverlayTrigger
@@ -261,16 +244,19 @@ function Register() {
                         </Form.Group>
                         <Form.Group as={Row} className="mb-4">
                             <Col className="flex justify-center">
-                                <Button type="submit" className="bg-teal-800 hover:bg-teal-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Sign Up</Button>
+                                <Button type="submit" disabled={!isFormChanged} className={`${isFormChanged ? "bg-teal-800 border-teal-950 hover:bg-teal-950" : "bg-black border-black"} border-2 transition duration-150 text-2xl rounded-full mx-auto px-4`}>Update Profile</Button>
+                                <Button type="button" className="bg-teal-800 hover:bg-teal-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4" onClick={() => setShowPasswordDialog(true)}>Change Password</Button>
+                                <Button type="button" onClick={() => navigate('/account')} className="bg-slate-600 hover:bg-slate-800 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Cancel</Button>
                             </Col>
                         </Form.Group>
-                        <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/signin')}>Already have an account?</div>
                     </Form>
                     
                 </Container>
             </Col>
+
+            <PasswordDialog show={showPasswordDialog} handleClose={() => setShowPasswordDialog(false)} apiUrl={apiUrl}/>
         </Row>
     );
 }
 
-export default Register;
+export default ProfileSettings
