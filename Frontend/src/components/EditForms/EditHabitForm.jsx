@@ -1,14 +1,14 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-const AddEventForm = ({ formData, handleChange }) => (
+const EditHabitForm = ({ formData, handleChange }) => (
   <div>
-    <Form.Group as={Row} controlId="formEventName" className="mb-4">
+    <Form.Group as={Row} controlId="formHabitName" className="mb-4">
       <Form.Label column sm={2} className="text-left">Name</Form.Label>
       <Col sm={10} >
       <Form.Control
         type="text"
-        placeholder="Event Name"
+        placeholder="Habit Name"
         name="name"
         value={formData.name}
         onChange={handleChange}
@@ -17,12 +17,12 @@ const AddEventForm = ({ formData, handleChange }) => (
       />
       </Col>
     </Form.Group>
-    <Form.Group as={Row} controlId="formEventDescription" className="mb-4">
+    <Form.Group as={Row} controlId="formHabitDescription" className="mb-4">
         <Form.Label column sm={2} className="text-left">Description</Form.Label>
         <Col sm={10}>
             <Form.Control
                 as="textarea"
-                placeholder="Event Description"
+                placeholder="Habit Description"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
@@ -31,24 +31,24 @@ const AddEventForm = ({ formData, handleChange }) => (
             />
         </Col>
     </Form.Group>
-    <Form.Group as={Row} controlId="startEndTime" className="mb-4">
-        <Form.Label column sm={2} className="text-left">Start Time</Form.Label>
+    <Form.Group as={Row} controlId="formDueReminder" className="mb-4">
+        <Form.Label column sm={2} className="text-left">Due</Form.Label>
         <Col sm={4}>
             <Form.Control
               type="datetime-local"
-              name="startTime"
-              value={formData.startTime}
+              name="due"
+              value={formData.due}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
             />
         </Col>
-        <Form.Label column sm={2} className="text-left">End Time</Form.Label>
+        <Form.Label column sm={2} className="text-left">Reminder</Form.Label>
         <Col sm={4}>
             <Form.Control
                 type="datetime-local"
-                name="endTime"
-                value={formData.endTime}
+                name="reminder"
+                value={formData.reminder}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -83,7 +83,21 @@ const AddEventForm = ({ formData, handleChange }) => (
         </Form.Select>
       </Col>
     </Form.Group>
+    <Form.Group as={Row} controlId="formTaskComplete" className="mb-4 items-center">
+      <Form.Label column sm={2} className="text-left">Complete</Form.Label>
+      <Col sm={10}>
+      <Form.Check
+        type="switch"
+        id="completeSwitch"
+        label=""
+        name="complete"
+        checked={formData.complete}
+        onChange={handleChange}
+        className=""
+      />
+      </Col>
+    </Form.Group>
   </div>
 );
 
-export default AddEventForm;
+export default EditHabitForm;

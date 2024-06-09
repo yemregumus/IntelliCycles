@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-const AddReminderForm = ({ formData, handleChange }) => (
+const EditReminderForm = ({ formData, handleChange }) => (
   <div>
     <Form.Group as={Row} controlId="formReminderName" className="mb-4">
       <Form.Label column sm={2} className="text-left">Name</Form.Label>
@@ -62,4 +62,4 @@ const AddReminderForm = ({ formData, handleChange }) => (
   </div>
 );
 
-export default AddReminderForm;
+export default EditReminderForm;

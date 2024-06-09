@@ -16,7 +16,7 @@ const SignIn = () => {
         e.preventDefault();
         const { username, password } = formData;
         try {
-            const response = await fetch('http://localhost:8080/api/auth/validate-user', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/validate-user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,12 +31,16 @@ const SignIn = () => {
                 navigate('/home');
             } else {
                 // Handle error
+
                 console.error('Failed to login', response.status, response.statusText);
+                setFormData({ ...formData, password: '' });
                 toast.error('Username or password is incorrect. Please try again.');
             }
         } catch (error) {
             console.error('Failed to login', error);
+            setFormData({ ...formData, password: '' });
             toast.error(error.message);
+
         }
     };
 

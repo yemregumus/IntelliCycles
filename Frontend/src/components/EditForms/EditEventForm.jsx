@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-const AddEventForm = ({ formData, handleChange }) => (
+const EditEventForm = ({ formData, handleChange }) => (
   <div>
     <Form.Group as={Row} controlId="formEventName" className="mb-4">
       <Form.Label column sm={2} className="text-left">Name</Form.Label>
@@ -86,4 +86,4 @@ const AddEventForm = ({ formData, handleChange }) => (
   </div>
 );
 
-export default AddEventForm;
+export default EditEventForm;

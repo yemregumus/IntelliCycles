@@ -40,7 +40,7 @@ All the APIs returns an object with the same properties as described below.
 
 - Body: JWT Token.
 
-### `/auth/validate-user`
+### `/api/auth/validate-user`
 
 **Description**: Validate a registered user.
 

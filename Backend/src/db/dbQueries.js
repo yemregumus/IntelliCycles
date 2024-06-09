@@ -153,7 +153,7 @@ const updateUserPassword = (id, newPassword) => {
 const getUserInfo = (id) => {
   return new Promise((resolve, reject) => {
     const getUserInfoQuery = `
-    SELECT firstname, lastname, username, dateofbirth, avatar 
+    SELECT firstname, lastname, username, email, dateofbirth, avatar 
     FROM "user" WHERE id=${id};
     `;
     pool
@@ -161,12 +161,13 @@ const getUserInfo = (id) => {
       .then((result) => {
         if (!result.rowCount)
           reject(new Error(`Database error. Invalid user id, ${id}.`));
-        const { firstname, lastname, username, dateofbirth, avatar } =
+        const { firstname, lastname, username, email, dateofbirth, avatar } =
           result.rows[0];
         resolve({
           firstName: firstname,
           lastName: lastname,
           username: username,
+          email: email,
           dateOfBirth: dateofbirth,
           avatar: avatar,
         });

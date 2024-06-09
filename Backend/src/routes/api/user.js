@@ -28,14 +28,14 @@ router.get("/:id", async (req, res) => {
         );
 
     // Get user information.
-    const { firstName, lastName, username, dateOfBirth, avatar } =
+    const { firstName, lastName, username, email, dateOfBirth, avatar } =
       await getUserInfo(id);
-
     res.status(200).json(
       resMessage(true, `User ${id} information sent.`, {
         firstName,
         lastName,
         username,
+        email,
         dateOfBirth,
         avatar,
       })
