@@ -6,10 +6,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import multiMonthPlugin from '@fullcalendar/multimonth';
+import { EditDialog } from './EditForms';
 
 function Calendar() {
 
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
@@ -24,16 +26,6 @@ function Calendar() {
         end: selected.endStr,
         allDay: selected.allDay,
       });
-    }
-  };
-
-  const handleEventClick = (selected) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${selected.event.title}'`
-      )
-    ) {
-      selected.event.remove();
     }
   };
 
@@ -61,7 +53,7 @@ function Calendar() {
                     selectMirror={true}
                     dayMaxEvents={true}
                     select={handleDateClick}
-                    eventClick={handleEventClick}
+                    eventClick={() => setShowEditDialog(true)}
                     eventsSet={(events) => setCurrentEvents(events)}
                     initialEvents={[
                         {
@@ -78,6 +70,7 @@ function Calendar() {
                 />
             </div>
         </div>
+        <EditDialog show={showEditDialog} type='event' handleClose={() => setShowEditDialog(false)} />
     </div>
   )
 }
