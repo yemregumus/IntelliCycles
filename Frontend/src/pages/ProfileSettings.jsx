@@ -8,6 +8,7 @@ import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
 import { getUserIdFromToken, getToken, removeToken } from '../utils/auth';
+import { TiUserDelete } from "react-icons/ti";
 import {toast} from 'react-hot-toast';
 import PasswordDialog from '../components/PasswordDialog';
 
@@ -56,6 +57,12 @@ function ProfileSettings() {
         };
         fetchUser();
     }, []);
+
+    const handleDelete = () => {
+        if (window.confirm('Are you sure you want to delete your account?')) {
+            // navigate('/');
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -111,8 +118,8 @@ function ProfileSettings() {
                     </div>
                 </Container>
                 <Col className="flex flex-column justify-between">
-                                <Button type="button" className="bg-gray-600 border-gray-950 hover:bg-gray-800 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
-                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
+                    {/* <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button> */}
+                    <TiUserDelete className="bg-red-800 hover:bg-red-950 hover:border-2 hover:border-blue-500 hover-transition duration-150 p-2 rounded-full mx-auto" color="white" size={60} onClick={handleDelete} />
                 </Col>
             </Col>
             <Col md={9} className='max-w-3/6'>
