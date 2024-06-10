@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {Row, Col, Container} from "react-bootstrap";
+import {Row, Col, Container, Button} from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import avatar1 from '../assets/avatar.png';
 import avatar2 from '../assets/avatar2.png';
 import avatar3 from '../assets/avatar3.png';
 import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
-import { IoMdAdd } from "react-icons/io";
-import { IoIosCog } from "react-icons/io";
+import { IoMdAdd, IoIosCog} from "react-icons/io";
+import { TbLogout2 } from "react-icons/tb";
 import { getUserIdFromToken } from "../utils/auth";
-import { getToken } from "../utils/auth";
+import { getToken, removeToken } from "../utils/auth";
 import { Person } from "react-bootstrap-icons";
 import PersonalStats from "../components/PersonalStats";
 
@@ -18,6 +18,13 @@ const Account = () => {
     const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
     const navigate= useNavigate();
     const [user, setUser] = useState({ avatar: 'avatar1', firstName: 'Jane', lastName: 'Doe', email: '', password: '' });
+
+    const handleLogout = () => {
+        if (window.confirm('Are you sure you want to log out?')) {
+            removeToken();
+            navigate('/');
+        }
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -53,7 +60,8 @@ const Account = () => {
                                 {user.firstName} {user.lastName}
                             </div>
                         </div>
-                        <IoIosCog className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full" color="white" size={60} onClick={() => navigate('/settings')}/>
+                        <TbLogout2 className="bg-red-800 hover:bg-red-950 transition duration-150 mx-2 p-2 rounded-full" color="white" size={60} onClick={handleLogout}/>
+                        <IoIosCog className="bg-teal-800 hover:bg-teal-950 transition duration-150 mx-2 p-2 rounded-full" color="white" size={60} onClick={() => navigate('/settings')}/>
                     </div>
                 </Container>
             </Col>
