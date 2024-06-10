@@ -152,7 +152,7 @@ Body: A message indicating the task was successfully deleted.
         "activityId": 123
     }
 }
-
+```
 
 ## How to run the project?
 
