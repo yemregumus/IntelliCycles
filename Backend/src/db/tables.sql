@@ -13,15 +13,16 @@ CREATE TABLE IF NOT EXISTS "user" (
 -- Create the "membership" table to store membership information
 CREATE TABLE IF NOT EXISTS membership (
     id SERIAL PRIMARY KEY,
-    userid INTEGER NOT NULL,
+    userid INTEGER NOT NULL UNIQUE,
     membershiptype VARCHAR(255),
     FOREIGN KEY (userid) REFERENCES "user"(id)
     ON DELETE CASCADE
 );
 
 -- Create the "userActivities" table to store user activities
-CREATE TABLE IF NOT EXISTS userActivities (
+CREATE TABLE IF NOT EXISTS userActivity (
     id SERIAL PRIMARY KEY,
+    userid INTEGER NOT NULL,
     type VARCHAR(20) NOT NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -32,7 +33,9 @@ CREATE TABLE IF NOT EXISTS userActivities (
     complete BOOLEAN,
     start_time TIMESTAMP,
     end_time TIMESTAMP,
-    streak INTEGER
+    streak INTEGER,
+    FOREIGN KEY (userid) REFERENCES "user"(id)
+    ON DELETE CASCADE
 );
 
 -- Function to create a new user and return the user ID
@@ -216,6 +219,35 @@ BEGIN
     WHERE id = activity_id;
 END;
 $$ LANGUAGE plpgsql;
+
+-- Function to retrieve user activities by activity type and user ID
+CREATE OR REPLACE FUNCTION get_user_activities_by_type(
+    activity_type VARCHAR(20),
+    user_id INTEGER
+) RETURNS TABLE (
+    id INTEGER,
+    userid INTEGER,
+    type VARCHAR(20),
+    name VARCHAR(100),
+    description TEXT,
+    due_date TIMESTAMP,
+    reminder_datetime TIMESTAMP,
+    color VARCHAR(20),
+    repeat_interval VARCHAR(20),
+    complete BOOLEAN,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    streak INTEGER
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT id, userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak
+    FROM userActivity
+    WHERE type = activity_type AND userid = user_id;
+END;
+$$ LANGUAGE plpgsql;
+
+
 
 -- Function to delete a user activity by activity ID
 CREATE OR REPLACE FUNCTION delete_user_activity(
