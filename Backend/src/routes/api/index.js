@@ -8,4 +8,7 @@ router.use("/auth", require("./auth"));
 // User Information APIs.
 router.use("/user", require("./user"));
 
+// Membership APIs.
+router.use("/membership", require("./membership"));
+
 module.exports = router;
