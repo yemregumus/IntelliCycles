@@ -6,6 +6,7 @@ const {
   isUniqueUser,
   getUserPassword,
   getUserId,
+  addNewMembership,
 } = require("../../db");
 const { generateJWTToken } = require("../../jwt");
 const { hashPassword, checkPassword } = require("./password");
@@ -57,6 +58,9 @@ router.post("/register-user", async (req, res) => {
       dateOfBirth,
       avatar
     );
+
+    // Add membership for the new user.
+    await addNewMembership(_id);
 
     const token = generateJWTToken(_id, _username);
 

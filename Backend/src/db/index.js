@@ -28,4 +28,5 @@ module.exports = {
   getUserId,
   getMembershipInfo,
   updateMembership,
+  addNewMembership,
 };

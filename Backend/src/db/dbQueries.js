@@ -97,9 +97,7 @@ const addNewUser = (
       ])
       .then((result) => {
         const { id, username } = result.rows[0];
-        addNewMembership(id)
-          .then(() => resolve({ _id: id, _username: username }))
-          .catch((error) => reject(new Error(error)));
+        resolve({ _id: id, _username: username });
       })
       .catch((error) =>
         reject(new Error(`Database error while adding ${firstName}`))
@@ -288,4 +286,5 @@ module.exports = {
   getUserId,
   getMembershipInfo,
   updateMembership,
+  addNewMembership,
 };
