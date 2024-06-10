@@ -51,7 +51,7 @@ router.patch("/:id", async (req, res) => {
   // Get the user id.
   const { id } = req.params;
 
-  if (!id)
+  if (!id || !firstName || !lastName || !email || !avatar)
     return res
       .status(400)
       .json(
@@ -64,17 +64,6 @@ router.patch("/:id", async (req, res) => {
   console.log(`Request to update an existing user ${firstName}'s information.`);
 
   try {
-    // Make sure all the required data exists.
-    if (!firstName || !lastName || !email || !avatar)
-      return res
-        .status(400)
-        .json(
-          resMessage(
-            false,
-            `Insufficient information received. Please check the requirements of this api.`
-          )
-        );
-
     const result = await updateUser(id, firstName, lastName, email, avatar);
     res.status(200).json(resMessage(true, result));
   } catch (error) {

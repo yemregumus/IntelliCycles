@@ -10,6 +10,8 @@ const {
   getUserPassword,
   updateUserPassword,
   getUserId,
+  getMembershipInfo,
+  updateMembership,
 } = require("./dbQueries");
 
 module.exports = {
@@ -24,4 +26,7 @@ module.exports = {
   getUserPassword,
   updateUserPassword,
   getUserId,
+  getMembershipInfo,
+  updateMembership,
+  addNewMembership,
 };

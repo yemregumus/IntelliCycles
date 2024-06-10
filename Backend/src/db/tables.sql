@@ -13,15 +13,16 @@ CREATE TABLE IF NOT EXISTS "user" (
 -- Create the "membership" table to store membership information
 CREATE TABLE IF NOT EXISTS membership (
     id SERIAL PRIMARY KEY,
-    userid INTEGER NOT NULL,
+    userid INTEGER NOT NULL UNIQUE,
     membershiptype VARCHAR(255),
     FOREIGN KEY (userid) REFERENCES "user"(id)
     ON DELETE CASCADE
 );
 
 -- Create the "userActivities" table to store user activities
-CREATE TABLE IF NOT EXISTS userActivities (
+CREATE TABLE IF NOT EXISTS userActivity (
     id SERIAL PRIMARY KEY,
+    userid INTEGER NOT NULL,
     type VARCHAR(20) NOT NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -32,7 +33,9 @@ CREATE TABLE IF NOT EXISTS userActivities (
     complete BOOLEAN,
     start_time TIMESTAMP,
     end_time TIMESTAMP,
-    streak INTEGER
+    streak INTEGER,
+    FOREIGN KEY (userid) REFERENCES "user"(id)
+    ON DELETE CASCADE
 );
 
 -- Function to create a new user and return the user ID

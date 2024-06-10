@@ -26,11 +26,17 @@ All the APIs returns an object with the same properties as described below.
 
 **Returns**: firstname, lastname and username of the user.
 
+### `/api/membership/:userId`
+
+**Description**: Get user's membership information.
+
+**Returns**: membership type of the user.
+
 ## POST
 
 ### `/api/auth/register-user`
 
-**Description**: Register a new user.
+**Description**: Register a new user and adds 'Free' membership type for the user.
 
 **Expects**:
 
@@ -51,6 +57,14 @@ All the APIs returns an object with the same properties as described below.
 **Returns**:
 
 - Body: JWT Token.
+
+### `/api/membership/:id`
+
+**Description**: Add membership for a registered user.
+
+**Expects**:
+
+- Request Body: membershipType.
 
 ## PATCH
 
@@ -75,6 +89,10 @@ All the APIs returns an object with the same properties as described below.
 ### `/api/user/:userId`
 
 **Description**: Delete the user.
+
+### `/api/membership/:userId`
+
+**Description**: Delete the membership of the user.
 
 ## How to run the project?
 
