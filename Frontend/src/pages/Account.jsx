@@ -10,7 +10,7 @@ import { IoMdAdd, IoIosCog} from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 import { getUserIdFromToken } from "../utils/auth";
 import { getToken, removeToken } from "../utils/auth";
-import { Person } from "react-bootstrap-icons";
+import {toast} from 'react-hot-toast';
 import PersonalStats from "../components/PersonalStats";
 
 
@@ -23,6 +23,7 @@ const Account = () => {
         if (window.confirm('Are you sure you want to log out?')) {
             removeToken();
             navigate('/');
+            toast.success("Signed Out successfully!")
         }
     };
 
