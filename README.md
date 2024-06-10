@@ -1,8 +1,8 @@
-# IntelliCycles, PRJ 666
+# IntelliCycles
 
 ## Description
 
-Final year project, Computer Programming and Analysis, Seneca Polytechnic
+
 
 ## Tech Stack
 
@@ -37,9 +37,9 @@ npm run dev
 ### Frontend
 
 - <a href="https://github.com/hashmeet02">Hashmeet Singh Saini</a>
-- <a href="https://github.com/okuti2">Toyosi</a>
+- <a href="https://github.com/okuti2">Toyosi Kuti</a>
 
 ### Backend
 
 - <a href="https://github.com/busycaesar">Dev Shah</a>
-- <a href="https://github.com/yemregumus">Yunus</a>
+- <a href="https://github.com/yemregumus">Yunus Emre Gumus</a>
