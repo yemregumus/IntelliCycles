@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const NavBar = () => {
     return (
-        <Navbar expand="lg" bg="dark" variant="dark">
+        <Navbar expand="lg" variant="dark" className="bg-black bg-opacity-50 backdrop-blur-md">
             <Container>
                 <Navbar.Brand as={Link} to="/" className="text-3xl">IntelliCycles</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
