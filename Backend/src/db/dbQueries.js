@@ -8,28 +8,20 @@ const createTables = () => {
     pool
       .query(createTableQuery)
       .then(resolve("All tables created."))
-      .catch(
-        reject(new Error("Database error while creating all the tables."))
-      );
+      .catch(reject(new Error("Database error while creating all the tables.")));
   });
 };
 
 const isUniqueUser = async (username, email) => {
   return new Promise((resolve, reject) => {
     pool
-      .query(
-        'SELECT username, email FROM "user" WHERE username = $1 OR email = $2',
-        [username, email]
-      )
+      .query('SELECT username, email FROM "user" WHERE username = $1 OR email = $2', [username, email])
       .then((result) => {
         if (!result.rowCount) resolve(true);
-        if (result.rows[0].username === username)
-          reject(new Error(`The username is already taken.`));
+        if (result.rows[0].username === username) reject(new Error(`The username is already taken.`));
         reject(new Error(`The email is already taken.`));
       })
-      .catch((error) =>
-        reject(new Error(`Database error while checking uniqueness: ${error}`))
-      );
+      .catch((error) => reject(new Error(`Database error while checking uniqueness: ${error}`)));
   });
 };
 
@@ -43,13 +35,10 @@ const getUserPassword = (id) => {
     pool
       .query(query, [id])
       .then((result) => {
-        if (!result.rowCount)
-          reject(new Error(`No user found with the username ${username}.`));
+        if (!result.rowCount) reject(new Error(`No user found with the username ${username}.`));
         resolve(result.rows[0].password);
       })
-      .catch((error) =>
-        reject(new Error(`Error getting the user password: ${error}`))
-      );
+      .catch((error) => reject(new Error(`Error getting the user password: ${error}`)));
   });
 };
 
@@ -60,25 +49,14 @@ const getUserId = (username) => {
     pool
       .query(getUserIdQuery, [username])
       .then((result) => {
-        if (!result.rowCount)
-          reject(new Error(`No user found with the username ${username}.`));
+        if (!result.rowCount) reject(new Error(`No user found with the username ${username}.`));
         resolve(result.rows[0].id);
       })
-      .catch((error) =>
-        reject(new Error(`Error getting the user password: ${error}`))
-      );
+      .catch((error) => reject(new Error(`Error getting the user password: ${error}`)));
   });
 };
 
-const addNewUser = (
-  firstName,
-  lastName,
-  username,
-  email,
-  password,
-  dateOfBirth,
-  avatar
-) => {
+const addNewUser = (firstName, lastName, username, email, password, dateOfBirth, avatar) => {
   return new Promise((resolve, reject) => {
     const insertUserQuery = `
         INSERT INTO "user" (firstname, lastname, username, email, password, dateofbirth, avatar)
@@ -86,22 +64,12 @@ const addNewUser = (
         RETURNING id, username;
         `;
     pool
-      .query(insertUserQuery, [
-        firstName,
-        lastName,
-        username,
-        email,
-        password,
-        dateOfBirth,
-        avatar,
-      ])
+      .query(insertUserQuery, [firstName, lastName, username, email, password, dateOfBirth, avatar])
       .then((result) => {
         const { id, username } = result.rows[0];
         resolve({ _id: id, _username: username });
       })
-      .catch((error) =>
-        reject(new Error(`Database error while adding ${firstName}`))
-      );
+      .catch((error) => reject(new Error(`Database error while adding ${firstName}`)));
   });
 };
 
@@ -122,9 +90,7 @@ const updateUser = (id, firstName, lastName, email, avatar) => {
         resolve(`${firstName}'s profile information is updated.`);
       })
       .catch((error) => {
-        reject(
-          new Error(`Database error while updathing ${firstName}. ${error}`)
-        );
+        reject(new Error(`Database error while updathing ${firstName}. ${error}`));
       });
   });
 };
@@ -143,9 +109,7 @@ const updateUserPassword = (id, newPassword) => {
         resolve(`${id}'s password is updated.`);
       })
       .catch((error) => {
-        reject(
-          new Error(`Database error while updathing ${id}'s password. ${error}`)
-        );
+        reject(new Error(`Database error while updathing ${id}'s password. ${error}`));
       });
   });
 };
@@ -159,10 +123,8 @@ const getUserInfo = (id) => {
     pool
       .query(getUserInfoQuery)
       .then((result) => {
-        if (!result.rowCount)
-          reject(new Error(`Database error. Invalid user id, ${id}.`));
-        const { firstname, lastname, username, email, dateofbirth, avatar } =
-          result.rows[0];
+        if (!result.rowCount) reject(new Error(`Database error. Invalid user id, ${id}.`));
+        const { firstname, lastname, username, email, dateofbirth, avatar } = result.rows[0];
         resolve({
           firstName: firstname,
           lastName: lastname,
@@ -172,9 +134,7 @@ const getUserInfo = (id) => {
           avatar: avatar,
         });
       })
-      .catch((error) =>
-        reject(new Error(`Database error while getting user info. ${error}`))
-      );
+      .catch((error) => reject(new Error(`Database error while getting user info. ${error}`)));
   });
 };
 
@@ -187,13 +147,10 @@ const deleteUser = (id) => {
     pool
       .query(deleteUserQuery)
       .then((result) => {
-        if (!result.rowCount)
-          reject(new Error(`Database error. No user found with ${id}.`));
+        if (!result.rowCount) reject(new Error(`Database error. No user found with ${id}.`));
         resolve(`User ${id} deleted successfully.`);
       })
-      .catch((error) =>
-        reject(new Error(`Database error while deleting the user. ${error}`))
-      );
+      .catch((error) => reject(new Error(`Database error while deleting the user. ${error}`)));
   });
 };
 
@@ -211,9 +168,7 @@ const getMembershipInfo = (id) => {
         const { membershiptype } = result.rows[0];
         resolve(membershiptype);
       })
-      .catch((error) =>
-        reject(new Error(`Database error while getting user info. ${error}`))
-      );
+      .catch((error) => reject(new Error(`Database error while getting user info. ${error}`)));
   });
 };
 
@@ -226,14 +181,11 @@ const addNewMembership = (id) => {
     pool
       .query(addMembershipQuery, [id, "Free"])
       .then((result) => {
-        if (!result.rowCount)
-          reject(new Error(`User ${id} already has a membership.`));
+        if (!result.rowCount) reject(new Error(`User ${id} already has a membership.`));
         resolve(`${id}'s membership is added.`);
       })
       .catch((error) => {
-        reject(
-          new Error(`Database error while adding ${id}'s membership. ${error}`)
-        );
+        reject(new Error(`Database error while adding ${id}'s membership. ${error}`));
       });
   });
 };
@@ -252,12 +204,102 @@ const updateMembership = (id, membershipType) => {
         resolve(`${id}'s membership is updated.`);
       })
       .catch((error) => {
-        reject(
-          new Error(
-            `Database error while updathing ${id}'s membership. ${error}`
-          )
-        );
+        reject(new Error(`Database error while updathing ${id}'s membership. ${error}`));
       });
+  });
+};
+
+// Create a new user activity
+const createUserActivity = (userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak) => {
+  return new Promise((resolve, reject) => {
+    const insertActivityQuery = `
+      INSERT INTO userActivity (userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+      RETURNING id;
+    `;
+    pool
+      .query(insertActivityQuery, [userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak])
+      .then((result) => resolve(result.rows[0].id))
+      .catch((error) => reject(new Error(`Database error while creating user activity. ${error}`)));
+  });
+};
+
+// Get user activities by type for a specific user
+const getUserActivitiesByType = (userid, type) => {
+  return new Promise((resolve, reject) => {
+    const getActivitiesQuery = `
+      SELECT * FROM userActivity
+      WHERE userid = $1 AND type = $2;
+    `;
+    pool
+      .query(getActivitiesQuery, [userid, type])
+      .then((result) => resolve(result.rows))
+      .catch((error) => reject(new Error(`Database error while getting user activities. ${error}`)));
+  });
+};
+
+// Get user activity by ID
+const getUserActivityById = (activityId) => {
+  return new Promise((resolve, reject) => {
+    const getActivityQuery = `
+      SELECT * FROM userActivity
+      WHERE id = $1;
+    `;
+    pool
+      .query(getActivityQuery, [activityId])
+      .then((result) => {
+        if (!result.rowCount) {
+          reject(new Error(`No activity found with id ${activityId}.`));
+        } else {
+          resolve(result.rows[0]);
+        }
+      })
+      .catch((error) => reject(new Error(`Database error while getting user activity. ${error}`)));
+  });
+};
+
+// Update a user activity
+const updateUserActivity = (id, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak) => {
+  return new Promise((resolve, reject) => {
+    const updateActivityQuery = `
+      UPDATE userActivity
+      SET type = $1,
+          name = $2,
+          description = $3,
+          due_date = $4,
+          reminder_datetime = $5,
+          color = $6,
+          repeat_interval = $7,
+          complete = $8,
+          start_time = $9,
+          end_time = $10,
+          streak = $11
+      WHERE id = $12;
+    `;
+    pool
+      .query(updateActivityQuery, [type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak, id])
+      .then((result) => {
+        if (!result.rowCount) reject(new Error(`No activity found with id ${id}.`));
+        resolve(`Activity ${id} is updated successfully.`);
+      })
+      .catch((error) => reject(new Error(`Database error while updating user activity. ${error}`)));
+  });
+};
+
+// Delete a user activity
+const deleteUserActivity = (id) => {
+  return new Promise((resolve, reject) => {
+    const deleteActivityQuery = `
+      DELETE FROM userActivity
+      WHERE id = $1;
+    `;
+    pool
+      .query(deleteActivityQuery, [id])
+      .then((result) => {
+        if (!result.rowCount) reject(new Error(`No activity found with id ${id}.`));
+        resolve(`Activity ${id} deleted successfully.`);
+      })
+      .catch((error) => reject(new Error(`Database error while deleting user activity. ${error}`)));
   });
 };
 
@@ -267,9 +309,7 @@ const dbHealthCheck = () => {
     pool
       .query(healthCheckQuery)
       .then((result) => resolve(result.rows[0].health_check_time))
-      .catch((error) =>
-        reject(new Error(`Database error while health check. ${error}`))
-      );
+      .catch((error) => reject(new Error(`Database error while health check. ${error}`)));
   });
 };
 
@@ -287,4 +327,9 @@ module.exports = {
   getMembershipInfo,
   updateMembership,
   addNewMembership,
+  createUserActivity,
+  getUserActivitiesByType,
+  getUserActivityById,
+  updateUserActivity,
+  deleteUserActivity,
 };
