@@ -33,7 +33,11 @@ const Schedule = ({type=""}) => {
           ))}
         </div>
       </div>
-      <IoMdAdd className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto" color="white" size={80} onClick={() => navigate(`/add/${type}`)} />
+      { title==="HOME" ?
+        <IoMdAdd className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto" color="white" size={80} onClick={() => navigate(`/add/task`)} />
+        :
+        <IoMdAdd className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto" color="white" size={80} onClick={() => navigate(`/add/${type}`)} />
+      }
     </Container>
   );
 };
