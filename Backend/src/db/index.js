@@ -12,6 +12,8 @@ const {
   getUserId,
   getMembershipInfo,
   updateMembership,
+  addNewMembership,
+  cleanTable,
 } = require("./dbQueries");
 
 module.exports = {
@@ -29,4 +31,5 @@ module.exports = {
   getMembershipInfo,
   updateMembership,
   addNewMembership,
+  cleanTable,
 };
