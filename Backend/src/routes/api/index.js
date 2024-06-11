@@ -20,4 +20,10 @@ router.use(
   require("./membership")
 );
 
+router.use(
+    "/tasks",
+    passport.authenticate("jwt", { session: false }),
+    require("./tasks")
+);
+
 module.exports = router;
