@@ -14,7 +14,7 @@ let strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
   if (jwt_payload) {
     next(null, {
       _id: jwt_payload._id,
-      username: jwt_payload,
+      username: jwt_payload._username,
     });
   } else next(null, false);
 });
@@ -32,11 +32,15 @@ const generateJWTToken = (id, username) => {
   };
 
   return jwt.sign(payLoad, jwtOptions.secretOrKey, options);
+};
 
+const jwtDecoder = (jwtToken) => {
+  return jwt.decode(jwtToken);
 };
 
 module.exports = {
   jwtOptions,
   passport,
   generateJWTToken,
+  jwtDecoder,
 };
