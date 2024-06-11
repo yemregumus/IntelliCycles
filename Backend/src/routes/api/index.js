@@ -11,4 +11,7 @@ router.use("/user", require("./user"));
 // Membership APIs.
 router.use("/membership", require("./membership"));
 
+// Task APIs
+router.use("/tasks", require("./tasks"));
+
 module.exports = router;
