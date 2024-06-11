@@ -141,6 +141,7 @@ $$ LANGUAGE plpgsql;
 
 -- Function to create a new user activity and return the activity ID
 CREATE OR REPLACE FUNCTION create_user_activity(
+    activity_userid INTEGER,
     activity_type VARCHAR(20),
     activity_name VARCHAR(100),
     activity_description TEXT,
@@ -156,8 +157,8 @@ CREATE OR REPLACE FUNCTION create_user_activity(
 DECLARE
     activity_id INTEGER;
 BEGIN
-    INSERT INTO userActivities (type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak)
-    VALUES (activity_type, activity_name, activity_description, activity_due_date, activity_reminder_datetime, activity_color, activity_repeat_interval, activity_complete, activity_start_time, activity_end_time, activity_streak)
+    INSERT INTO userActivities (userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak)
+    VALUES (activity_userid, activity_type, activity_name, activity_description, activity_due_date, activity_reminder_datetime, activity_color, activity_repeat_interval, activity_complete, activity_start_time, activity_end_time, activity_streak)
     RETURNING id INTO activity_id;
     RETURN activity_id;
 END;
@@ -167,7 +168,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION read_user_activities_by_user_id(
     user_id INTEGER
 ) RETURNS TABLE (
-    id INTEGER,
+    activity_id INTEGER,
     type VARCHAR(20),
     name VARCHAR(100),
     description TEXT,
@@ -225,7 +226,7 @@ CREATE OR REPLACE FUNCTION get_user_activities_by_type(
     activity_type VARCHAR(20),
     user_id INTEGER
 ) RETURNS TABLE (
-    id INTEGER,
+    activity_id INTEGER,
     userid INTEGER,
     type VARCHAR(20),
     name VARCHAR(100),
@@ -241,7 +242,7 @@ CREATE OR REPLACE FUNCTION get_user_activities_by_type(
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT id, userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak
+    SELECT activity_id, userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak
     FROM userActivity
     WHERE type = activity_type AND userid = user_id;
 END;
