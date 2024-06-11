@@ -4,8 +4,8 @@ import {Row, Col} from "react-bootstrap"
 
 const Habits = () => {
     return(
-        <div className="items-center">
-            <Row className="mx-4 h-full">
+        <div className="my-3 h-screen">
+            <Row className="mx-4 h-5/6">
                 <Col md={2}>
                     <IntelliWandWindow/>
                 </Col>
