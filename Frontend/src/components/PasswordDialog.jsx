@@ -43,7 +43,7 @@ function PasswordDialog({show, handleClose, apiUrl}) {
         <div>
             <Modal show={show} onHide={handleClose} size="md" centered className="rounded-3xl">
                 <div className="fixed text-white inset-0 flex items-center justify-center z-50">
-                    <div className="bg-gradient-to-r from-[#9e184dbf] to-[#0015b366] backdrop-blur-md border-3 border-rose-950 p-3 h-auto max-w-3xl mx-auto rounded-3xl">
+                    <div className="bg-gradient-to-r from-[#540056bf] to-[#000c4b4d] border-1 border-black backdrop-blur-md border-1 border-black p-3 h-auto max-w-3xl mx-auto rounded-3xl">
                         <Modal.Header closeVariant='white' closeButton className="text-white">
                             <Modal.Title>Change Password</Modal.Title>
                         </Modal.Header>

@@ -15,18 +15,17 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   console.log(`Requesting information for user ${id}.`);
+  if (!id)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
 
   try {
-    if (!id)
-      return res
-        .status(400)
-        .json(
-          resMessage(
-            false,
-            `Insufficient information received. Please check the requirements of this api.`
-          )
-        );
-
     // Get user information.
     const { firstName, lastName, username, email, dateOfBirth, avatar } =
       await getUserInfo(id);
@@ -77,7 +76,7 @@ router.patch("/password/:id", async (req, res) => {
   // Get the user id.
   const { id } = req.params;
 
-  if (!id)
+  if (!id || !oldPassword || !newPassword)
     return res
       .status(400)
       .json(
@@ -90,17 +89,6 @@ router.patch("/password/:id", async (req, res) => {
   console.log(`Request to update an existing user ${id}'s password.`);
 
   try {
-    // Make sure all the required data exists.
-    if (!oldPassword || !newPassword)
-      return res
-        .status(400)
-        .json(
-          resMessage(
-            false,
-            `Insufficient information received. Please check the requirements of this api.`
-          )
-        );
-
     // Make sure the old password is valid.
     const storedPassword = await getUserPassword(id);
     const isSamePassword = await checkPassword(oldPassword, storedPassword);

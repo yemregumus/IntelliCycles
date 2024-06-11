@@ -16,7 +16,7 @@ const Schedule = ({type}) => {
       <div>
         <Row className="pb-4">
           {daysOfWeek.map((day, index) => (
-            <Col key={index} className="border-2 bg-sky-700 border-sky-950 rounded-full max-w-14 text-3xl mx-auto p-2 mb-2">
+            <Col key={index} className="backdrop-blur-sm bg-white/30 rounded-full max-w-14 text-3xl mx-auto p-2 mb-2">
               {day}
             </Col>
           ))}

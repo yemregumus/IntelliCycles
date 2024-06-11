@@ -23,25 +23,25 @@ router.post("/register-user", async (req, res) => {
     avatar,
   } = req.body;
   console.log(`Request to register a new user ${firstName}.`);
-  try {
-    if (
-      !firstName ||
-      !lastName ||
-      !username ||
-      !email ||
-      !password ||
-      !dateOfBirth ||
-      !avatar
-    )
-      return res
-        .status(400)
-        .json(
-          resMessage(
-            false,
-            `Insufficient information received. Please check the requirements of this api.`
-          )
-        );
+  if (
+    !firstName ||
+    !lastName ||
+    !username ||
+    !email ||
+    !password ||
+    !dateOfBirth ||
+    !avatar
+  )
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
 
+  try {
     // Make sure the username and email are unique.
     await isUniqueUser(username, email);
 
@@ -76,18 +76,18 @@ router.post("/validate-user", async (req, res) => {
   // Get the user data.
   const { username, password } = req.body;
   console.log(`Request to validate the user ${username}.`);
-  try {
-    // Make sure the username and password are included.
-    if (!username || !password)
-      return res
-        .status(400)
-        .json(
-          resMessage(
-            false,
-            `Insufficient information received. Please check the requirements of this api.`
-          )
-        );
+  // Make sure the username and password are included.
+  if (!username || !password)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
 
+  try {
     // Get the stored password.
     const storedPassword = await getUserPassword(username);
 
@@ -95,7 +95,7 @@ router.post("/validate-user", async (req, res) => {
     const isSamePassword = await checkPassword(password, storedPassword);
     if (!isSamePassword)
       return res
-        .status(401)
+        .status(403)
         .json(resMessage(false, `The password for ${username} is incorrect.`));
 
     // Get the user id.

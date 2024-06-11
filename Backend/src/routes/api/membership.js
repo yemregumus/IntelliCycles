@@ -9,22 +9,21 @@ router.get("/:id", async (req, res) => {
 
   console.log(`Requesting the membership information for user ${id}.`);
 
+  if (!id)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
   try {
-    if (!id)
-      return res
-        .status(400)
-        .json(
-          resMessage(
-            false,
-            `Insufficient information received. Please check the requirements of this api.`
-          )
-        );
-
     // Get user information.
-    const membershiptype = await getMembershipInfo(id);
+    const membershipType = await getMembershipInfo(id);
     res.status(200).json(
       resMessage(true, `User ${id} membership information sent.`, {
-        membershiptype,
+        membershipType,
       })
     );
   } catch (error) {
