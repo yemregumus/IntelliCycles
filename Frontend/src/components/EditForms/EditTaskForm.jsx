@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-const AddTaskForm = ({ formData, handleChange }) => (
+const AddTaskForm = ({ formData, handleChange, task }) => (
   <div>
     <Form.Group as={Row} controlId="formTaskName" className="mb-4">
       <Form.Label column sm={2} className="text-left">Name</Form.Label>
@@ -10,7 +10,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
         type="text"
         placeholder="Task Name"
         name="name"
-        value={formData.name}
+        value={task.name}
         onChange={handleChange}
         required
         className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -24,7 +24,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
                 as="textarea"
                 placeholder="Task Description"
                 name="description"
-                value={formData.description}
+                value={task.description}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]"
@@ -37,7 +37,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
             <Form.Control
               type="datetime-local"
               name="due"
-              value={formData.due}
+              value={task.due}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -48,7 +48,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
             <Form.Control
                 type="datetime-local"
                 name="reminder"
-                value={formData.reminder}
+                value={task.reminder}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -61,7 +61,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
       <Form.Control
         type="color"
         name="color"
-        value={formData.color}
+        value={task.color}
         onChange={handleChange}
         required
         className="bg-stone-400 placeholder-stone-950 rounded-full"
@@ -71,7 +71,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
       <Col sm={4}>
         <Form.Select
           name="repeat"
-          value={formData.repeat}
+          value={task.repeat}
           onChange={handleChange}
           className="bg-stone-400 placeholder-stone-950 rounded-full"
         >
@@ -91,7 +91,7 @@ const AddTaskForm = ({ formData, handleChange }) => (
         id="completeSwitch"
         label=""
         name="complete"
-        checked={formData.complete}
+        checked={task.complete}
         onChange={handleChange}
         className=""
       />

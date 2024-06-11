@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
 
-const EditDialog = ({show, type, handleClose}) =>{
+const EditDialog = ({show, type, handleClose, task}) =>{
     const [formData, setFormData] = useState({
         type: type || "task",
         name: "",
@@ -43,7 +43,7 @@ const EditDialog = ({show, type, handleClose}) =>{
           case "event":
             return <EditEventForm formData={formData} handleChange={handleChange} />;
           default:
-            return <EditTaskForm formData={formData} handleChange={handleChange} />;
+            return <EditTaskForm formData={formData} task={task} handleChange={handleChange} />;
         }
     };
     return (
