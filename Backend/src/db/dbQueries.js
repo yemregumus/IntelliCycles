@@ -229,7 +229,7 @@ const createUserActivity = (userid, type, name, description, due_date, reminder_
       RETURNING id;
     `;
     pool
-      .query(insertActivityQuery, [userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak])
+      .query(insertActivityQuery, [userid, type, name, description || null, due_date || null, reminder_datetime || null, color, repeat_interval || null, complete, start_time || null, end_time || null, streak || null])
       .then((result) => resolve(result.rows[0].id))
       .catch((error) => reject(new Error(`Database error while creating user activity. ${error}`)));
   });
