@@ -68,36 +68,6 @@ const AddForm = ({ type }) => {
       console.error("Failed to create task", error);
     }
   };
-  //   const handlePasswordChange = async () => {
-  //     if (newPassword !== confirmPassword) {
-  //         toast.error('Passwords do not match');
-  //         return;
-  //     }
-
-  //     const userId = getUserIdFromToken();
-
-  //     try {
-  //         const response = await fetch(`${apiUrl}/api/user/password/${userId}`, {
-  //             method: 'PATCH',
-  //             headers: {
-  //                 'Content-Type': 'application/json',
-  //                 'Authorization': `Bearer ${getToken()}`,
-  //             },
-  //             body: JSON.stringify({ oldPassword, newPassword }),
-  //         });
-
-  //         if (response.ok) {
-  //             toast.success('Password changed successfully');
-  //             handleClose();
-  //         } else {
-  //             console.error('Failed to change password', response.status, response.statusText);
-  //             toast.error('Failed to change password');
-  //         }
-  //     } catch (error) {
-  //         console.error('Failed to change password', error);
-  //         toast.error(error.message);
-  //     }
-  // };
 
   const getRadioClass = (radioType) => {
     return formData.type === radioType
