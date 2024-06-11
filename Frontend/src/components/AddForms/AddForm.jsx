@@ -3,6 +3,8 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm } from "../AddForms";
 import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import {createTask} from "../../../api/task";
+import { getUserIdFromToken } from "../../utils/auth";
 
 const AddForm = ({ type }) => {
   const navigate = useNavigate();
@@ -38,10 +40,64 @@ const AddForm = ({ type }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(formData);
+  // };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    const taskData = {
+      userid: getUserIdFromToken(), 
+      name: formData.name,
+      description: formData.description,
+      due_date: formData.due,
+      reminder_datetime: formData.reminder,
+      color: formData.color,
+      repeat_interval: formData.repeat,
+      complete: formData.complete,
+      start_time: formData.startTime,
+      end_time: formData.endTime,
+      streak: formData.streak,
+    };
+    try {
+      console.log(taskData);
+      const createdTask = await createTask(taskData);
+      console.log('Task created with ID:');
+      navigate("/home"); // Navigate to the tasks page or any other page
+    } catch (error) {
+      console.error("Failed to create task", error);
+    }
   };
+  //   const handlePasswordChange = async () => {
+  //     if (newPassword !== confirmPassword) {
+  //         toast.error('Passwords do not match');
+  //         return;
+  //     }
+
+  //     const userId = getUserIdFromToken();
+
+  //     try {
+  //         const response = await fetch(`${apiUrl}/api/user/password/${userId}`, {
+  //             method: 'PATCH',
+  //             headers: {
+  //                 'Content-Type': 'application/json',
+  //                 'Authorization': `Bearer ${getToken()}`,
+  //             },
+  //             body: JSON.stringify({ oldPassword, newPassword }),
+  //         });
+
+  //         if (response.ok) {
+  //             toast.success('Password changed successfully');
+  //             handleClose();
+  //         } else {
+  //             console.error('Failed to change password', response.status, response.statusText);
+  //             toast.error('Failed to change password');
+  //         }
+  //     } catch (error) {
+  //         console.error('Failed to change password', error);
+  //         toast.error(error.message);
+  //     }
+  // };
 
   const getRadioClass = (radioType) => {
     return formData.type === radioType
