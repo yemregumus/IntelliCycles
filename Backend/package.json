@@ -9,7 +9,7 @@
     "api-dev": "nodemon src/server.js",
     "predev": "chmod +x scripts/dev.sh",
     "dev": "bash -c scripts/dev.sh",
-    "test": "jest --runInBand --",
+    "test": "jest -c jest.config.js --runInBand --detectOpenHandles --",
     "predb": "chmod +x scripts/db.sh",
     "db": "bash -c scripts/db.sh"
   },
