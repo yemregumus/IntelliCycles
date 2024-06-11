@@ -19,9 +19,7 @@ const cleanTable = () => {
       .then(() => {
         resolve();
       })
-      .catch(() =>
-        reject(new Error("Database error while clearning all the tables."))
-      );
+      .catch(() => reject(new Error("Database error while clearning all the tables.")));
   });
 };
 
