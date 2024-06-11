@@ -21,7 +21,7 @@ function PasswordDialog({show, handleClose, apiUrl}) {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getToken()}`,
+                    'Authorization': `jwt ${getToken()}`,
                 },
                 body: JSON.stringify({ oldPassword, newPassword }),
             });
