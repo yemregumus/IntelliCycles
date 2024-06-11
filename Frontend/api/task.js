@@ -26,3 +26,25 @@ export const createTask = async (taskData) => {
         toast.error(error.message);
     }
 };
+
+export const getTasksByUser = async (userid) => {
+    try {
+        const response = await fetch(`${apiUrl}/api/tasks/user/${userid}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `jwt ${getToken()}`,
+            },
+        }); 
+        
+        if (response.ok) {
+            const data = await response.json();
+            return data.body.tasks;
+        } else {
+            throw new Error(`Unable to fetch tasks from backend: ${response.status} ${response.statusText}`);
+        }
+    } catch (error) {
+        toast.error(error.message);
+        throw error;
+    }
+};
