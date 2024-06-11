@@ -48,9 +48,9 @@ const EditDialog = ({show, type, handleClose}) =>{
     };
     return (
         <div>
-            <Modal show={show} onHide={handleClose} size="lg" centered>
+            <Modal show={show} onHide={handleClose} size="lg" centered className="rounded-3xl">
                 <div className="fixed text-white inset-0 flex items-center justify-center z-50">
-                    <div className="bg-cyan-800 bg-opacity-75 backdrop-blur-md p-3 w-full h-auto max-w-3xl mx-auto rounded-xl">
+                    <div className="bg-gradient-to-r from-[#540056bf] to-[#000c4b4d] border-1 border-black backdrop-blur-md p-3 w-full h-auto max-w-3xl mx-auto rounded-3xl">
                         <Modal.Header closeVariant='white' closeButton className="text-white">
                             <Modal.Title>EDIT {type.toUpperCase()}</Modal.Title>
                         </Modal.Header>
