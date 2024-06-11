@@ -20,10 +20,7 @@ router.use(
   require("./membership")
 );
 
-router.use(
-    "/tasks",
-    passport.authenticate("jwt", { session: false }),
-    require("./tasks")
-);
+// Task APIs
+router.use("/tasks", require("./tasks"));
 
 module.exports = router;
