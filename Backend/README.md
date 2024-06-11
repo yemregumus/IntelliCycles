@@ -101,7 +101,7 @@ All the APIs returns an object with the same properties as described below.
 
 ## Task Management
 
-### POST /api/tasks/create
+### POST /api/tasks/createTask
 
 **Description:** Create a new task for a user.
 
