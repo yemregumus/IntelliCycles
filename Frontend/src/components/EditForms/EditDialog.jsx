@@ -35,6 +35,7 @@ const EditDialog = ({show, type, handleClose}) =>{
     };
 
     const renderFormSection = () => {
+        console.log(type)
         switch (type) {
           case "reminder":
             return <EditReminderForm formData={formData} handleChange={handleChange} />;
