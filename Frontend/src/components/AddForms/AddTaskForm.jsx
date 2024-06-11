@@ -8,7 +8,14 @@ const AddTaskForm = ({ formData, handleChange }) => (
         Name
       </Form.Label>
       <Col sm={10}>
-        <Form.Control type="text" placeholder="Task Name" name="name" value={formData.name} onChange={handleChange} required className="bg-stone-400 text-black placeholder-stone-950 rounded-full" />
+        <Form.Control 
+          type="text" 
+          placeholder="Task Name" 
+          name="name" 
+          value={formData.name} 
+          onChange={handleChange} 
+          required 
+          className="bg-stone-400 text-black placeholder-stone-950 rounded-full" />
       </Col>
     </Form.Group>
     <Form.Group as={Row} controlId="formTaskDescription" className="mb-4">
@@ -16,7 +23,13 @@ const AddTaskForm = ({ formData, handleChange }) => (
         Description
       </Form.Label>
       <Col sm={10}>
-        <Form.Control as="textarea" placeholder="Task Description" name="description" value={formData.description} onChange={handleChange} required className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]" />
+        <Form.Control 
+          as="textarea" 
+          placeholder="Task Description"
+          name="description" 
+          value={formData.description} 
+          onChange={handleChange}  
+          className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]" />
       </Col>
     </Form.Group>
     <Form.Group as={Row} controlId="formDueReminder" className="mb-4">
@@ -24,13 +37,24 @@ const AddTaskForm = ({ formData, handleChange }) => (
         Due
       </Form.Label>
       <Col sm={4}>
-        <Form.Control type="datetime-local" name="due" value={formData.due} onChange={handleChange} required className="bg-stone-400 text-black placeholder-stone-950 rounded-full" />
+        <Form.Control 
+          type="datetime-local" 
+          name="due" 
+          value={formData.due} 
+          onChange={handleChange} 
+          required
+          className="bg-stone-400 text-black placeholder-stone-950 rounded-full" />
       </Col>
       <Form.Label column sm={2} className="text-left">
         Reminder
       </Form.Label>
       <Col sm={4}>
-        <Form.Control type="datetime-local" name="reminder" value={formData.reminder} onChange={handleChange} required className="bg-stone-400 text-black placeholder-stone-950 rounded-full" />
+        <Form.Control 
+          type="datetime-local"
+          name="reminder" 
+          value={formData.reminder} 
+          onChange={handleChange} 
+          className="bg-stone-400 text-black placeholder-stone-950 rounded-full" />
       </Col>
     </Form.Group>
     <Form.Group as={Row} controlId="formColorRepeat" className="mb-4">
@@ -38,7 +62,12 @@ const AddTaskForm = ({ formData, handleChange }) => (
         Color
       </Form.Label>
       <Col sm={4}>
-        <Form.Control type="color" name="color" value={formData.color} onChange={handleChange} required className="bg-stone-400 placeholder-stone-950 rounded-full" />
+        <Form.Control 
+          type="color"
+          name="color"
+          value={formData.color} 
+          onChange={handleChange} 
+          className="bg-stone-400 placeholder-stone-950 rounded-full" />
       </Col>
       <Form.Label column sm={2} className="text-left">
         Repeat
