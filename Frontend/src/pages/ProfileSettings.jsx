@@ -36,7 +36,7 @@ function ProfileSettings() {
                     'Authorization': `jwt ${getToken()}`,
                 },
             });
-            if (response.ok) {
+            if (response.body) {
                 const data = await response.json();
                 setUser({
                     avatar: data.body.avatar || avatar5, 
@@ -73,6 +73,7 @@ function ProfileSettings() {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `jwt ${getToken()}`,
                 },
                 body: JSON.stringify({ avatar: avatar, firstName, lastName, email, membership}),
             });
