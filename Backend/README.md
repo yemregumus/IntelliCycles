@@ -98,6 +98,67 @@ All the APIs returns an object with the same properties as described below.
 
 **Note**: You must be in `/Backend` directory.
 
+
+## Task Management
+
+### POST /api/tasks/createTask
+
+**Description:** Create a new task for a user.
+
+**Expects:**
+
+Request Body: `userid`, `name`, `description`, `due_date`, `reminder_datetime`, `color`, `repeat_interval`, `complete`, `start_time`, `end_time`, `streak.
+
+**Returns:**
+
+Body: The ID of the created task.
+
+### GET /api/tasks/user/:userid
+
+**Description:** Get all tasks for a specific user.
+
+**Returns:**
+
+Body: An array of tasks for the specified user.
+
+### GET /api/tasks/:id
+
+**Description:** Get a specific task by ID.
+
+**Returns:**
+
+Body: The task with the specified ID.
+
+### PUT /api/tasks/:id
+
+**Description:** Update a task with the given ID.
+
+**Expects:**
+
+Request Body: `name`, `description`, `due_date`, `reminder_datetime`, `color`, `repeat_interval`, `complete`, `start_time`, `end_time`, `streak.
+
+### DELETE /api/tasks/:id
+
+**Description:** Delete a task with the given ID.
+
+**Returns:**
+
+Body: A message indicating the task was successfully deleted.
+
+## Example Response Format
+
+**Successful Response:**
+
+```json
+{
+    "ok": true,
+    "message": "Task created successfully",
+    "body": {
+        "activityId": 123
+    }
+}
+```
+
 ### Dev mode
 
 ```bash

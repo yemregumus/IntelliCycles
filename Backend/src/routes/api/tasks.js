@@ -9,9 +9,9 @@ router.post("/createTask", async (req, res) => {
 
   try {
     const activityId = await createUserActivity(userid, "task", name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak);
-    res.status(201).json(resMessage.success("Task created successfully", { activityId }));
+    res.status(201).json(resMessage(true, "Task created successfully", { activityId }));
   } catch (error) {
-    res.status(500).json(resMessage.error(error.message));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
@@ -21,9 +21,9 @@ router.get("/user/:userid", async (req, res) => {
 
   try {
     const tasks = await getUserActivitiesByType(userid, "task");
-    res.status(200).json(resMessage.success("Tasks retrieved successfully", { tasks }));
+    res.status(200).json(resMessage(true, "Tasks retrieved successfully", { tasks }));
   } catch (error) {
-    res.status(500).json(resMessage.error(error.message));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
@@ -33,22 +33,22 @@ router.get("/:id", async (req, res) => {
 
   try {
     const task = await getUserActivityById(id);
-    res.status(200).json(resMessage.success("Task retrieved successfully", { task }));
+    res.status(200).json(resMessage(true, "Task retrieved successfully", { task }));
   } catch (error) {
-    res.status(500).json(resMessage.error(error.message));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
 // Update a task
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak } = req.body;
+  const { name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak } = req.body;
 
   try {
     await updateUserActivity(id, "task", name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak);
-    res.status(200).json(resMessage.success("Task updated successfully"));
+    res.status(200).json(resMessage(true, "Task updated successfully"));
   } catch (error) {
-    res.status(500).json(resMessage.error(error.message));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
@@ -58,9 +58,9 @@ router.delete("/:id", async (req, res) => {
 
   try {
     await deleteUserActivity(id);
-    res.status(200).json(resMessage.success("Task deleted successfully"));
+    res.status(200).json(resMessage(true, "Task deleted successfully"));
   } catch (error) {
-    res.status(500).json(resMessage.error(error.message));
+    res.status(500).json(resMessage(false, error.message));
   }
 });
 
