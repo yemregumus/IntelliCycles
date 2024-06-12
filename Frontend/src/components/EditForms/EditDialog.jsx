@@ -5,6 +5,7 @@ import { MdDelete, MdCancel } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
 import { deleteTaskById } from "../../../api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
     const navigate= useNavigate();
@@ -36,6 +37,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
             await deleteTaskById(entity.id);
             handleClose();
             updateTasks();
+            toast.success(`${entity.name} ${entity.type} has been successfully deleted.`)
         }
         
     }
