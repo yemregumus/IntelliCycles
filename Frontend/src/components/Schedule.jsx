@@ -9,8 +9,6 @@ import { toast } from 'react-hot-toast';
 import moment from 'moment';
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const numRows = 11;
-const numCols = 7;
 
 const Schedule = ({ type = "" }) => {
   const navigate = useNavigate();
@@ -45,16 +43,17 @@ const Schedule = ({ type = "" }) => {
   const tasksByDay = daysOfWeek.map(() => []);
   tasks.forEach(task => {
     const day = moment(task.due_date).day();
-    console.log(`Task due on: ${task.due_date} (day index: ${day})`);
     tasksByDay[day].push(task);
   });
-  console.log("Tasks by day:", tasksByDay);
+
+  // Calculate the maximum number of tasks in any given day
+  const maxTasks = Math.max(...tasksByDay.map(dayTasks => dayTasks.length));
 
   return (
     <Container className="text-white text-center mt-4 rounded-3xl bg-zinc-950 bg-opacity-60 p-3 px-5 h-full flex flex-col justify-between">
       <div>
         <div className="text-3xl border-b-2 text-center pb-3 my-4 w-2/5 mx-auto">{title}</div>
-        <div className="overflow-y-auto overflow-x-hidden">
+        <div className="overflow-y-auto overflow-x-hidden p-3">
           <Row className="pb-4">
             {daysOfWeek.map((day, index) => (
               <Col key={index} className="backdrop-blur-sm bg-white/30 rounded-full max-w-14 text-3xl mx-auto p-2 mb-2">
@@ -63,13 +62,13 @@ const Schedule = ({ type = "" }) => {
             ))}
           </Row>
           <div className="">
-            {[...Array(numRows)].map((_, rowIndex) => (
+            {[...Array(maxTasks)].map((_, rowIndex) => (
               <Row key={rowIndex}>
                 {daysOfWeek.map((_, colIndex) => (
                   <Col key={colIndex} className="border-x-2 border-rose-900 text-3xl">
                     {tasksByDay[colIndex][rowIndex] ? (
                       <Badge type={type} task={tasksByDay[colIndex][rowIndex]} />
-                      ) : null}
+                    ) : null}
                   </Col>
                 ))}
               </Row>
@@ -79,19 +78,19 @@ const Schedule = ({ type = "" }) => {
       </div>
       {title === "HOME" ? (
         <IoMdAdd
-        className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto"
-        color="white"
+          className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto"
+          color="white"
           size={80}
           onClick={() => navigate(`/add/task`)}
-          />
+        />
       ) : (
         <IoMdAdd
           className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-auto"
           color="white"
           size={80}
           onClick={() => navigate(`/add/${type}`)}
-          />
-          )}
+        />
+      )}
     </Container>
   );
 };
