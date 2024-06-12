@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-const EditTaskForm = ({ formData, handleChange, task }) => {
+const EditTaskForm = ({ formData, handleChange }) => {
   return (
     <div>
       <Form.Group as={Row} controlId="formTaskName" className="mb-4">
@@ -11,7 +11,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
             type="text"
             placeholder="Task Name"
             name="name"
-            value={task.name || ""}
+            value={formData.name || ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -25,7 +25,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
             as="textarea"
             placeholder="Task Description"
             name="description"
-            value={task.description || ""}
+            value={formData.description || ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]"
@@ -38,7 +38,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
           <Form.Control
             type="datetime-local"
             name="due_date"
-            value={task.due_date ? task.due_date.substring(0, 16) : ""}
+            value={formData.due_date ? formData.due_date.substring(0, 16) : ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -49,7 +49,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
           <Form.Control
             type="datetime-local"
             name="reminder_datetime"
-            value={task.reminder_datetime ? task.reminder_datetime.substring(0, 16) : ""}
+            value={formData.reminder_datetime ? formData.reminder_datetime.substring(0, 16) : ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -62,7 +62,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
           <Form.Control
             type="color"
             name="color"
-            value={task.color || ""}
+            value={formData.color || ""}
             onChange={handleChange}
             required
             className="bg-stone-400 placeholder-stone-950 rounded-full"
@@ -72,7 +72,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
         <Col sm={4}>
           <Form.Select
             name="repeat_interval"
-            value={task.repeat_interval || ""}
+            value={formData.repeat_interval || ""}
             onChange={handleChange}
             className="bg-stone-400 placeholder-stone-950 rounded-full"
           >
@@ -92,7 +92,7 @@ const EditTaskForm = ({ formData, handleChange, task }) => {
             id="completeSwitch"
             label=""
             name="complete"
-            checked={task.complete || false}
+            checked={formData.complete || false}
             onChange={handleChange}
             className=""
           />

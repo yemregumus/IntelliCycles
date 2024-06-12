@@ -8,19 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const EditDialog = ({show, type, handleClose, entity}) =>{
     const navigate= useNavigate();
-    const [formData, setFormData] = useState({
-        type: type || "task",
-        name: "",
-        description: "",
-        color: "",
-        reminder: "",
-        repeat: "",
-        due: "",
-        streak: "",
-        startTime: "",
-        endTime: "",
-        complete: false,
-    });
+
+    const [formData, setFormData] = useState(entity);
 
     useEffect(() => {
         if (type) {
@@ -59,7 +48,7 @@ const EditDialog = ({show, type, handleClose, entity}) =>{
           case "event":
             return <EditEventForm formData={formData} handleChange={handleChange} />;
           default:
-            return <EditTaskForm formData={formData} task={entity} handleChange={handleChange} />;
+            return <EditTaskForm formData={formData} handleChange={handleChange} />;
         }
     };
     return (
@@ -74,7 +63,7 @@ const EditDialog = ({show, type, handleClose, entity}) =>{
                             {renderFormSection(type)}
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="danger" onClick={handleClose} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full" onClick={handleDelete}>
+                            <Button variant="danger" onClick={handleDelete} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full">
                                 <MdDelete color="white" size={40}  />
                             </Button>
                             <Button variant="submit" onClick={handleClose} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
