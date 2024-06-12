@@ -34,6 +34,9 @@ const AddForm = ({ type }) => {
 
   const handleChange = (e) => {
     const { name, value, type: inputType, checked } = e.target;
+    if (name === "name" && value.length > 12) {
+      return; 
+    }
     setFormData({
       ...formData,
       [name]: inputType === "checkbox" ? checked : value,
