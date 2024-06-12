@@ -7,7 +7,7 @@ const Badge = ({type, entity, updateTasks}) =>{
     type=type.toLowerCase()
     return(
         <div>
-            <div  onClick={() => setShowEditDialog(true)} className=" max-w-[7rem] text-lg rounded-full bg-orange-200 hover:bg-orange-400 text-black transition duration-150 m-1 p-1">
+            <div  onClick={() => setShowEditDialog(true)} className=" max-w-6/6 text-lg rounded-full bg-orange-200 hover:bg-orange-400 text-black transition duration-150 m-1 p-1">
                 {entity.name}
             </div>
             <EditDialog show={showEditDialog} type={type ? type : "task"} entity={entity} handleClose={() => setShowEditDialog(false)} updateTasks={updateTasks}/>
