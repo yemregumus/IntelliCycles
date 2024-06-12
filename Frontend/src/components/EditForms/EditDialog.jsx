@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
+import { MdDelete, MdCancel } from "react-icons/md";
+import { FaRegSave } from "react-icons/fa";
+import { deleteTaskById } from "../../../api";
+import { useNavigate } from "react-router-dom";
 
-const EditDialog = ({show, type, handleClose, task}) =>{
+const EditDialog = ({show, type, handleClose, entity}) =>{
+    const navigate= useNavigate();
     const [formData, setFormData] = useState({
         type: type || "task",
         name: "",
@@ -28,11 +33,22 @@ const EditDialog = ({show, type, handleClose, task}) =>{
     
     const handleChange = (e) => {
         const { name, value, type: inputType, checked } = e.target;
+        if (name === "name" && value.length > 12) {
+            return; 
+        }
         setFormData({
           ...formData,
           [name]: inputType === "checkbox" ? checked : value,
         });
     };
+
+    const handleDelete= async (e) =>{
+        if (window.confirm(`Are you sure you want to delete your ${entity.type}: ${entity.name}?`)) {
+            await deleteTaskById(entity.id);
+            handleClose();
+        }
+        
+    }
 
     const renderFormSection = () => {
         switch (type) {
@@ -43,7 +59,7 @@ const EditDialog = ({show, type, handleClose, task}) =>{
           case "event":
             return <EditEventForm formData={formData} handleChange={handleChange} />;
           default:
-            return <EditTaskForm formData={formData} task={task} handleChange={handleChange} />;
+            return <EditTaskForm formData={formData} task={entity} handleChange={handleChange} />;
         }
     };
     return (
@@ -58,8 +74,11 @@ const EditDialog = ({show, type, handleClose, task}) =>{
                             {renderFormSection(type)}
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="danger" onClick={handleClose}>
-                                Cancel
+                            <Button variant="danger" onClick={handleClose} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full" onClick={handleDelete}>
+                                <MdDelete color="white" size={40}  />
+                            </Button>
+                            <Button variant="submit" onClick={handleClose} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
+                                <FaRegSave color="white" size={40}  />
                             </Button>
                             {/* <Button variant="success" onClick={handlePasswordChange}>
                                 Change Password
