@@ -48,3 +48,24 @@ export const getTasksByUser = async (userid) => {
         throw error;
     }
 };
+
+export const deleteTaskById = async (taskId)=>{
+    try {
+        const response = await fetch(`${apiUrl}/api/tasks/${taskId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `jwt ${getToken()}`,
+            },
+        }); 
+        
+        if (response.ok) {
+            console.log(response.body);
+        } else {
+            throw new Error(`Unable to fetch tasks from backend: ${response.status} ${response.statusText}`);
+        }
+    } catch (error) {
+        toast.error(error.message);
+        throw error;
+    }
+}
