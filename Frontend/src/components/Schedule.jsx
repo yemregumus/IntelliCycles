@@ -11,6 +11,7 @@ import moment from 'moment';
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const Schedule = ({ type = "" }) => {
+  const [tasksUpdated, setTasksUpdated] = useState(false);
   const navigate = useNavigate();
   const title = type ? `${type.toUpperCase()}S` : "HOME";
   const userid = getUserIdFromToken();
@@ -37,7 +38,7 @@ const Schedule = ({ type = "" }) => {
     };
 
     fetchEntities();
-  }, [userid]);
+  }, [userid, tasksUpdated]);
 
   // Organize tasks by day of the week and sort each day's tasks by due date and time
   const entitiesByDay = daysOfWeek.map(() => []);
@@ -72,7 +73,7 @@ const Schedule = ({ type = "" }) => {
                 {daysOfWeek.map((_, colIndex) => (
                   <Col key={colIndex} className="border-x-2 border-rose-900 text-3xl">
                     {entitiesByDay[colIndex][rowIndex] ? (
-                      <Badge type={type} entity={entitiesByDay[colIndex][rowIndex]} />
+                      <Badge type={type} entity={entitiesByDay[colIndex][rowIndex]} updateTasks={() => setTasksUpdated(!tasksUpdated)}/>
                     ) : null}
                   </Col>
                 ))}

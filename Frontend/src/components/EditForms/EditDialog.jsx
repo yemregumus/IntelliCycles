@@ -6,7 +6,7 @@ import { FaRegSave } from "react-icons/fa";
 import { deleteTaskById } from "../../../api";
 import { useNavigate } from "react-router-dom";
 
-const EditDialog = ({show, type, handleClose, entity}) =>{
+const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
     const navigate= useNavigate();
 
     const [formData, setFormData] = useState(entity);
@@ -35,6 +35,7 @@ const EditDialog = ({show, type, handleClose, entity}) =>{
         if (window.confirm(`Are you sure you want to delete your ${entity.type}: ${entity.name}?`)) {
             await deleteTaskById(entity.id);
             handleClose();
+            updateTasks();
         }
         
     }
