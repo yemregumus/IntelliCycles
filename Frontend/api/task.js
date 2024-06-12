@@ -69,3 +69,24 @@ export const deleteTaskById = async (taskId)=>{
         throw error;
     }
 }
+
+export const updateTaskById = async (taskData) => {
+    try {
+        const response = await fetch(`${apiUrl}/api/tasks/${taskData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `jwt ${getToken()}`,
+            },
+            body: JSON.stringify(taskData),
+        }); 
+        
+        if (!response.ok) {
+            console.error('Unable to update task in backend', response.status, response.statusText);
+            toast.error('Unable to update task');
+        }
+    } catch (error) {
+        console.error('Backend error', error);
+        toast.error(error.message);
+    }
+};

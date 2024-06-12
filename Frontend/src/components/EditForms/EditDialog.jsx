@@ -3,7 +3,7 @@ import { Modal, Form, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
 import { MdDelete, MdCancel } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
-import { deleteTaskById } from "../../../api";
+import { deleteTaskById, updateTaskById } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -42,6 +42,14 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
         
     }
 
+    const handleSubmit= async (e) =>{
+        await updateTaskById(formData);
+        handleClose();
+        updateTasks();
+        toast.success(`${entity.name} ${entity.type} has been successfully updated.`)
+        
+    }
+
     const renderFormSection = () => {
         switch (type) {
           case "reminder":
@@ -69,12 +77,9 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
                             <Button variant="danger" onClick={handleDelete} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full">
                                 <MdDelete color="white" size={40}  />
                             </Button>
-                            <Button variant="submit" onClick={handleClose} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
+                            <Button variant="submit" onClick={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
                                 <FaRegSave color="white" size={40}  />
                             </Button>
-                            {/* <Button variant="success" onClick={handlePasswordChange}>
-                                Change Password
-                            </Button> */}
                         </Modal.Footer>
                     </div>
                 </div>
