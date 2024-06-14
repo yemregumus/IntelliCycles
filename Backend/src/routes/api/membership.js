@@ -78,7 +78,7 @@ router.delete("/:id", async (req, res) => {
   );
 
   try {
-    await updateMembership(id, "Free");
+    const result = await updateMembership(id, "free");
     res.status(200).json(resMessage(true, `${id}'s membership is deleted.`));
   } catch (error) {
     res.status(500).json(resMessage(false, error.message));

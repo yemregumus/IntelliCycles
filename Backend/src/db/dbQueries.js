@@ -190,7 +190,7 @@ const addNewMembership = (id) => {
         VALUES ($1, $2);
         `;
     pool
-      .query(addMembershipQuery, [id, "Free"])
+      .query(addMembershipQuery, [id, "free"])
       .then((result) => {
         if (!result.rowCount) reject(new Error(`User ${id} already has a membership.`));
         resolve(`${id}'s membership is added.`);

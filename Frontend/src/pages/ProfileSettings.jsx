@@ -36,8 +36,20 @@ function ProfileSettings() {
                     'Authorization': `jwt ${getToken()}`,
                 },
             });
-            if (response.body) {
+
+            const responseMembership = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/membership/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `jwt ${getToken()}`,
+                },
+            });
+
+            if (response.ok && responseMembership.ok) {
                 const data = await response.json();
+                const membershipData = await responseMembership.json();
+                console.log('User data:', data);
+                console.log('Membership data:', membershipData);
                 setUser({
                     avatar: data.body.avatar || avatar5, 
                     firstName: data.body.firstName || 'Jane', 
@@ -46,7 +58,7 @@ function ProfileSettings() {
                     email: data.body.email || '', 
                     password: data.body.password || '', 
                     dateOfBirth: data.body.dateOfBirth || '', 
-                    membership: data.body.membership || 'basic', 
+                    membership: membershipData.body.membershipType || 'free',
                     year: year || '', 
                     month: month || '', 
                     day: day || ''
@@ -54,13 +66,40 @@ function ProfileSettings() {
             } else {
                 console.error('Failed to fetch user', response.status, response.statusText);
             }
+        
         };
         fetchUser();
     }, []);
 
     const handleDelete = () => {
         if (window.confirm('Are you sure you want to delete your account?')) {
-            // navigate('/');
+           const deleteUser = async () => {
+                const responseMembership = await fetch(`${apiUrl}/api/membership/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `jwt ${getToken()}`,
+                    },
+                });
+
+                const response = await fetch(`${apiUrl}/api/user/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `jwt ${getToken()}`,
+                    },
+                });
+               
+                if (response.ok && responseMembership.ok) {
+                    removeToken();
+                    navigate('/');
+                    toast.success('Account deleted successfully');
+                } else {
+                    console.error('Failed to delete account', responseMembership.status, responseMembership.statusText);
+                    toast.error('Failed to delete account', responseMembership.error);
+                }
+            };
+            deleteUser();
         }
     };
 
@@ -75,11 +114,21 @@ function ProfileSettings() {
                     'Content-Type': 'application/json',
                     'Authorization': `jwt ${getToken()}`,
                 },
-                body: JSON.stringify({ avatar: avatar, firstName, lastName, email, membership}),
+                body: JSON.stringify({ avatar: avatar, firstName, lastName, email}),
             });
 
-            if (response.ok) {
+            const membershipResponse = await fetch(`${apiUrl}/api/membership/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Authorization': `jwt ${getToken()}`,
+                },
+                body: JSON.stringify({ membershipType: membership }),
+            });
+
+            if (response.ok && membershipResponse.ok) {
                 const data = await response.json();
+                const membershipData = await membershipResponse.json();
                 toast.success('Profile update successful');
                 navigate('/account');
             } else {
@@ -235,7 +284,7 @@ function ProfileSettings() {
                             <Col sm={10} className="flex items-center justify-left">
                                 <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                     <label className="btn btn-secondary bg-black">
-                                        <input type="radio" name="membership" id="basic" autoComplete="on" checked={user.membership === 'basic'} onChange={() => {setUser({ ...user, membership: 'basic' }); setIsFormChanged(true);}} /> Basic
+                                        <input type="radio" name="membership" id="free" autoComplete="on" checked={user.membership === 'free'} onChange={() => {setUser({ ...user, membership: 'free' }); setIsFormChanged(true);}} /> Basic
                                     </label>
                                     <label className="btn btn-secondary bg-black">
                                         <input type="radio" name="membership" id="premium" autoComplete="off" checked={user.membership === 'premium'} onChange={() => {setUser({ ...user, membership: 'premium' }); setIsFormChanged(true);}} /> Premium
