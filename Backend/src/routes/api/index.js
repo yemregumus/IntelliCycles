@@ -20,4 +20,7 @@ router.use(
   require("./membership")
 );
 
+// Task APIs
+router.use("/tasks", require("./tasks"));
+
 module.exports = router;

@@ -21,7 +21,7 @@ function PasswordDialog({show, handleClose, apiUrl}) {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getToken()}`,
+                    'Authorization': `jwt ${getToken()}`,
                 },
                 body: JSON.stringify({ oldPassword, newPassword }),
             });
@@ -41,10 +41,10 @@ function PasswordDialog({show, handleClose, apiUrl}) {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} centered>
-                <Modal.Dialog className="w-full h-full m-0 bg-zinc-950">
-                    <div className="text-white border-3 border-amber-900 text-center bg-black p-3 h-full">
-                        <Modal.Header closeVariant='white' closeButton>
+            <Modal show={show} onHide={handleClose} size="md" centered className="rounded-3xl">
+                <div className="fixed text-white inset-0 flex items-center justify-center z-50">
+                    <div className="bg-gradient-to-r from-[#540056bf] to-[#000c4b4d] border-1 border-black backdrop-blur-md border-1 border-black p-3 h-auto max-w-3xl mx-auto rounded-3xl">
+                        <Modal.Header closeVariant='white' closeButton className="text-white">
                             <Modal.Title>Change Password</Modal.Title>
                         </Modal.Header>
                         <Modal.Body className='p-4'>
@@ -56,7 +56,7 @@ function PasswordDialog({show, handleClose, apiUrl}) {
                                         placeholder="Enter old password"
                                         value={oldPassword}
                                         onChange={(e) => setOldPassword(e.target.value)}
-                                        className="w-5/6 bg-black text-white placeholder-stone-400 rounded-full"
+                                        className="w-4/6 bg-stone-400 text-black placeholder-stone-950 rounded-full"
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-3 flex items-center" controlId="newPassword">
@@ -66,7 +66,7 @@ function PasswordDialog({show, handleClose, apiUrl}) {
                                         placeholder="Enter new password"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
-                                        className="w-5/6 bg-black text-white placeholder-stone-400 rounded-full"
+                                        className="w-4/6 bg-stone-400 text-black placeholder-stone-950 rounded-full"
                                     />
                                 </Form.Group>
                                 <Form.Group className="flex items-center" controlId="confirmPassword">
@@ -76,7 +76,7 @@ function PasswordDialog({show, handleClose, apiUrl}) {
                                         placeholder="Confirm new password"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className="w-5/6 bg-black text-white placeholder-stone-400 rounded-full"
+                                        className="w-4/6 bg-stone-400 text-black placeholder-stone-950 rounded-full"
                                     />
                                 </Form.Group>
                             </Form>
@@ -90,8 +90,8 @@ function PasswordDialog({show, handleClose, apiUrl}) {
                             </Button>
                         </Modal.Footer>
                     </div>
-                </Modal.Dialog>
-            </Modal> 
+                </div>
+            </Modal>
         </div>
     );
 }

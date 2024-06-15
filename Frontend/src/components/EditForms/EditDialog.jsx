@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
+import { MdDelete, MdCancel } from "react-icons/md";
+import { FaRegSave } from "react-icons/fa";
+import { deleteTaskById, updateTaskById } from "../../../api";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
-const EditDialog = ({show, type, handleClose}) =>{
-    const [formData, setFormData] = useState({
-        type: type || "task",
-        name: "",
-        description: "",
-        color: "",
-        reminder: "",
-        repeat: "",
-        due: "",
-        streak: "",
-        startTime: "",
-        endTime: "",
-        complete: false,
-    });
+const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
+    const navigate= useNavigate();
+
+    const [formData, setFormData] = useState(entity);
 
     useEffect(() => {
         if (type) {
@@ -28,11 +23,32 @@ const EditDialog = ({show, type, handleClose}) =>{
     
     const handleChange = (e) => {
         const { name, value, type: inputType, checked } = e.target;
+        if (name === "name" && value.length > 12) {
+            return; 
+        }
         setFormData({
           ...formData,
           [name]: inputType === "checkbox" ? checked : value,
         });
     };
+
+    const handleDelete= async (e) =>{
+        if (window.confirm(`Are you sure you want to delete your ${entity.type}: ${entity.name}?`)) {
+            await deleteTaskById(entity.id);
+            handleClose();
+            updateTasks();
+            toast.success(`${entity.name} ${entity.type} has been successfully deleted.`)
+        }
+        
+    }
+
+    const handleSubmit= async (e) =>{
+        await updateTaskById(formData);
+        handleClose();
+        updateTasks();
+        toast.success(`${entity.name} ${entity.type} has been successfully updated.`)
+        
+    }
 
     const renderFormSection = () => {
         switch (type) {
@@ -48,9 +64,9 @@ const EditDialog = ({show, type, handleClose}) =>{
     };
     return (
         <div>
-            <Modal show={show} onHide={handleClose} size="lg" centered>
+            <Modal show={show} onHide={handleClose} size="lg" centered className="rounded-3xl">
                 <div className="fixed text-white inset-0 flex items-center justify-center z-50">
-                    <div className="bg-cyan-800 bg-opacity-75 backdrop-blur-md p-3 w-full h-auto max-w-3xl mx-auto rounded-xl">
+                    <div className="bg-gradient-to-r from-[#540056bf] to-[#000c4b4d] border-1 border-black backdrop-blur-md p-3 w-full h-auto max-w-3xl mx-auto rounded-3xl">
                         <Modal.Header closeVariant='white' closeButton className="text-white">
                             <Modal.Title>EDIT {type.toUpperCase()}</Modal.Title>
                         </Modal.Header>
@@ -58,12 +74,12 @@ const EditDialog = ({show, type, handleClose}) =>{
                             {renderFormSection(type)}
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="danger" onClick={handleClose}>
-                                Cancel
+                            <Button variant="danger" onClick={handleDelete} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full">
+                                <MdDelete color="white" size={40}  />
                             </Button>
-                            {/* <Button variant="success" onClick={handlePasswordChange}>
-                                Change Password
-                            </Button> */}
+                            <Button variant="submit" onClick={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
+                                <FaRegSave color="white" size={40}  />
+                            </Button>
                         </Modal.Footer>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ closeServer() {
 
     cd dockerCompose
     
-    sudo docker compose -f docker-compose.dev.yml down
+    docker compose -f docker-compose.dev.yml down
 
     exit 0
 }
@@ -23,7 +23,7 @@ cd dockerCompose || exit 1
 
 echo "Start PostgreSQL container."
 
-sudo docker compose -f docker-compose.dev.yml up --build -d || exit 1
+docker compose -f docker-compose.dev.yml up --build -d || exit 1
 
 cd ..
 

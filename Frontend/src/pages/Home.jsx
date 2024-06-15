@@ -4,13 +4,13 @@ import {Row, Col} from "react-bootstrap"
 
 const Home = () => {
     return(
-        <div className="items-center">
-            <Row className="mx-4 h-full">
+        <div className="my-2 h-[50rem]">
+            <Row className="mx-4 h-[49rem]">
                 <Col md={2}>
                     <IntelliWandWindow/>
                 </Col>
                 <Col md={10}>
-                    <Schedule type="task"/>
+                    <Schedule/>
                 </Col>
             </Row>
         </div>

@@ -8,6 +8,7 @@ import avatar4 from '../assets/avatar4.png';
 import avatar5 from '../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
 import { getUserIdFromToken, getToken, removeToken } from '../utils/auth';
+import { TiUserDelete } from "react-icons/ti";
 import {toast} from 'react-hot-toast';
 import PasswordDialog from '../components/PasswordDialog';
 
@@ -32,11 +33,23 @@ function ProfileSettings() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getToken()}`,
+                    'Authorization': `jwt ${getToken()}`,
                 },
             });
-            if (response.ok) {
+
+            const responseMembership = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/membership/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `jwt ${getToken()}`,
+                },
+            });
+
+            if (response.ok && responseMembership.ok) {
                 const data = await response.json();
+                const membershipData = await responseMembership.json();
+                console.log('User data:', data);
+                console.log('Membership data:', membershipData);
                 setUser({
                     avatar: data.body.avatar || avatar5, 
                     firstName: data.body.firstName || 'Jane', 
@@ -45,7 +58,7 @@ function ProfileSettings() {
                     email: data.body.email || '', 
                     password: data.body.password || '', 
                     dateOfBirth: data.body.dateOfBirth || '', 
-                    membership: data.body.membership || 'basic', 
+                    membership: membershipData.body.membershipType || 'free',
                     year: year || '', 
                     month: month || '', 
                     day: day || ''
@@ -53,9 +66,42 @@ function ProfileSettings() {
             } else {
                 console.error('Failed to fetch user', response.status, response.statusText);
             }
+        
         };
         fetchUser();
     }, []);
+
+    const handleDelete = () => {
+        if (window.confirm('Are you sure you want to delete your account?')) {
+           const deleteUser = async () => {
+                const responseMembership = await fetch(`${apiUrl}/api/membership/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `jwt ${getToken()}`,
+                    },
+                });
+
+                const response = await fetch(`${apiUrl}/api/user/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `jwt ${getToken()}`,
+                    },
+                });
+               
+                if (response.ok && responseMembership.ok) {
+                    removeToken();
+                    navigate('/');
+                    toast.success('Account deleted successfully');
+                } else {
+                    console.error('Failed to delete account', responseMembership.status, responseMembership.statusText);
+                    toast.error('Failed to delete account', responseMembership.error);
+                }
+            };
+            deleteUser();
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -66,12 +112,23 @@ function ProfileSettings() {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `jwt ${getToken()}`,
                 },
-                body: JSON.stringify({ avatar: avatar, firstName, lastName, email, membership}),
+                body: JSON.stringify({ avatar: avatar, firstName, lastName, email}),
             });
 
-            if (response.ok) {
+            const membershipResponse = await fetch(`${apiUrl}/api/membership/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Authorization': `jwt ${getToken()}`,
+                },
+                body: JSON.stringify({ membershipType: membership }),
+            });
+
+            if (response.ok && membershipResponse.ok) {
                 const data = await response.json();
+                const membershipData = await membershipResponse.json();
                 toast.success('Profile update successful');
                 navigate('/account');
             } else {
@@ -111,8 +168,8 @@ function ProfileSettings() {
                     </div>
                 </Container>
                 <Col className="flex flex-column justify-between">
-                                <Button type="button" className="bg-gray-600 border-gray-950 hover:bg-gray-800 border-2 transition duration-150 text-2xl rounded-full mx-auto my-4 px-4" onClick={() => {removeToken();navigate('/')}}>Sign out</Button>
-                                <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button>
+                    {/* <Button type="button" className="bg-red-800 hover:bg-red-950 border-2 border-red-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Delete Account</Button> */}
+                    <TiUserDelete className="bg-red-800 hover:bg-red-950 hover:border-2 hover:border-blue-500 hover-transition duration-150 p-2 rounded-full mx-auto" color="white" size={60} onClick={handleDelete} />
                 </Col>
             </Col>
             <Col md={9} className='max-w-3/6'>
@@ -227,7 +284,7 @@ function ProfileSettings() {
                             <Col sm={10} className="flex items-center justify-left">
                                 <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                     <label className="btn btn-secondary bg-black">
-                                        <input type="radio" name="membership" id="basic" autoComplete="on" checked={user.membership === 'basic'} onChange={() => {setUser({ ...user, membership: 'basic' }); setIsFormChanged(true);}} /> Basic
+                                        <input type="radio" name="membership" id="free" autoComplete="on" checked={user.membership === 'free'} onChange={() => {setUser({ ...user, membership: 'free' }); setIsFormChanged(true);}} /> Basic
                                     </label>
                                     <label className="btn btn-secondary bg-black">
                                         <input type="radio" name="membership" id="premium" autoComplete="off" checked={user.membership === 'premium'} onChange={() => {setUser({ ...user, membership: 'premium' }); setIsFormChanged(true);}} /> Premium

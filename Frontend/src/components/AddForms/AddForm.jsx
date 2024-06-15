@@ -3,6 +3,8 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm } from "../AddForms";
 import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { createTask } from "../../../api/task";
+import { getUserIdFromToken } from "../../utils/auth";
 
 const AddForm = ({ type }) => {
   const navigate = useNavigate();
@@ -11,14 +13,14 @@ const AddForm = ({ type }) => {
     type: type || "task",
     name: "",
     description: "",
-    color: "",
-    reminder: "",
-    repeat: "",
     due: "",
-    streak: "",
+    reminder: "",
+    color: "#000000",
+    repeat: "",
+    complete: false,
     startTime: "",
     endTime: "",
-    complete: false,
+    streak: "",
   });
 
   useEffect(() => {
@@ -32,21 +34,47 @@ const AddForm = ({ type }) => {
 
   const handleChange = (e) => {
     const { name, value, type: inputType, checked } = e.target;
+    if (name === "name" && value.length > 12) {
+      return; 
+    }
     setFormData({
       ...formData,
       [name]: inputType === "checkbox" ? checked : value,
     });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(formData);
+  // };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    const taskData = {
+      userid: getUserIdFromToken(),
+      type: formData.type,
+      name: formData.name,
+      description: formData.description,
+      due_date: formData.due,
+      reminder_datetime: formData.reminder,
+      color: formData.color,
+      repeat_interval: formData.repeat,
+      complete: formData.complete,
+      start_time: formData.startTime,
+      end_time: formData.endTime,
+      streak: formData.streak,
+    };
+    try {
+      console.log(taskData);
+      const createdTask = await createTask(taskData);
+      //console.log("Task created with ID: ", createdTask.activityId);
+      navigate("/home"); // Navigate to the tasks page or any other page
+    } catch (error) {
+      console.error("Failed to create task", error);
+    }
   };
 
   const getRadioClass = (radioType) => {
-    return formData.type === radioType
-      ? 'text-black bg-white rounded-full px-16 transition duration-150'
-      : 'text-white transition duration-150';
+    return formData.type === radioType ? "text-black bg-white rounded-full px-16 transition duration-150" : "text-white transition duration-150";
   };
 
   const renderFormSection = () => {
@@ -68,56 +96,17 @@ const AddForm = ({ type }) => {
       <Form onSubmit={handleSubmit} className="p-1 rounded-xl">
         <Form.Group as={Row} controlId="formType" className="mb-4">
           <Col sm={10} className="d-flex text-2xl justify-content-around bg-gray-950 p-2 rounded-full w-4/6 mx-auto">
-            <Form.Check
-              type="radio"
-              label="Task"
-              name="type"
-              value="task"
-              checked={formData.type === 'task'}
-              onChange={handleChange}
-              className={getRadioClass('task')}
-            />
-            <Form.Check
-              type="radio"
-              label="Reminder"
-              name="type"
-              value="reminder"
-              checked={formData.type === 'reminder'}
-              onChange={handleChange}
-              className={getRadioClass('reminder')}
-            />
-            <Form.Check
-              type="radio"
-              label="Habit"
-              name="type"
-              value="habit"
-              checked={formData.type === 'habit'}
-              onChange={handleChange}
-              className={getRadioClass('habit')}
-            />
-            <Form.Check
-              type="radio"
-              label="Event"
-              name="type"
-              value="event"
-              checked={formData.type === 'event'}
-              onChange={handleChange}
-              className={getRadioClass('event')}
-            />
+            <Form.Check type="radio" label="Task" name="type" value="task" checked={formData.type === "task"} onChange={handleChange} className={getRadioClass("task")} />
+            <Form.Check type="radio" label="Reminder" name="type" value="reminder" checked={formData.type === "reminder"} onChange={handleChange} className={getRadioClass("reminder")} />
+            <Form.Check type="radio" label="Habit" name="type" value="habit" checked={formData.type === "habit"} onChange={handleChange} className={getRadioClass("habit")} />
+            <Form.Check type="radio" label="Event" name="type" value="event" checked={formData.type === "event"} onChange={handleChange} className={getRadioClass("event")} />
           </Col>
         </Form.Group>
         {renderFormSection()}
         <Form.Group as={Row}>
           <Col className="flex justify-center">
-            <Button
-              type="submit"
-              onSubmit={handleSubmit}
-              className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-1 rounded-full mx-auto"
-            >
-              <IoMdCheckmark
-                color="white"
-                size={70}
-              />
+            <Button type="submit" onSubmit={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-1 rounded-full mx-auto">
+              <IoMdCheckmark color="white" size={70} />
             </Button>
           </Col>
         </Form.Group>

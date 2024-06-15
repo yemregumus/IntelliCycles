@@ -6,7 +6,7 @@ const Welcome = () => {
     const navigate = useNavigate();
     return(
         <>
-            <div className="text-white text-center mt-16 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 h-full w-5/6 mx-auto ">
+            <div className="text-white text-center mt-20 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 h-full w-5/6 mx-auto ">
                 <div className="text-4xl border-b-4 max-w-[40rem] mx-auto pb-4 mb-5">
                     Welcome To IntelliCycles
                 </div> 
@@ -50,14 +50,14 @@ const Welcome = () => {
                         Without further ado Sign-in/Register for the account today!
                     </p>
                     <br />
-                    <Row>
+                    {/* <Row>
                       <Col className="bg-teal-800 text-3xl hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-5 w-64" onClick={() => navigate('/signin')}>
                           Sign-In
                       </Col>
                       <Col className="bg-teal-800 text-3xl hover:bg-teal-950 transition duration-150 p-3 rounded-full mx-5 w-64" onClick={() => navigate('/register')}>
                           Register
                       </Col>
-                    </Row>
+                    </Row> */}
                 </div>
             </div>
         </>
