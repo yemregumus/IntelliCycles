@@ -44,7 +44,7 @@ function Register() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, username, email, password, dateOfBirth, membership }),
+                body: JSON.stringify({ avatar: selectedAvatar, firstName, lastName, username, email, password, dateOfBirth}),
             });
 
             if (response.ok) {
