@@ -35,7 +35,7 @@ const Account = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getToken()}`,
+                    'Authorization': `jwt ${getToken()}`,
                 },
             });
             if (response.ok) {

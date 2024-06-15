@@ -3,7 +3,7 @@ import {jwtDecode} from "jwt-decode";
 
 export const isTokenValid = () => {
     const token = sessionStorage.getItem('jwt');
-    console.log('Token', token);
+    // console.log('Token', token);
     if (!token) {
         console.error('Token not found');
         return false;

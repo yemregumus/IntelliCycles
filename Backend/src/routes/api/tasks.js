@@ -7,10 +7,12 @@ const { createUserActivity, getUserActivitiesByType, getUserActivityById, update
 router.post("/createTask", async (req, res) => {
   const { userid, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak } = req.body;
 
+  console.log(`Request to create a task the user ${userid} with name ${name} and description ${description}.`);
   try {
     const activityId = await createUserActivity(userid, "task", name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak);
     res.status(201).json(resMessage(true, "Task created successfully", { activityId }));
   } catch (error) {
+    console.log(error);
     res.status(500).json(resMessage(false, error.message));
   }
 });

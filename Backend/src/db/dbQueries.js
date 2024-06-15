@@ -19,9 +19,7 @@ const cleanTable = () => {
       .then(() => {
         resolve();
       })
-      .catch(() =>
-        reject(new Error("Database error while clearning all the tables."))
-      );
+      .catch(() => reject(new Error("Database error while clearning all the tables.")));
   });
 };
 
@@ -192,7 +190,7 @@ const addNewMembership = (id) => {
         VALUES ($1, $2);
         `;
     pool
-      .query(addMembershipQuery, [id, "Free"])
+      .query(addMembershipQuery, [id, "free"])
       .then((result) => {
         if (!result.rowCount) reject(new Error(`User ${id} already has a membership.`));
         resolve(`${id}'s membership is added.`);
@@ -231,7 +229,7 @@ const createUserActivity = (userid, type, name, description, due_date, reminder_
       RETURNING id;
     `;
     pool
-      .query(insertActivityQuery, [userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, start_time, end_time, streak])
+      .query(insertActivityQuery, [userid, type, name, description || null, due_date || null, reminder_datetime || null, color, repeat_interval || null, complete, start_time || null, end_time || null, streak || null])
       .then((result) => resolve(result.rows[0].id))
       .catch((error) => reject(new Error(`Database error while creating user activity. ${error}`)));
   });

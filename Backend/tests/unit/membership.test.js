@@ -52,7 +52,7 @@ describe("GET /api/membership/:id", () => {
     const { membershipType } = response.body.body;
     expect(response.statusCode).toBe(200);
     expect(response.body.ok).toBe(true);
-    expect(membershipType).toBe("Free");
+    expect(membershipType).toBe("free");
   });
 });
 
@@ -122,6 +122,6 @@ describe("DELETE /api/membership/:id", () => {
     const { membershipType } = deletedMembership.body.body;
     expect(deletedMembership.statusCode).toBe(200);
     expect(deletedMembership.body.ok).toBe(true);
-    expect(membershipType).toBe("Free");
+    expect(membershipType).toBe("free");
   });
 });
