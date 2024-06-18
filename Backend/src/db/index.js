@@ -1,5 +1,27 @@
 const pool = require("./db");
-const { createTables, cleanTable, addNewUser, isUniqueUser, dbHealthCheck, getUserInfo, deleteUser, updateUser, getUserPassword, updateUserPassword, getUserId, getMembershipInfo, updateMembership, addNewMembership, createUserActivity, getUserActivitiesByType, getUserActivityById, updateUserActivity, deleteUserActivity } = require("./dbQueries");
+const {
+  createTables,
+  cleanTable,
+  addNewUser,
+  isUniqueUser,
+  dbHealthCheck,
+  getUserInfo,
+  deleteUser,
+  updateUser,
+  getUserPassword,
+  updateUserPassword,
+  getUserId,
+  getMembershipInfo,
+  updateMembership,
+  addNewMembership,
+  createNewTask,
+  createNewHabit,
+  createNewReminder,
+  createNewEvent,
+  getUserActivities,
+  getUserActivityById,
+  deleteUserActivity,
+} = require("./dbQueries");
 
 module.exports = {
   pool,
@@ -17,9 +39,11 @@ module.exports = {
   updateMembership,
   addNewMembership,
   cleanTable,
-  createUserActivity,
-  getUserActivitiesByType,
+  createNewTask,
+  createNewHabit,
+  createNewReminder,
+  createNewEvent,
+  getUserActivities,
   getUserActivityById,
-  updateUserActivity,
   deleteUserActivity,
 };

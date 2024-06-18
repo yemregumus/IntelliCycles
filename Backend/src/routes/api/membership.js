@@ -47,6 +47,17 @@ router.post("/:id", async (req, res) => {
         )
       );
 
+  try {
+    // Make sure the user id is valid.
+    await getUserInfo(userId);
+  } catch (error) {
+    return res
+      .status(400)
+      .json(
+        resMessage(false, `Invalid user id. No user found with id ${userId}.`)
+      );
+  }
+
   console.log(
     `Request to update an existing user ${id}'s membership information.`
   );
@@ -72,6 +83,17 @@ router.delete("/:id", async (req, res) => {
           `Insufficient information received. Please check the requirements of this api.`
         )
       );
+
+  try {
+    // Make sure the user id is valid.
+    await getUserInfo(userId);
+  } catch (error) {
+    return res
+      .status(400)
+      .json(
+        resMessage(false, `Invalid user id. No user found with id ${userId}.`)
+      );
+  }
 
   console.log(
     `Request to delete an existing user ${id}'s membership information.`

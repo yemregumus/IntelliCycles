@@ -21,6 +21,6 @@ router.use(
 );
 
 // Task APIs
-router.use("/tasks", require("./tasks"));
+router.use("/activity", require("./activity"));
 
 module.exports = router;
