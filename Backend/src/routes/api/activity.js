@@ -179,7 +179,10 @@ router.get("/user/:userId", async (req, res) => {
     return res
       .status(400)
       .json(
-        resMessage(false, `Invalid user id. No user found with id ${userId}.`)
+        resMessage(
+          false,
+          `Invalid user id. No user found with passed id ${userId}.`
+        )
       );
   }
 
