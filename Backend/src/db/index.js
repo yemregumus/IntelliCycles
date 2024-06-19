@@ -20,6 +20,7 @@ const {
   createNewEvent,
   getUserActivities,
   getUserActivityById,
+  updateUserActivity,
   deleteUserActivity,
 } = require("./dbQueries");
 
@@ -45,5 +46,6 @@ module.exports = {
   createNewEvent,
   getUserActivities,
   getUserActivityById,
+  updateUserActivity,
   deleteUserActivity,
 };

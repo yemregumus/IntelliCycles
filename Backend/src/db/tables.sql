@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS useractivity (
     type VARCHAR(20) NOT NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
-    due_date TIMESTAMP,
+    due_datetime TIMESTAMP,
     reminder_datetime TIMESTAMP,
     color VARCHAR(20),
     repeat_interval VARCHAR(20),
     complete BOOLEAN,
     streak INTEGER,
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
+    start_datetime TIMESTAMP,
+    end_datetime TIMESTAMP,
     FOREIGN KEY (userid) REFERENCES "user"(id)
     ON DELETE CASCADE
 );
