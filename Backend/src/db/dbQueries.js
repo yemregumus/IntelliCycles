@@ -280,14 +280,14 @@ const createNewTask = (
   name,
   description,
   dueDatetime,
-  reminderDatetime,
+  reminderDateTime,
   color,
   repeatInterval,
   complete
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-      INSERT INTO userActivity (userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete)
+      INSERT INTO userActivity (userid, type, name, description, due_datetime, reminder_datetime, color, repeat_interval, complete)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING id;
     `;
@@ -299,7 +299,7 @@ const createNewTask = (
         name,
         description,
         dueDatetime,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
         complete,
@@ -317,7 +317,7 @@ const createNewTask = (
 const createNewReminder = (
   userId,
   name,
-  reminderDatetime,
+  reminderDateTime,
   color,
   repeatInterval
 ) => {
@@ -332,7 +332,7 @@ const createNewReminder = (
         userId,
         "reminder",
         name,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
       ])
@@ -351,7 +351,7 @@ const createNewHabit = (
   name,
   description,
   dueDatetime,
-  reminderDatetime,
+  reminderDateTime,
   color,
   repeatInterval,
   complete,
@@ -359,7 +359,7 @@ const createNewHabit = (
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-      INSERT INTO userActivity (userid, type, name, description, due_date, reminder_datetime, color, repeat_interval, complete, streak)
+      INSERT INTO userActivity (userid, type, name, description, due_datetime, reminder_datetime, color, repeat_interval, complete, streak)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING id;
     `;
@@ -370,7 +370,7 @@ const createNewHabit = (
         name,
         description,
         dueDatetime,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
         complete,
@@ -390,7 +390,7 @@ const createNewEvent = (
   userId,
   name,
   description,
-  reminderDatetime,
+  reminderDateTime,
   color,
   repeatInterval,
   startDateTime,
@@ -398,7 +398,7 @@ const createNewEvent = (
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-      INSERT INTO userActivity (userid, type, name, description, reminder_datetime, color, repeat_interval, start_time, end_time)
+      INSERT INTO userActivity (userid, type, name, description, reminder_datetime, color, repeat_interval, start_datetime, end_datetime)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING id;
     `;
@@ -408,7 +408,7 @@ const createNewEvent = (
         "event",
         name,
         description,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
         startDateTime,
@@ -447,14 +447,14 @@ const getUserActivities = (userId, type = null) => {
         const activities = result.rows.map((row) => ({
           name: row.name,
           description: row.description,
-          dueDateTime: row.due_date,
+          dueDateTime: row.due_datetime,
           reminderDateTime: row.reminder_datetime,
           color: row.color,
           repeatInterval: row.repeat_interval,
           complete: row.complete,
           streak: row.streak,
-          startDateTime: row.start_time,
-          endDateTime: row.end_time,
+          startDateTime: row.start_datetime,
+          endDateTime: row.end_datetime,
         }));
 
         resolve(activities);
@@ -486,14 +486,14 @@ const getUserActivityById = (activityId) => {
         const activity = {
           name: result.rows[0].name,
           description: result.rows[0].description,
-          dueDateTime: result.rows[0].due_date,
+          dueDateTime: result.rows[0].due_datetime,
           reminderDateTime: result.rows[0].reminder_datetime,
           color: result.rows[0].color,
           repeatInterval: result.rows[0].repeat_interval,
           complete: result.rows[0].complete,
           streak: result.rows[0].streak,
-          startDateTime: result.rows[0].start_time,
-          endDateTime: result.rows[0].end_time,
+          startDateTime: result.rows[0].start_datetime,
+          endDateTime: result.rows[0].end_datetime,
         };
 
         resolve(activity);
@@ -509,46 +509,43 @@ const getUserActivityById = (activityId) => {
 // Update a user activity
 const updateUserActivity = (
   id,
-  type,
   name,
   description,
-  due_date,
-  reminder_datetime,
+  dueDateTime,
+  reminderDateTime,
   color,
-  repeat_interval,
+  repeatInterval,
   complete,
-  start_time,
-  end_time,
+  startDateTime,
+  endDateTime,
   streak
 ) => {
   return new Promise((resolve, reject) => {
     const updateActivityQuery = `
       UPDATE userActivity
-      SET type = $1,
-          name = $2,
-          description = $3,
-          due_date = $4,
-          reminder_datetime = $5,
-          color = $6,
-          repeat_interval = $7,
-          complete = $8,
-          start_time = $9,
-          end_time = $10,
-          streak = $11
-      WHERE id = $12;
+      SET name = $1,
+          description = $2,
+          due_datetime = $3,
+          reminder_datetime = $4,
+          color = $5,
+          repeat_interval = $6,
+          complete = $7,
+          start_datetime = $8,
+          end_datetime = $9,
+          streak = $10
+      WHERE id = $11;
     `;
     pool
       .query(updateActivityQuery, [
-        type,
         name,
         description,
-        due_date,
-        reminder_datetime,
+        dueDateTime,
+        reminderDateTime,
         color,
-        repeat_interval,
+        repeatInterval,
         complete,
-        start_time,
-        end_time,
+        startDateTime,
+        endDateTime,
         streak,
         id,
       ])
@@ -620,5 +617,6 @@ module.exports = {
   createNewEvent,
   getUserActivities,
   getUserActivityById,
+  updateUserActivity,
   deleteUserActivity,
 };

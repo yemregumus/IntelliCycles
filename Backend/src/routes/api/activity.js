@@ -9,6 +9,7 @@ const {
   getUserActivities,
   getUserInfo,
   getUserActivityById,
+  updateUserActivity,
   deleteUserActivity,
 } = require("../../db");
 
@@ -53,7 +54,7 @@ router.post("/:type/:userId", async (req, res) => {
     name,
     description,
     dueDateTime,
-    reminderDatetime,
+    reminderDateTime,
     color,
     repeatInterval,
     complete,
@@ -71,10 +72,10 @@ router.post("/:type/:userId", async (req, res) => {
         !name ||
         !description ||
         !dueDateTime ||
-        !reminderDatetime ||
+        !reminderDateTime ||
         !color ||
         !repeatInterval ||
-        !complete
+        complete == null
       )
         return invalidRequest();
       activityId = await createNewTask(
@@ -82,18 +83,18 @@ router.post("/:type/:userId", async (req, res) => {
         name,
         description,
         dueDateTime,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
         complete
       );
     } else if (type === "reminder") {
-      if (!name || !reminderDatetime || !color || !repeatInterval)
+      if (!name || !reminderDateTime || !color || !repeatInterval)
         return invalidRequest();
       activityId = await createNewReminder(
         userId,
         name,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval
       );
@@ -102,10 +103,10 @@ router.post("/:type/:userId", async (req, res) => {
         !name ||
         !description ||
         !dueDateTime ||
-        !reminderDatetime ||
+        !reminderDateTime ||
         !color ||
         !repeatInterval ||
-        !complete ||
+        complete == null ||
         !streak
       )
         return invalidRequest();
@@ -114,7 +115,7 @@ router.post("/:type/:userId", async (req, res) => {
         name,
         description,
         dueDateTime,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
         complete,
@@ -126,7 +127,7 @@ router.post("/:type/:userId", async (req, res) => {
         !description ||
         !startDateTime ||
         !endDateTime ||
-        !reminderDatetime ||
+        !reminderDateTime ||
         !color ||
         !repeatInterval
       )
@@ -135,7 +136,7 @@ router.post("/:type/:userId", async (req, res) => {
         userId,
         name,
         description,
-        reminderDatetime,
+        reminderDateTime,
         color,
         repeatInterval,
         startDateTime,
@@ -178,7 +179,10 @@ router.get("/user/:userId", async (req, res) => {
     return res
       .status(400)
       .json(
-        resMessage(false, `Invalid user id. No user found with id ${userId}.`)
+        resMessage(
+          false,
+          `Invalid user id. No user found with passed id ${userId}.`
+        )
       );
   }
 
@@ -226,34 +230,48 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a task
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
+  // Get activity id.
   const { id } = req.params;
+
+  // Make sure the activity id is not null.
+  if (!id)
+    return res
+      .status(400)
+      .json(
+        resMessage(
+          false,
+          `Insufficient information received. Please check the requirements of this api.`
+        )
+      );
+
+  // Get all the data from the body.
   const {
     name,
     description,
-    due_date,
-    reminder_datetime,
+    dueDateTime,
+    reminderDateTime,
     color,
-    repeat_interval,
+    repeatInterval,
     complete,
-    start_time,
-    end_time,
+    startDateTime,
+    endDateTime,
     streak,
   } = req.body;
 
+  // Try to update the data.
   try {
     await updateUserActivity(
       id,
-      "task",
       name,
       description,
-      due_date,
-      reminder_datetime,
+      dueDateTime,
+      reminderDateTime,
       color,
-      repeat_interval,
+      repeatInterval,
       complete,
-      start_time,
-      end_time,
+      startDateTime,
+      endDateTime,
       streak
     );
     res.status(200).json(resMessage(true, "Task updated successfully"));
