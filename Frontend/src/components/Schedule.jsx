@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { IoMdAdd } from "react-icons/io";
 import { Badge } from "../components";
 import { useNavigate } from "react-router-dom";
-import { getTasksByUser } from "../../api";
+import { getActivitiesByUser } from "../../api";
 import { getUserIdFromToken } from "../utils/auth";
 import { toast } from 'react-hot-toast';
 import moment from 'moment';
@@ -20,7 +20,7 @@ const Schedule = ({ type = "" }) => {
   useEffect(() => {
     const fetchEntities = async () => {
       try {
-        const entities = await getTasksByUser(userid);
+        const entities = await getActivitiesByUser(userid);
         if (entities) {
           if (entities.length === 0) {
             toast.success("You currently do not have any tasks");
