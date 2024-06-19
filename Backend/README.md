@@ -108,6 +108,14 @@ All the APIs returns an object with the same properties as described below.
 
 - Request Body: oldPassword, newPassword.
 
+### `/api/activity/:activityId`
+
+**Description**: Update the user activity.
+
+**Expects**:
+
+- Request Body: All the required data according to the activity type.
+
 ## DELETE
 
 ### `/api/user/:userId`
