@@ -37,7 +37,7 @@ const EditEventForm = ({ formData, handleChange }) => (
             <Form.Control
               type="datetime-local"
               name="startTime"
-              value={formData.startTime}
+              value={formData.startDateTime}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -48,7 +48,7 @@ const EditEventForm = ({ formData, handleChange }) => (
             <Form.Control
                 type="datetime-local"
                 name="endTime"
-                value={formData.endTime}
+                value={formData.endDateTime}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -71,7 +71,7 @@ const EditEventForm = ({ formData, handleChange }) => (
       <Col sm={4}>
         <Form.Select
           name="repeat"
-          value={formData.repeat}
+          value={formData.repeatInterval}
           onChange={handleChange}
           className="bg-stone-400 placeholder-stone-950 rounded-full"
         >

@@ -26,7 +26,7 @@ const Schedule = ({ type = "" }) => {
             toast.success("You currently do not have any tasks");
           } else {
             // Sort tasks by due date and time
-            entities.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+            entities.sort((a, b) => new Date(a.dueDateTime) - new Date(b.dueDateTime));
             setentities(entities);
             console.log("Fetched tasks:", entities);
           }
@@ -43,13 +43,13 @@ const Schedule = ({ type = "" }) => {
   // Organize tasks by day of the week and sort each day's tasks by due date and time
   const entitiesByDay = daysOfWeek.map(() => []);
   entities.forEach(entity => {
-    const day = moment(entity.due_date).day();
+    const day = moment(entity.dueDateTime).day();
     entitiesByDay[day].push(entity);
   });
 
   // Sort tasks within each day
   entitiesByDay.forEach(dayEntities => {
-    dayEntities.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+    dayEntities.sort((a, b) => new Date(a.dueDateTime) - new Date(b.dueDateTime));
   });
 
   // Calculate the maximum number of tasks in any given day

@@ -23,7 +23,7 @@ const EditReminderForm = ({ formData, handleChange }) => (
             <Form.Control
               type="datetime-local"
               name="reminder"
-              value={formData.reminder}
+              value={formData.reminderDateTime}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -33,7 +33,7 @@ const EditReminderForm = ({ formData, handleChange }) => (
         <Col sm={4}>
           <Form.Select
             name="repeat"
-            value={formData.repeat}
+            value={formData.repeatInterval}
             onChange={handleChange}
             className="bg-stone-400 placeholder-stone-950 rounded-full"
           >
