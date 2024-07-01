@@ -25,6 +25,8 @@ echo "Start PostgreSQL container."
 
 docker compose -f docker-compose.dev.yml up --build -d || exit 1
 
+# Start the server in 'Dev' mode.
+
 cd ..
 
 clear

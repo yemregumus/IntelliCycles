@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const resMessage = require("../responseFormat");
-const { getMembershipInfo, updateMembership } = require("../../db");
+const {
+  getMembershipInfo,
+  updateMembership,
+  getUserInfo,
+} = require("../../db");
 
 router.get("/:id", async (req, res) => {
   // Get the user id.
@@ -18,6 +22,16 @@ router.get("/:id", async (req, res) => {
           `Insufficient information received. Please check the requirements of this api.`
         )
       );
+
+  try {
+    // Make sure the user id is valid.
+    await getUserInfo(id);
+  } catch (error) {
+    return res
+      .status(400)
+      .json(resMessage(false, `Invalid user id. No user found with id ${id}.`));
+  }
+
   try {
     // Get user information.
     const membershipType = await getMembershipInfo(id);
@@ -49,13 +63,11 @@ router.post("/:id", async (req, res) => {
 
   try {
     // Make sure the user id is valid.
-    await getUserInfo(userId);
+    await getUserInfo(id);
   } catch (error) {
     return res
       .status(400)
-      .json(
-        resMessage(false, `Invalid user id. No user found with id ${userId}.`)
-      );
+      .json(resMessage(false, `Invalid user id. No user found with id ${id}.`));
   }
 
   console.log(
@@ -86,13 +98,11 @@ router.delete("/:id", async (req, res) => {
 
   try {
     // Make sure the user id is valid.
-    await getUserInfo(userId);
+    await getUserInfo(id);
   } catch (error) {
     return res
       .status(400)
-      .json(
-        resMessage(false, `Invalid user id. No user found with id ${userId}.`)
-      );
+      .json(resMessage(false, `Invalid user id. No user found with id ${id}.`));
   }
 
   console.log(
@@ -100,7 +110,7 @@ router.delete("/:id", async (req, res) => {
   );
 
   try {
-    const result = await updateMembership(id, "free");
+    await updateMembership(id, "free");
     res.status(200).json(resMessage(true, `${id}'s membership is deleted.`));
   } catch (error) {
     res.status(500).json(resMessage(false, error.message));
