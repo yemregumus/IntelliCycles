@@ -38,7 +38,7 @@ const EditTaskForm = ({ formData, handleChange }) => {
           <Form.Control
             type="datetime-local"
             name="due_date"
-            value={formData.dueDateTime ? formData.DueDateTime.substring(0, 16) : ""}
+            value={formData.dueDateTime ? formData.dueDateTime.substring(0, 16) : ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
