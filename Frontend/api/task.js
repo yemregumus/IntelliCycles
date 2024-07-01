@@ -53,7 +53,7 @@ export const getActivitiesByUser = async (userid) => {
 
 export const deleteTaskById = async (taskId)=>{
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/${taskId}`, {
+        const response = await fetch(`${apiUrl}/api/activity/${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
