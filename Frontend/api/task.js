@@ -74,8 +74,8 @@ export const deleteTaskById = async (taskId)=>{
 
 export const updateTaskById = async (taskData) => {
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/${taskData.id}`, {
-            method: 'PUT',
+        const response = await fetch(`${apiUrl}/api/activity/${taskData.id}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `jwt ${getToken()}`,
