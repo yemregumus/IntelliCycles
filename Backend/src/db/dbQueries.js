@@ -445,6 +445,7 @@ const getUserActivities = (userId, type = null) => {
       .query(getActivitiesQuery, queryParams)
       .then((result) => {
         const activities = result.rows.map((row) => ({
+          id:row.id,
           type: row.type,
           name: row.name,
           description: row.description,
