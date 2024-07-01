@@ -1,5 +1,5 @@
 import { getHealthCheck } from "./healthCheck";
-import { createActivity, getActivitiesByUser, deleteTaskById, updateTaskById } from "./task";
+import { createActivity, getActivitiesByUser, deleteTaskById, updateTaskById } from "./activity";
 
 export { getHealthCheck };
 export { createActivity };
