@@ -54,7 +54,6 @@ const AddReminderForm = ({ formData, handleChange }) => (
         name="color"
         value={formData.color}
         onChange={handleChange}
-        required
         className="bg-stone-400 placeholder-stone-950 rounded-full"
       />
       </Col>
