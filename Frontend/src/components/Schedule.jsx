@@ -43,7 +43,7 @@ const Schedule = ({ type = "" }) => {
   // Organize tasks by day of the week and sort each day's tasks by due date and time
   const entitiesByDay = daysOfWeek.map(() => []);
   entities.forEach(entity => {
-    const day = moment(entity.dueDateTime).day();
+    const day = moment(entity.dueDateTime || entity.reminderDateTime).day();
     entitiesByDay[day].push(entity);
   });
 
@@ -73,7 +73,7 @@ const Schedule = ({ type = "" }) => {
                 {daysOfWeek.map((_, colIndex) => (
                   <Col key={colIndex} className="border-x-2 border-rose-900 text-3xl">
                     {entitiesByDay[colIndex][rowIndex] ? (
-                      <Badge type={type} entity={entitiesByDay[colIndex][rowIndex]} updateTasks={() => setTasksUpdated(!tasksUpdated)}/>
+                      <Badge entity={entitiesByDay[colIndex][rowIndex]} updateTasks={() => setTasksUpdated(!tasksUpdated)}/>
                     ) : null}
                   </Col>
                 ))}
