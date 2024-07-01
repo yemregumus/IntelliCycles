@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm } from "../AddForms";
 import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { createActivity } from "../../../api/task";
+import { createActivity } from "../../../api/activity";
 import { getUserIdFromToken } from "../../utils/auth";
 
 const AddForm = ({ type }) => {
