@@ -46,6 +46,18 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
     }
 
     const handleSubmit= async (e) =>{
+        if(formData.dueDateTime==""){
+            formData.dueDateTime=null;
+        }
+        if(formData.reminderDateTime==""){
+            formData.reminderDateTime=null;
+        }
+        if(formData.startDateTime==""){
+            formData.startDateTime=null;
+        }
+        if(formData.endDateTime==""){
+            formData.endDateTime=null;
+        }
         await updateActivityById(formData);
         handleClose();
         updateTasks();        
