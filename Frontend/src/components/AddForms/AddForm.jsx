@@ -55,7 +55,7 @@ const AddForm = ({ type }) => {
       name: formData.name,
       description: formData.description,
       dueDateTime: formData.due,
-      reminderDateTime: formData.reminder,
+      reminderDateTime: formData.reminder || null,
       color: formData.color,
       repeatInterval: formData.repeat,
       complete: formData.complete,
