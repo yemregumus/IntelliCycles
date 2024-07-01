@@ -19,7 +19,10 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
             type: type,
           }));
         }
-    }, [type]);
+        if (entity) {
+            setFormData(entity);
+        }
+    }, [type, entity]);
     
     const handleChange = (e) => {
         const { name, value, type: inputType, checked } = e.target;
@@ -45,9 +48,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
     const handleSubmit= async (e) =>{
         await updateTaskById(formData);
         handleClose();
-        updateTasks();
-        toast.success(`${entity.name} ${entity.type} has been successfully updated.`)
-        
+        updateTasks();        
     }
 
     const renderFormSection = () => {
@@ -77,7 +78,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
                             <Button variant="danger" onClick={handleDelete} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full">
                                 <MdDelete color="white" size={40}  />
                             </Button>
-                            <Button variant="submit" onClick={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
+                            <Button type="submit" onClick={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
                                 <FaRegSave color="white" size={40}  />
                             </Button>
                         </Modal.Footer>

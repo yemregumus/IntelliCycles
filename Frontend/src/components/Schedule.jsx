@@ -73,7 +73,7 @@ const Schedule = ({ type = "" }) => {
                 {daysOfWeek.map((_, colIndex) => (
                   <Col key={colIndex} className="border-x-2 border-rose-900 text-3xl">
                     {entitiesByDay[colIndex][rowIndex] ? (
-                      <Badge entity={entitiesByDay[colIndex][rowIndex]} updateTasks={() => setTasksUpdated(!tasksUpdated)}/>
+                      <Badge key={`${colIndex}-${rowIndex}`} entity={entitiesByDay[colIndex][rowIndex]} updateTasks={() => setTasksUpdated(!tasksUpdated)}/>
                     ) : null}
                   </Col>
                 ))}
