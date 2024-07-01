@@ -51,7 +51,7 @@ export const getActivitiesByUser = async (userid) => {
     }
 };
 
-export const deleteTaskById = async (taskId)=>{
+export const deleteActivityById = async (taskId)=>{
     try {
         const response = await fetch(`${apiUrl}/api/activity/${taskId}`, {
             method: 'DELETE',
@@ -72,7 +72,7 @@ export const deleteTaskById = async (taskId)=>{
     }
 }
 
-export const updateTaskById = async (taskData) => {
+export const updateActivityById = async (taskData) => {
     try {
         const response = await fetch(`${apiUrl}/api/activity/${taskData.id}`, {
             method: 'PATCH',

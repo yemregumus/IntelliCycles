@@ -3,7 +3,7 @@ import { Modal, Form, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
 import { MdDelete, MdCancel } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
-import { deleteTaskById, updateTaskById } from "../../../api";
+import { deleteActivityById, updateActivityById } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -37,7 +37,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
 
     const handleDelete= async (e) =>{
         if (window.confirm(`Are you sure you want to delete your ${entity.type}: ${entity.name}?`)) {
-            await deleteTaskById(entity.id);
+            await deleteActivityById(entity.id);
             handleClose();
             updateTasks();
             toast.success(`${entity.name} ${entity.type} has been successfully deleted.`)
@@ -46,7 +46,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
     }
 
     const handleSubmit= async (e) =>{
-        await updateTaskById(formData);
+        await updateActivityById(formData);
         handleClose();
         updateTasks();        
     }
