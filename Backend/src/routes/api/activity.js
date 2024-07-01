@@ -68,16 +68,7 @@ router.post("/:type/:userId", async (req, res) => {
   try {
     // Make sure all the required data is present according to the activity type.
     if (type === "task") {
-      if (
-        !name ||
-        !description ||
-        !dueDateTime ||
-        !reminderDateTime ||
-        !color ||
-        !repeatInterval ||
-        complete == null
-      )
-        return invalidRequest();
+      if (!name || !dueDateTime) return invalidRequest();
       activityId = await createNewTask(
         userId,
         name,
@@ -89,8 +80,7 @@ router.post("/:type/:userId", async (req, res) => {
         complete
       );
     } else if (type === "reminder") {
-      if (!name || !reminderDateTime || !color || !repeatInterval)
-        return invalidRequest();
+      if (!name || !reminderDateTime) return invalidRequest();
       activityId = await createNewReminder(
         userId,
         name,
@@ -99,17 +89,7 @@ router.post("/:type/:userId", async (req, res) => {
         repeatInterval
       );
     } else if (type === "habit") {
-      if (
-        !name ||
-        !description ||
-        !dueDateTime ||
-        !reminderDateTime ||
-        !color ||
-        !repeatInterval ||
-        complete == null ||
-        !streak
-      )
-        return invalidRequest();
+      if (!name || !dueDateTime || !repeatInterval) return invalidRequest();
       activityId = await createNewHabit(
         userId,
         name,
@@ -122,16 +102,7 @@ router.post("/:type/:userId", async (req, res) => {
         streak
       );
     } else if (type === "event") {
-      if (
-        !name ||
-        !description ||
-        !startDateTime ||
-        !endDateTime ||
-        !reminderDateTime ||
-        !color ||
-        !repeatInterval
-      )
-        return invalidRequest();
+      if (!name || !startDateTime || !endDateTime) return invalidRequest();
       activityId = await createNewEvent(
         userId,
         name,
