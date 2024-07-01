@@ -20,7 +20,7 @@ const AddForm = ({ type }) => {
     complete: false,
     startTime: "",
     endTime: "",
-    streak: "",
+    streak: 0,
   });
 
   useEffect(() => {
