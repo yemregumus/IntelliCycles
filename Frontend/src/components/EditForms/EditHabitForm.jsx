@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import { FaFire } from "react-icons/fa6";
 
 const EditHabitForm = ({ formData, handleChange }) => (
   <div>
@@ -10,7 +11,7 @@ const EditHabitForm = ({ formData, handleChange }) => (
         type="text"
         placeholder="Habit Name"
         name="name"
-        value={formData.name}
+        value={formData.name || ""}
         onChange={handleChange}
         required
         className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -24,7 +25,7 @@ const EditHabitForm = ({ formData, handleChange }) => (
                 as="textarea"
                 placeholder="Habit Description"
                 name="description"
-                value={formData.description}
+                value={formData.description || ""}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]"
@@ -35,9 +36,9 @@ const EditHabitForm = ({ formData, handleChange }) => (
         <Form.Label column sm={2} className="text-left">Due</Form.Label>
         <Col sm={4}>
             <Form.Control
-              type="datetime-local"
+              type="dueDateTime"
               name="due"
-              value={formData.dueDateTime}
+              value={formData.dueDateTime ? formData.dueDateTime.substring(0, 16) : ""}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -47,8 +48,8 @@ const EditHabitForm = ({ formData, handleChange }) => (
         <Col sm={4}>
             <Form.Control
                 type="datetime-local"
-                name="reminder"
-                value={formData.reminderDateTime}
+                name="reminderDateTime"
+                value={formData.reminderDateTime ? formData.reminderDateTime.substring(0, 16) : ""}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -61,7 +62,7 @@ const EditHabitForm = ({ formData, handleChange }) => (
       <Form.Control
         type="color"
         name="color"
-        value={formData.color}
+        value={formData.color || ""}
         onChange={handleChange}
         required
         className="bg-stone-400 placeholder-stone-950 rounded-full"
@@ -70,8 +71,8 @@ const EditHabitForm = ({ formData, handleChange }) => (
       <Form.Label column sm={2} className="text-left">Repeat</Form.Label>
       <Col sm={4}>
         <Form.Select
-          name="repeat"
-          value={formData.repeatInterval}
+          name="repeatInterval"
+          value={formData.repeatInterval || ""}
           onChange={handleChange}
           className="bg-stone-400 placeholder-stone-950 rounded-full"
         >
@@ -85,7 +86,7 @@ const EditHabitForm = ({ formData, handleChange }) => (
     </Form.Group>
     <Form.Group as={Row} controlId="formTaskComplete" className="mb-4 items-center">
       <Form.Label column sm={2} className="text-left">Complete</Form.Label>
-      <Col sm={10}>
+      <Col sm={4}>
       <Form.Check
         type="switch"
         id="completeSwitch"
@@ -95,6 +96,10 @@ const EditHabitForm = ({ formData, handleChange }) => (
         onChange={handleChange}
         className=""
       />
+      </Col>
+      <Form.Label column sm={2} className="text-left items-center"><FaFire size="30" color="orange"/></Form.Label>
+      <Col sm={4}>
+        <div className="text-3xl">{formData.streak}</div>
       </Col>
     </Form.Group>
   </div>
