@@ -86,6 +86,8 @@ export const updateTaskById = async (taskData) => {
         if (!response.ok) {
             console.error('Unable to update task in backend', response.status, response.statusText);
             toast.error('Unable to update task');
+        }else{
+            toast.success('task updated successfully');
         }
     } catch (error) {
         console.error('Backend error', error);
