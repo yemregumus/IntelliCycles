@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS useractivity (
     streak INTEGER,
     start_datetime TIMESTAMP,
     end_datetime TIMESTAMP,
+    completed_at TIMESTAMP,
     FOREIGN KEY (userid) REFERENCES "user"(id)
     ON DELETE CASCADE
 );
