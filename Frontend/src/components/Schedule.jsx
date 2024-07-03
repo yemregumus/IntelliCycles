@@ -43,7 +43,7 @@ const Schedule = ({ type = "" }) => {
   // Organize tasks by day of the week and sort each day's tasks by due date and time
   const entitiesByDay = daysOfWeek.map(() => []);
   entities.forEach(entity => {
-    const day = moment(entity.dueDateTime || entity.reminderDateTime).day();
+    const day = moment(entity.dueDateTime || entity.startDateTime || entity.reminderDateTime).day();
     entitiesByDay[day].push(entity);
   });
 
