@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
+import rrulePlugin from '@fullcalendar/rrule'
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import multiMonthPlugin from '@fullcalendar/multimonth';
 import { EditDialog } from './EditForms';
 import { getUserIdFromToken } from '../utils/auth';
-import { ConeStriped } from 'react-bootstrap-icons';
 import { getActivitiesByUser } from '../../api';
 import { toast } from 'react-hot-toast';
 import { all } from 'axios';
@@ -43,8 +43,8 @@ function Calendar() {
     const startDate = info.event.start instanceof Date ? info.event.start.toISOString() : info.event.start;
     const endDate = info.event.end instanceof Date ? info.event.end.toISOString() : info.event.end;
 
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
 
     const selectedEvent = {
       id: info.event.id,
@@ -71,6 +71,8 @@ function Calendar() {
 
             // filter out only events
             const validEntities = entities.filter(entity => entity.endDateTime);
+            console.log("Fetched tasks before map:", validEntities);
+
 
             const calendarEvents = validEntities.map(entity => ({
               id: entity.id,
@@ -82,15 +84,15 @@ function Calendar() {
               interval: entity.repeatInterval,
               description: entity.description,
               allDay: true,
+              rrule:{
+                freq: entity.repeatInterval,
+                dtstart: entity.startDateTime,
+              }
               // You can add more properties here as needed
             }));
-      
-            // Sort tasks by due date and time
-            //calendarEvents.sort((a, b) => new Date(a.start) - new Date(b.start));
-            setCurrentEvents(calendarEvents);
-            console.log("Fetched tasks before map:", validEntities);
-            console.log("Fetched tasks:", calendarEvents);
 
+            setCurrentEvents(calendarEvents);
+            console.log("Fetched tasks:", calendarEvents);
           
           }
         }
@@ -113,7 +115,8 @@ function Calendar() {
                         timeGridPlugin,
                         interactionPlugin,
                         listPlugin,
-                        multiMonthPlugin
+                        multiMonthPlugin,
+                        rrulePlugin
                     ]}
                     headerToolbar={{
                         left: "prev,next today",
