@@ -43,8 +43,8 @@ function Calendar() {
     const startDate = info.event.start instanceof Date ? info.event.start.toISOString() : info.event.start;
     const endDate = info.event.end instanceof Date ? info.event.end.toISOString() : info.event.end;
 
-    //console.log(startDate);
-    //console.log(endDate);
+    console.log(startDate);
+    console.log(endDate);
 
     const selectedEvent = {
       id: info.event.id,
@@ -70,7 +70,7 @@ function Calendar() {
           } else {
 
             // filter out only events
-            const validEntities = entities.filter(entity => entity.endDateTime);
+            const validEntities = entities.filter(entity => entity.endDateTime || entity.startDateTime);
             console.log("Fetched tasks before map:", validEntities);
 
 
@@ -88,7 +88,6 @@ function Calendar() {
                 freq: entity.repeatInterval,
                 dtstart: entity.startDateTime,
               }
-              // You can add more properties here as needed
             }));
 
             setCurrentEvents(calendarEvents);
