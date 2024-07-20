@@ -19,9 +19,9 @@ const getContrastColor = (bgColor) => {
     return luminance > 0.5 ? 'black' : 'white';
 };
 
-const Badge = ({ type, entity, updateTasks }) => {
+const Badge = ({ entity, updateTasks }) => {
     const [showEditDialog, setShowEditDialog] = useState(false);
-    type = type.toLowerCase();
+    const type = entity.type;
 
     const badgeStyle = {
         backgroundColor: entity.color,

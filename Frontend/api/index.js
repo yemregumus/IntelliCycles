@@ -1,8 +1,8 @@
 import { getHealthCheck } from "./healthCheck";
-import { createActivity, getActivitiesByUser, deleteTaskById, updateTaskById } from "./task";
+import { createActivity, getActivitiesByUser, deleteActivityById, updateActivityById } from "./activity";
 
 export { getHealthCheck };
 export { createActivity };
 export { getActivitiesByUser };
-export { deleteTaskById };
-export { updateTaskById };
+export { deleteActivityById };
+export { updateActivityById };

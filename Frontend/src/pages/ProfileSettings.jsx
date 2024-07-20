@@ -37,7 +37,7 @@ function ProfileSettings() {
                 },
             });
 
-            const responseMembership = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/membership/${userId}`, {
+            const responseMembership = await fetch(`${apiUrl}/api/membership/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,6 +65,8 @@ function ProfileSettings() {
                 });
             } else {
                 console.error('Failed to fetch user', response.status, response.statusText);
+                console.error('Failed to fetch membership', responseMembership.status, responseMembership.statusText);
+
             }
         
         };

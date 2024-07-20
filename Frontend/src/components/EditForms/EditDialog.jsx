@@ -3,7 +3,7 @@ import { Modal, Form, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
 import { MdDelete, MdCancel } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
-import { deleteTaskById, updateTaskById } from "../../../api";
+import { deleteActivityById, updateActivityById } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -19,7 +19,10 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
             type: type,
           }));
         }
-    }, [type]);
+        if (entity) {
+            setFormData(entity);
+        }
+    }, [type, entity]);
     
     const handleChange = (e) => {
         const { name, value, type: inputType, checked } = e.target;
@@ -34,7 +37,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
 
     const handleDelete= async (e) =>{
         if (window.confirm(`Are you sure you want to delete your ${entity.type}: ${entity.name}?`)) {
-            await deleteTaskById(entity.id);
+            await deleteActivityById(entity.id);
             handleClose();
             updateTasks();
             toast.success(`${entity.name} ${entity.type} has been successfully deleted.`)
@@ -43,11 +46,21 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
     }
 
     const handleSubmit= async (e) =>{
-        await updateTaskById(formData);
+        if(formData.dueDateTime==""){
+            formData.dueDateTime=null;
+        }
+        if(formData.reminderDateTime==""){
+            formData.reminderDateTime=null;
+        }
+        if(formData.startDateTime==""){
+            formData.startDateTime=null;
+        }
+        if(formData.endDateTime==""){
+            formData.endDateTime=null;
+        }
+        await updateActivityById(formData);
         handleClose();
-        updateTasks();
-        toast.success(`${entity.name} ${entity.type} has been successfully updated.`)
-        
+        updateTasks();        
     }
 
     const renderFormSection = () => {
@@ -77,7 +90,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
                             <Button variant="danger" onClick={handleDelete} className="bg-red-800 hover:bg-red-950 transition duration-150 p-2 rounded-full">
                                 <MdDelete color="white" size={40}  />
                             </Button>
-                            <Button variant="submit" onClick={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
+                            <Button type="submit" onClick={handleSubmit} className="bg-teal-800 hover:bg-teal-950 transition duration-150 p-2 rounded-full">
                                 <FaRegSave color="white" size={40}  />
                             </Button>
                         </Modal.Footer>

@@ -51,9 +51,9 @@ export const getActivitiesByUser = async (userid) => {
     }
 };
 
-export const deleteTaskById = async (taskId)=>{
+export const deleteActivityById = async (taskId)=>{
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/${taskId}`, {
+        const response = await fetch(`${apiUrl}/api/activity/${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,10 +72,10 @@ export const deleteTaskById = async (taskId)=>{
     }
 }
 
-export const updateTaskById = async (taskData) => {
+export const updateActivityById = async (taskData) => {
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/${taskData.id}`, {
-            method: 'PUT',
+        const response = await fetch(`${apiUrl}/api/activity/${taskData.id}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `jwt ${getToken()}`,
@@ -86,6 +86,8 @@ export const updateTaskById = async (taskData) => {
         if (!response.ok) {
             console.error('Unable to update task in backend', response.status, response.statusText);
             toast.error('Unable to update task');
+        }else{
+            toast.success('task updated successfully');
         }
     } catch (error) {
         console.error('Backend error', error);
