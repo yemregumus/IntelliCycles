@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS useractivity (
 CREATE TABLE IF NOT EXISTS chatBotQuestion (
     id SERIAL PRIMARY KEY,
     question TEXT NOT NULL,
-    answer TEXT NOT NULL,
+    answer TEXT NOT NULL
 );
 
 -- -- Function to create a new user and return the user ID
