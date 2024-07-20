@@ -39,6 +39,13 @@ CREATE TABLE IF NOT EXISTS useractivity (
     ON DELETE CASCADE
 );
 
+-- Create the "chatBotQuestion" table to store user activities
+CREATE TABLE IF NOT EXISTS chatBotQuestion (
+    id SERIAL PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+);
+
 -- -- Function to create a new user and return the user ID
 -- CREATE OR REPLACE FUNCTION create_user(
 --     firstname VARCHAR(100),
