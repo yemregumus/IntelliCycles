@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const resMessage = require("../responseFormat");
-const { createChatBotQuestion } = require("../../db");
+const {
+  createChatBotQuestion,
+  getChatBotQuestions,
+  getChatBotAnswer,
+} = require("../../db");
 
 router.post("/question", async (req, res) => {
   // Get new question and answer.
@@ -29,12 +33,33 @@ router.post("/question", async (req, res) => {
   }
 });
 
-router.post("/validate-user", async (req, res) => {
-  // Get the user data.
-  const { username, password } = req.body;
-  console.log(`Request to validate the user ${username}.`);
-  // Make sure the username and password are included.
-  if (!username || !password)
+router.get("/question", async (req, res) => {
+  console.log("Get all the questions for chatbot.");
+
+  try {
+    // Get all the questions.
+    const questions = await getChatBotQuestions();
+
+    res
+      .status(200)
+      .json(
+        resMessage(
+          true,
+          `${questions.length} questions are returned.`,
+          questions
+        )
+      );
+  } catch (error) {
+    res.status(500).json(resMessage(false, error.message));
+  }
+});
+
+router.get("/answer/:questionId", async (req, res) => {
+  // Get question id for the required question.
+  const { questionId } = req.params;
+
+  // Make sure that the id is present.
+  if (!questionId)
     return res
       .status(400)
       .json(
@@ -44,24 +69,21 @@ router.post("/validate-user", async (req, res) => {
         )
       );
 
+  console.log(`Get answer of ${questionId}.`);
+
   try {
-    // Get the stored password.
-    const storedPassword = await getUserPassword(username);
+    // Get all the questions.
+    const answer = await getChatBotAnswer(questionId);
 
-    // Try to match the stored password with the received password.
-    const isSamePassword = await checkPassword(password, storedPassword);
-    if (!isSamePassword)
-      return res
-        .status(403)
-        .json(resMessage(false, `The password for ${username} is incorrect.`));
-
-    // Get the user id.
-    const userId = await getUserId(username);
-
-    // Generate the token for the user.
-    const token = generateJWTToken(userId, username);
-
-    res.status(200).json(resMessage(true, `${username} is validated.`, token));
+    res
+      .status(200)
+      .json(
+        resMessage(
+          true,
+          `Answer of question ${questionId} is returned.`,
+          answer
+        )
+      );
   } catch (error) {
     res.status(500).json(resMessage(false, error.message));
   }

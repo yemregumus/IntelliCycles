@@ -26,7 +26,11 @@ const {
   updateUserActivity,
   deleteUserActivity,
 } = require("./userActivityQueries");
-const { createChatBotQuestion } = require("./chatBotQueries");
+const {
+  createChatBotQuestion,
+  getChatBotQuestions,
+  getChatBotAnswer,
+} = require("./chatBotQueries");
 
 module.exports = {
   pool,
@@ -53,4 +57,6 @@ module.exports = {
   updateUserActivity,
   deleteUserActivity,
   createChatBotQuestion,
+  getChatBotQuestions,
+  getChatBotAnswer,
 };

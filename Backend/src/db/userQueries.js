@@ -25,7 +25,7 @@ const getUserPassword = (id) => {
     if (isNaN(id)) where = "username";
 
     // Query to fetch user data from the database based on the provided username/id.
-    const query = `SELECT password FROM "user" WHERE ${where} = $1`;
+    const query = `SELECT password FROM "user" WHERE ${where} = $1;`;
     pool
       .query(query, [id])
       .then((result) => {
@@ -42,7 +42,7 @@ const getUserPassword = (id) => {
 const getUserId = (username) => {
   return new Promise((resolve, reject) => {
     // Query to fetch user id from the database.
-    const getUserIdQuery = `SELECT id FROM "user" WHERE username = $1`;
+    const getUserIdQuery = `SELECT id FROM "user" WHERE username = $1;`;
     pool
       .query(getUserIdQuery, [username])
       .then((result) => {
