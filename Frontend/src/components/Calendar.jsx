@@ -56,6 +56,7 @@ function Calendar() {
       repeatInterval: info.event.extendedProps.interval,
       type: info.event.extendedProps.type,
     };
+    console.log(selectedEvent);
     setEvent(selectedEvent);
     setShowEditDialog(true)
   };
@@ -74,21 +75,29 @@ function Calendar() {
             console.log("Fetched tasks before map:", validEntities);
 
 
-            const calendarEvents = validEntities.map(entity => ({
-              id: entity.id,
-              title: entity.name,
-              type: entity.type,
-              start: entity.startDateTime,
-              end: entity.endDateTime,
-              color: entity.color,
-              interval: entity.repeatInterval,
-              description: entity.description,
-              allDay: true,
-              rrule:{
-                freq: entity.repeatInterval,
-                dtstart: entity.startDateTime,
+            const calendarEvents = validEntities.map(entity => {
+              const event = {
+                id: entity.id,
+                title: entity.name,
+                type: entity.type,
+                start: entity.startDateTime,
+                end: entity.endDateTime,
+                color: entity.color,
+                interval: entity.repeatInterval,
+                description: entity.description,
+                allDay: true
+              };
+            
+              if (entity.repeatInterval !== "") {
+                event.rrule = {
+                  freq: entity.repeatInterval,
+                  dtstart: entity.startDateTime,
+                };
               }
-            }));
+            
+              return event;
+            });
+            
 
             setCurrentEvents(calendarEvents);
             console.log("Fetched tasks:", calendarEvents);

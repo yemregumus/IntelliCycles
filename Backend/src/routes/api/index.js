@@ -23,4 +23,7 @@ router.use(
 // Task APIs
 router.use("/activity", require("./activity"));
 
+// Task APIs
+router.use("/chatbot", require("./chatbot"));
+
 module.exports = router;
