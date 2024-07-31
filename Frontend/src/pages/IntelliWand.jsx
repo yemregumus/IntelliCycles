@@ -1,25 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { TypeAnimation } from 'react-type-animation';
+import { getQuestions, getAnswer } from "../../api";
 
 const IntelliWand = () => {
     const [show, setShow] = useState(false);
     const [curQuestion, setCurQuestion] = useState("");
     const [curAnswer, setCurAnswer] = useState("");
     const [doneTyping, setDoneTyping] = useState(false);
-    const [questionSets, setQuestionSets] = useState([
-        {"how to create a task?": "This is how you create a task"},
-        {"how to edit a task?": "This is how you edit a task"},
-        {"how to delete a task?": "This is how you delete a task"}
-    ]);
+    const [questions, setQuestions] = useState([]);
 
-    const handleQuestionClick = (questionSet) => {
-        const question = Object.keys(questionSet)[0];
-        const answer = questionSet[question];
-        setCurQuestion(question);
-        setCurAnswer(answer);
-        setDoneTyping(false);  // Reset doneTyping to false
-        setShow(true);
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                const fetchedQuestions = await getQuestions();
+                setQuestions(fetchedQuestions);
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+            }
+        };
+        fetchQuestions();
+    }, []);
+
+    const handleQuestionClick = async (question) => {
+        try {
+            setCurQuestion(question.question);
+            
+            const answer = await getAnswer(question.id);
+            setCurAnswer(answer);
+            setDoneTyping(false);
+            setShow(true);
+            // setDoneTyping(true);
+        } catch (error) {
+            console.error('Error fetching answer:', error);
+        }
     };
 
     return (
@@ -30,18 +44,15 @@ const IntelliWand = () => {
             <div className="h-full text-xl text-black w-full">
                 <div className="bg-white/75 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-fit">
                     What can I assist you with?
-                    {questionSets.map((questionSet, index) => {
-                        const question = Object.keys(questionSet)[0];
-                        return (
-                            <div 
-                                key={index} 
-                                className="bg-white/75 my-2 hover:bg-rose-200 transition rounded-xl px-3 py-2 w-fit cursor-pointer"
-                                onClick={() => handleQuestionClick(questionSet)}
-                            >
-                                {question}
-                            </div>
-                        );
-                    })}
+                    {questions.map((question, index) => (
+                        <div 
+                            key={index} 
+                            className="bg-white/75 my-2 hover:bg-rose-200 transition rounded-xl px-3 py-2 w-fit cursor-pointer"
+                            onClick={() => handleQuestionClick(question)}
+                        >
+                            {question.question}
+                        </div>
+                    ))}
                 </div>
                 {show && (
                     <>
@@ -58,8 +69,9 @@ const IntelliWand = () => {
                             />
                         </div>
                         {doneTyping && (
-                            <div className="bg-white/75 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-fit mr-auto mt-4">
+                            <div className="bg-white/75 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-fit h-fit mr-auto mt-4">
                                 <TypeAnimation
+                                     style={{ whiteSpace: 'pre-line', height: '195px', display: 'block' }}
                                     key={curAnswer}  // Ensure re-render
                                     sequence={[
                                         curAnswer,
