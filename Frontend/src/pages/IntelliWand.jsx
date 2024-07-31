@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { TypeAnimation } from 'react-type-animation';
 import { getQuestions, getAnswer } from "../../api";
 
@@ -41,22 +41,25 @@ const IntelliWand = () => {
             <div className="items-center mx-auto min-w-96 h-full text-white text-4xl text-center my-3 border-b-2 max-w-[70rem] pb-3">
                 IntelliWand
             </div>
-            <div className="h-full text-xl text-black w-full">
-                <div className="bg-white/75 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-fit">
+            <div className="h-full text-xl w-full">
+                <div className="bg-gray-800 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-4/6">
                     What can I assist you with?
+                    <Row >
                     {questions.map((question, index) => (
-                        <div 
+                        <Col 
+                            md={3}
                             key={index} 
-                            className="bg-white/75 my-2 hover:bg-rose-200 transition rounded-xl px-3 py-2 w-fit cursor-pointer"
+                            className="bg-sky-500 my-2 hover:bg-sky-700 transition rounded-xl px-3 py-2 mx-2 w-fit cursor-pointer "
                             onClick={() => handleQuestionClick(question)}
                         >
                             {question.question}
-                        </div>
+                        </Col>
                     ))}
+                    </Row>
                 </div>
                 {show && (
                     <>
-                        <div className="bg-white/75 text-right px-3 py-2 rounded-t-xl rounded-bl-xl w-fit ml-auto mt-4">
+                        <div className="bg-sky-500 text-right px-3 py-2 rounded-t-xl rounded-bl-xl w-fit ml-auto mt-4">
                             <TypeAnimation
                                 key={curQuestion}  // Ensure re-render
                                 sequence={[
@@ -69,9 +72,9 @@ const IntelliWand = () => {
                             />
                         </div>
                         {doneTyping && (
-                            <div className="bg-white/75 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-fit h-fit mr-auto mt-4">
+                            <div className="bg-gray-800 text-left px-3 py-2 rounded-t-xl rounded-br-xl w-fit mr-auto mt-4">
                                 <TypeAnimation
-                                     style={{ whiteSpace: 'pre-line', height: '195px', display: 'block' }}
+                                     style={{ whiteSpace: 'pre-line', display: 'block' }}
                                     key={curAnswer}  // Ensure re-render
                                     sequence={[
                                         curAnswer,
