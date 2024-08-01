@@ -17,6 +17,15 @@ jobs:
     # This job is required to run on ubuntu!
     runs-on: ubuntu-latest
 
+    env:
+      PORT: 8080
+      DB_USER: db_user
+      DB_HOST: localhost
+      DB_NAME: db_prj
+      DB_PASSWORD: db_1234
+      DB_PORT: 5432
+      JWT_KEY: $3453465ldskfhxfewcx0-332423@#$#$#dsfsdr23\
+
     # Following are the steps which will be performed to complete this job!
     steps:
       - name: Checkout code
@@ -26,9 +35,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-
-      - name: Copy .env file
-        run: cp .env Backend/.env
 
       # Once the node is setup, installing all the node dependencies and running lint tests!
       - name: Run script
