@@ -36,7 +36,15 @@ jobs:
         with:
           node-version: "20"
 
-      # Once the node is setup, installing all the node dependencies and running lint tests!
-      - name: Run script
-        # Using ci to install all the exact dependencies!
-        run: npm run ci
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start backend
+        run: |
+          cd Backend
+          npm run dev &
+
+      - name: Run unit tests
+        run: |
+          cd Backend
+          npm test
