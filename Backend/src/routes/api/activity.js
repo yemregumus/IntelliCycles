@@ -194,7 +194,7 @@ router.get("/:id", async (req, res) => {
   // Try to get the activity by passing the id.
   try {
     const activity = await getUserActivityById(id);
-    res.status(200).json(resMessage(true, "Activity send.", { activity }));
+    res.status(200).json(resMessage(true, "Activity send.", activity));
   } catch (error) {
     res.status(500).json(resMessage(false, error.message));
   }
