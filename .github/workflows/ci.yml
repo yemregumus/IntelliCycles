@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - Development
+      - Master
 
 # This job is expected to run whenever the above condition is fulfilled!
 jobs:
