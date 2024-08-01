@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - Development
+      - Master
 
 # This job is expected to run whenever the above condition is fulfilled!
 jobs:
@@ -36,7 +37,21 @@ jobs:
         with:
           node-version: "20"
 
-      # Once the node is setup, installing all the node dependencies and running lint tests!
-      - name: Run script
-        # Using ci to install all the exact dependencies!
-        run: npm run ci
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Jest installation
+        run: |
+          cd Backend
+          ls -l node_modules/.bin | grep jest || echo "Jest not found in node_modules/.bin"
+
+      - name: Start backend
+        run: |
+          cd Backend
+          npm run dev &
+          sleep 10
+
+      - name: Run unit tests
+        run: |
+          cd Backend
+          npm test
