@@ -37,8 +37,8 @@ const EditTaskForm = ({ formData, handleChange }) => {
         <Col sm={4}>
           <Form.Control
             type="datetime-local"
-            name="due_date"
-            value={formData.due_date ? formData.due_date.substring(0, 16) : ""}
+            name="dueDateTime"
+            value={formData.dueDateTime ? formData.dueDateTime.substring(0, 16) : ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -48,8 +48,8 @@ const EditTaskForm = ({ formData, handleChange }) => {
         <Col sm={4}>
           <Form.Control
             type="datetime-local"
-            name="reminder_datetime"
-            value={formData.reminder_datetime ? formData.reminder_datetime.substring(0, 16) : ""}
+            name="reminderDateTime"
+            value={formData.reminderDateTime ? formData.reminderDateTime.substring(0, 16) : ""}
             onChange={handleChange}
             required
             className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -71,8 +71,8 @@ const EditTaskForm = ({ formData, handleChange }) => {
         <Form.Label column sm={2} className="text-left">Repeat</Form.Label>
         <Col sm={4}>
           <Form.Select
-            name="repeat_interval"
-            value={formData.repeat_interval || ""}
+            name="repeatInterval"
+            value={formData.repeatInterval || ""}
             onChange={handleChange}
             className="bg-stone-400 placeholder-stone-950 rounded-full"
           >

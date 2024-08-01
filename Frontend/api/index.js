@@ -1,8 +1,11 @@
 import { getHealthCheck } from "./healthCheck";
-import { createTask, getTasksByUser, deleteTaskById, updateTaskById } from "./task";
+import { createActivity, getActivitiesByUser, deleteActivityById, updateActivityById } from "./activity";
+import { getQuestions, getAnswer } from "./chatbot";
 
 export { getHealthCheck };
-export { createTask };
-export { getTasksByUser };
-export { deleteTaskById };
-export { updateTaskById };
+export { createActivity };
+export { getActivitiesByUser };
+export { deleteActivityById };
+export { updateActivityById };
+export { getQuestions };
+export { getAnswer };

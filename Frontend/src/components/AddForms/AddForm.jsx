@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm } from "../AddForms";
 import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { createTask } from "../../../api/task";
+import { createActivity } from "../../../api/activity";
 import { getUserIdFromToken } from "../../utils/auth";
 
 const AddForm = ({ type }) => {
@@ -20,7 +20,7 @@ const AddForm = ({ type }) => {
     complete: false,
     startTime: "",
     endTime: "",
-    streak: "",
+    streak: 0,
   });
 
   useEffect(() => {
@@ -49,24 +49,24 @@ const AddForm = ({ type }) => {
   // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const taskData = {
-      userid: getUserIdFromToken(),
-      type: formData.type,
+    const activityData = {
+      // userid: getUserIdFromToken(),
+      // type: formData.type,
       name: formData.name,
       description: formData.description,
-      due_date: formData.due,
-      reminder_datetime: formData.reminder,
+      dueDateTime: formData.due,
+      reminderDateTime: formData.reminder || null,
       color: formData.color,
-      repeat_interval: formData.repeat,
+      repeatInterval: formData.repeat,
       complete: formData.complete,
-      start_time: formData.startTime,
-      end_time: formData.endTime,
+      startDateTime: formData.startTime,
+      endDateTime: formData.endTime,
       streak: formData.streak,
     };
     try {
-      console.log(taskData);
-      const createdTask = await createTask(taskData);
-      //console.log("Task created with ID: ", createdTask.activityId);
+      console.log(activityData);
+      const createdActivity = await createActivity(activityData, getUserIdFromToken(), formData.type);
+      // console.log("Task created with ID: ", createdActivity.activityId);
       navigate("/home"); // Navigate to the tasks page or any other page
     } catch (error) {
       console.error("Failed to create task", error);

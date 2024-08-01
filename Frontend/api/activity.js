@@ -4,21 +4,22 @@ import { toast } from 'react-hot-toast';
 
 const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
 
-export const createTask = async (taskData) => {
+export const createActivity = async (activityData, userid, type) => {
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/createTask`, {
+        console.log(activityData);
+        const response = await fetch(`${apiUrl}/api/activity/${type}/${userid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `jwt ${getToken()}`,
             },
-            body: JSON.stringify(taskData),
+            body: JSON.stringify(activityData),
         }); 
         
         if (response.ok) {
             toast.success('task created successfully');
         } else {
-            console.error('Unable to create task in backend', response.status, response.statusText);
+            console.error('Unable to create task in backend', response.ok, response.message);
             toast.error('Unable to create task');
         }
     } catch (error) {
@@ -27,9 +28,9 @@ export const createTask = async (taskData) => {
     }
 };
 
-export const getTasksByUser = async (userid) => {
+export const getActivitiesByUser = async (userid) => {
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/user/${userid}`, {
+        const response = await fetch(`${apiUrl}/api/activity/user/${userid}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +40,8 @@ export const getTasksByUser = async (userid) => {
         
         if (response.ok) {
             const data = await response.json();
-            return data.body.tasks;
+            console.log(data.body);
+            return data.body;
         } else {
             throw new Error(`Unable to fetch tasks from backend: ${response.status} ${response.statusText}`);
         }
@@ -49,9 +51,9 @@ export const getTasksByUser = async (userid) => {
     }
 };
 
-export const deleteTaskById = async (taskId)=>{
+export const deleteActivityById = async (taskId)=>{
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/${taskId}`, {
+        const response = await fetch(`${apiUrl}/api/activity/${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,10 +72,10 @@ export const deleteTaskById = async (taskId)=>{
     }
 }
 
-export const updateTaskById = async (taskData) => {
+export const updateActivityById = async (taskData) => {
     try {
-        const response = await fetch(`${apiUrl}/api/tasks/${taskData.id}`, {
-            method: 'PUT',
+        const response = await fetch(`${apiUrl}/api/activity/${taskData.id}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `jwt ${getToken()}`,
@@ -84,6 +86,8 @@ export const updateTaskById = async (taskData) => {
         if (!response.ok) {
             console.error('Unable to update task in backend', response.status, response.statusText);
             toast.error('Unable to update task');
+        }else{
+            toast.success('task updated successfully');
         }
     } catch (error) {
         console.error('Backend error', error);

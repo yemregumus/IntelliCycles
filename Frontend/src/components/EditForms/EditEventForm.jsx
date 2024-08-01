@@ -10,7 +10,7 @@ const EditEventForm = ({ formData, handleChange }) => (
         type="text"
         placeholder="Event Name"
         name="name"
-        value={formData.name}
+        value={formData.name || ""}
         onChange={handleChange}
         required
         className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -24,9 +24,8 @@ const EditEventForm = ({ formData, handleChange }) => (
                 as="textarea"
                 placeholder="Event Description"
                 name="description"
-                value={formData.description}
+                value={formData.description || ""}
                 onChange={handleChange}
-                required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]"
             />
         </Col>
@@ -36,8 +35,8 @@ const EditEventForm = ({ formData, handleChange }) => (
         <Col sm={4}>
             <Form.Control
               type="datetime-local"
-              name="startTime"
-              value={formData.startTime}
+              name="startDateTime"
+              value={formData.startDateTime ? formData.startDateTime.substring(0, 16) : ""}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -47,8 +46,8 @@ const EditEventForm = ({ formData, handleChange }) => (
         <Col sm={4}>
             <Form.Control
                 type="datetime-local"
-                name="endTime"
-                value={formData.endTime}
+                name="endDateTime"
+                value={formData.endDateTime ? formData.endDateTime.substring(0, 16) : ""}
                 onChange={handleChange}
                 required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -61,7 +60,7 @@ const EditEventForm = ({ formData, handleChange }) => (
       <Form.Control
         type="color"
         name="color"
-        value={formData.color}
+        value={formData.color || ""}
         onChange={handleChange}
         required
         className="bg-stone-400 placeholder-stone-950 rounded-full"
@@ -70,8 +69,8 @@ const EditEventForm = ({ formData, handleChange }) => (
       <Form.Label column sm={2} className="text-left">Repeat</Form.Label>
       <Col sm={4}>
         <Form.Select
-          name="repeat"
-          value={formData.repeat}
+          name="repeatInterval"
+          value={formData.repeatInterval || ""}
           onChange={handleChange}
           className="bg-stone-400 placeholder-stone-950 rounded-full"
         >

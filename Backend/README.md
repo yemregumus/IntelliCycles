@@ -32,6 +32,30 @@ All the APIs returns an object with the same properties as described below.
 
 **Returns**: membership type of the user.
 
+### `/api/activity/user/:userId` or `/api/activity/user/:userId?type=:activityType`
+
+**Description**: Get user's activities.
+
+**Returns**: array of object having name, description, dueDateTime, reminderDatetime, color, repeatInterval, complete, startDateTime, endDateTime, streak.
+
+### `/api/activity/:activityId`
+
+**Description**: Get user's activity using activity id.
+
+**Returns**: name, description, dueDateTime, reminderDatetime, color, repeatInterval, complete, startDateTime, endDateTime, streak.
+
+### `/api/chatbot/question`
+
+**Description**: Get all the questions for the chatbot.
+
+**Returns**: array of question id and question.
+
+### `/api/chatbot/answer/:questionId`
+
+**Description**: Get answer of the question id passed.
+
+**Returns**: answer
+
 ## POST
 
 ### `/api/auth/register-user`
@@ -45,6 +69,18 @@ All the APIs returns an object with the same properties as described below.
 **Returns**:
 
 - Body: JWT Token.
+
+### `/api/activity/:type/:userId`
+
+**Description**: Create a new activity for the user.
+
+**Expects**:
+
+- Request Body: name, description, dueDateTime, reminderDatetime, color, repeatInterval, complete, startDateTime, endDateTime, streak. The data varies depending on the type of the activity.
+
+**Returns**:
+
+- Body: Activity Id.
 
 ### `/api/auth/validate-user`
 
@@ -66,6 +102,14 @@ All the APIs returns an object with the same properties as described below.
 
 - Request Body: membershipType.
 
+### `/api/chatbot/question`
+
+**Description**: Create a new question-answer for the chatbot.
+
+**Expects**:
+
+- Request Body: question, answer
+
 ## PATCH
 
 ### `/api/user/:userId`
@@ -84,6 +128,14 @@ All the APIs returns an object with the same properties as described below.
 
 - Request Body: oldPassword, newPassword.
 
+### `/api/activity/:activityId`
+
+**Description**: Update the user activity.
+
+**Expects**:
+
+- Request Body: All the required data according to the activity type.
+
 ## DELETE
 
 ### `/api/user/:userId`
@@ -94,130 +146,13 @@ All the APIs returns an object with the same properties as described below.
 
 **Description**: Delete the membership of the user.
 
-## Task Management
+### `/api/activity/:activityId`
 
-### POST /api/tasks/createTask
-
-**Description:** Create a new task for a user.
-
-**Expects:**
-
-Request Body: `userid`, `name`, `description`, `due_date`, `reminder_datetime`, `color`, `repeat_interval`, `complete`, `start_time`, `end_time`, `streak.
-
-**Returns:**
-
-Body: The ID of the created task.
-
-### GET /api/tasks/user/:userid
-
-**Description:** Get all tasks for a specific user.
-
-**Returns:**
-
-Body: An array of tasks for the specified user.
-
-### GET /api/tasks/:id
-
-**Description:** Get a specific task by ID.
-
-**Returns:**
-
-Body: The task with the specified ID.
-
-### PUT /api/tasks/:id
-
-**Description:** Update a task with the given ID.
-
-**Expects:**
-
-Request Body: `name`, `description`, `due_date`, `reminder_datetime`, `color`, `repeat_interval`, `complete`, `start_time`, `end_time`, `streak.
-
-### DELETE /api/tasks/:id
-
-**Description:** Delete a task with the given ID.
-
-**Returns:**
-
-Body: A message indicating the task was successfully deleted.
-
-## Example Response Format
-
-**Successful Response:**
-
-```json
-{
-    "ok": true,
-    "message": "Task created successfully",
-    "body": {
-        "activityId": 123
-    }
-}
-```
+**Description**: Delete the activity of the user using activity id.
 
 ## How to run the project?
 
 **Note**: You must be in `/Backend` directory.
-
-
-## Task Management
-
-### POST /api/tasks/createTask
-
-**Description:** Create a new task for a user.
-
-**Expects:**
-
-Request Body: `userid`, `name`, `description`, `due_date`, `reminder_datetime`, `color`, `repeat_interval`, `complete`, `start_time`, `end_time`, `streak.
-
-**Returns:**
-
-Body: The ID of the created task.
-
-### GET /api/tasks/user/:userid
-
-**Description:** Get all tasks for a specific user.
-
-**Returns:**
-
-Body: An array of tasks for the specified user.
-
-### GET /api/tasks/:id
-
-**Description:** Get a specific task by ID.
-
-**Returns:**
-
-Body: The task with the specified ID.
-
-### PUT /api/tasks/:id
-
-**Description:** Update a task with the given ID.
-
-**Expects:**
-
-Request Body: `name`, `description`, `due_date`, `reminder_datetime`, `color`, `repeat_interval`, `complete`, `start_time`, `end_time`, `streak.
-
-### DELETE /api/tasks/:id
-
-**Description:** Delete a task with the given ID.
-
-**Returns:**
-
-Body: A message indicating the task was successfully deleted.
-
-## Example Response Format
-
-**Successful Response:**
-
-```json
-{
-    "ok": true,
-    "message": "Task created successfully",
-    "body": {
-        "activityId": 123
-    }
-}
-```
 
 ### Dev mode
 

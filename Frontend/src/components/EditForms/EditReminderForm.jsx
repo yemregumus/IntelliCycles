@@ -10,7 +10,7 @@ const EditReminderForm = ({ formData, handleChange }) => (
         type="text"
         placeholder="Reminder Name"
         name="name"
-        value={formData.name}
+        value={formData.name || ""}
         onChange={handleChange}
         required
         className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -22,8 +22,8 @@ const EditReminderForm = ({ formData, handleChange }) => (
         <Col sm={4}>
             <Form.Control
               type="datetime-local"
-              name="reminder"
-              value={formData.reminder}
+              name="reminderDateTime"
+              value={formData.reminderDateTime ? formData.reminderDateTime.substring(0, 16) : ""}
               onChange={handleChange}
               required
               className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
@@ -32,8 +32,8 @@ const EditReminderForm = ({ formData, handleChange }) => (
         <Form.Label column sm={2} className="text-left">Repeat</Form.Label>
         <Col sm={4}>
           <Form.Select
-            name="repeat"
-            value={formData.repeat}
+            name="repeatInterval"
+            value={formData.repeatInterval || ""}
             onChange={handleChange}
             className="bg-stone-400 placeholder-stone-950 rounded-full"
           >
@@ -52,7 +52,7 @@ const EditReminderForm = ({ formData, handleChange }) => (
       <Form.Control
         type="color"
         name="color"
-        value={formData.color}
+        value={formData.color || ""}
         onChange={handleChange}
         required
         className="bg-stone-400 placeholder-stone-950 rounded-full"

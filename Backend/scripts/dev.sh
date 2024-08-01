@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # This sciprt is the start the backend in development mode.
 
@@ -24,6 +24,8 @@ cd dockerCompose || exit 1
 echo "Start PostgreSQL container."
 
 docker compose -f docker-compose.dev.yml up --build -d || exit 1
+
+# Start the server in 'Dev' mode.
 
 cd ..
 

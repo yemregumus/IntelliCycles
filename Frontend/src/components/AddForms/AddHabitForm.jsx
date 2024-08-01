@@ -26,7 +26,6 @@ const AddHabitForm = ({ formData, handleChange }) => (
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-[20px]"
             />
         </Col>
@@ -50,7 +49,6 @@ const AddHabitForm = ({ formData, handleChange }) => (
                 name="reminder"
                 value={formData.reminder}
                 onChange={handleChange}
-                required
                 className="bg-stone-400 text-black placeholder-stone-950 rounded-full"
             />
         </Col>
@@ -63,7 +61,6 @@ const AddHabitForm = ({ formData, handleChange }) => (
         name="color"
         value={formData.color}
         onChange={handleChange}
-        required
         className="bg-stone-400 placeholder-stone-950 rounded-full"
       />
       </Col>
@@ -73,6 +70,7 @@ const AddHabitForm = ({ formData, handleChange }) => (
           name="repeat"
           value={formData.repeat}
           onChange={handleChange}
+          required
           className="bg-stone-400 placeholder-stone-950 rounded-full"
         >
           <option value="">Select Repeat</option>
