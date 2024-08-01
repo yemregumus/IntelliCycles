@@ -25,9 +25,11 @@ router.post("/question", async (req, res) => {
 
   try {
     // Store the new question and answer.
-    await createChatBotQuestion(question, answer);
+    const questionId = await createChatBotQuestion(question, answer);
 
-    res.status(200).json(resMessage(true, `New question is added.`));
+    res
+      .status(200)
+      .json(resMessage(true, `New question is added.`, questionId));
   } catch (error) {
     res.status(500).json(resMessage(false, error.message));
   }

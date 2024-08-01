@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../../src/app");
-const { pool, cleanTable } = require("../../src/db");
+const { pool, cleanUserTable } = require("../../src/db");
 const { jwtDecoder } = require("../../src/jwt");
 
 // To store the jwt token for the user created.
@@ -24,7 +24,7 @@ afterAll(() => {
 // Clean all the users and create a sample user before starting any test.
 beforeAll(async () => {
   try {
-    await cleanTable();
+    await cleanUserTable();
     const result = await request(app)
       .post("/api/auth/register-user")
       .send(sampleUser);
