@@ -34,7 +34,7 @@ const Schedule = ({ type = "" }) => {
           // Sort tasks by due date and time
           finalEntities.sort((a, b) => new Date(a.dueDateTime) - new Date(b.dueDateTime));
           setentities(finalEntities);
-          console.log("Fetched tasks:", finalEntities);
+          // console.log("Fetched tasks:", finalEntities);
         }
       } catch (error) {
         console.error('Error fetching tasks:', error);
