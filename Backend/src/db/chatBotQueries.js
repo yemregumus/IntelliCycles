@@ -5,12 +5,16 @@ const createChatBotQuestion = (question, answer) => {
   return new Promise((resolve, reject) => {
     const insertChatBotQuestion = `
         INSERT INTO chatBotQuestion (question, answer)
-        VALUES ($1, $2);
+        VALUES ($1, $2)
+        RETURNING id;
       `;
 
     pool
       .query(insertChatBotQuestion, [question, answer])
-      .then(() => resolve())
+      .then((result) => {
+        const { id } = result.rows[0];
+        resolve(id);
+      })
       .catch((error) =>
         reject(
           new Error(`Database error while creating user activity. ${error}`)

@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS useractivity (
 );
 
 -- Create the "chatBotQuestion" table to store user activities
-CREATE TABLE IF NOT EXISTS chatBotQuestion (
+CREATE TABLE IF NOT EXISTS chatbotquestion (
     id SERIAL PRIMARY KEY,
     question TEXT NOT NULL,
     answer TEXT NOT NULL

@@ -39,7 +39,28 @@ const cleanUserTable = async () => {
   }
 };
 
+const cleanChatBotQuestionTable = async () => {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN"); // Start transaction
+
+    const dropChatBotQuestionQuery = 'DELETE FROM "chatbotquestion";';
+    await client.query(dropChatBotQuestionQuery);
+
+    await client.query("COMMIT"); // Commit transaction
+  } catch (error) {
+    await client.query("ROLLBACK"); // Rollback transaction on error
+    throw new Error(
+      "Database error while clearing chatbot tables: " + error.message
+    );
+  } finally {
+    client.release();
+  }
+};
+
 module.exports = {
   createTables,
   cleanUserTable,
+  cleanChatBotQuestionTable,
 };
