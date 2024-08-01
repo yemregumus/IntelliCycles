@@ -1,7 +1,7 @@
 # .github/workflows/ci.yml
 
 # CI Workflow
-name: s
+name: CI Workflow
 
 # This workflow is expected to run whenever the commited code is pushed or PR is raised to the Master branch!
 on:
