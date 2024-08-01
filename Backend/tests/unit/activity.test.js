@@ -32,7 +32,6 @@ beforeAll(async () => {
   try {
     // Clean the user and user activity table.
     await cleanUserTable();
-    console.log("Table cleaned");
 
     // Create a new sample user.
     const newUser = await request(app)
