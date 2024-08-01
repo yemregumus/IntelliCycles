@@ -13,21 +13,33 @@ const createTables = () => {
   });
 };
 
-const cleanTable = () => {
-  return new Promise((resolve, reject) => {
-    const dropTablesQuery = 'DELETE FROM "user";';
-    pool
-      .query(dropTablesQuery)
-      .then(() => {
-        resolve();
-      })
-      .catch(() =>
-        reject(new Error("Database error while clearning all the tables."))
-      );
-  });
+const cleanUserTable = async () => {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN"); // Start transaction
+
+    const dropUseractivityQuery = 'DELETE FROM "useractivity";';
+    await client.query(dropUseractivityQuery);
+
+    const dropMembershipQuery = 'DELETE FROM "membership";';
+    await client.query(dropMembershipQuery);
+
+    const dropUserQuery = 'DELETE FROM "user";';
+    await client.query(dropUserQuery);
+
+    await client.query("COMMIT"); // Commit transaction
+  } catch (error) {
+    await client.query("ROLLBACK"); // Rollback transaction on error
+    throw new Error(
+      "Database error while clearing all the tables: " + error.message
+    );
+  } finally {
+    client.release();
+  }
 };
 
 module.exports = {
   createTables,
-  cleanTable,
+  cleanUserTable,
 };

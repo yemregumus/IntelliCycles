@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../../src/app");
-const { pool, cleanTable } = require("../../src/db");
+const { pool, cleanUserTable } = require("../../src/db");
 const { jwtDecoder } = require("../../src/jwt");
 
 // End the pool once the test is completed.
@@ -12,7 +12,7 @@ describe("POST /api/auth/register-user", () => {
   // Clean all the users before starting any test.
   beforeAll(async () => {
     try {
-      await cleanTable();
+      await cleanUserTable();
     } catch (error) {
       console.log(error);
     }

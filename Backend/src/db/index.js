@@ -1,6 +1,6 @@
 const pool = require("./db");
 const { dbHealthCheck } = require("./dbQueries");
-const { createTables, cleanTable } = require("./tableQueries");
+const { createTables, cleanUserTable } = require("./tableQueries");
 const {
   addNewUser,
   isUniqueUser,
@@ -47,7 +47,7 @@ module.exports = {
   getMembershipInfo,
   updateMembership,
   addNewMembership,
-  cleanTable,
+  cleanUserTable,
   createNewTask,
   createNewHabit,
   createNewReminder,
