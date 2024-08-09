@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import {EditEventForm, EditHabitForm, EditReminderForm, EditTaskForm} from "../EditForms"
-import { MdDelete, MdCancel } from "react-icons/md";
+import { MdDelete} from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
 import { deleteActivityById, updateActivityById } from "../../../api";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import PropTypes from "prop-types";
 
 const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
-    const navigate= useNavigate();
+    //const navigate= useNavigate();
 
     const [formData, setFormData] = useState(entity);
 
@@ -35,7 +36,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
         });
     };
 
-    const handleDelete= async (e) =>{
+    const handleDelete= async () =>{
         if (window.confirm(`Are you sure you want to delete your ${entity.type}: ${entity.name}?`)) {
             await deleteActivityById(entity.id);
             handleClose();
@@ -45,7 +46,7 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
         
     }
 
-    const handleSubmit= async (e) =>{
+    const handleSubmit= async () =>{
         if(formData.dueDateTime==""){
             formData.dueDateTime=null;
         }
@@ -100,5 +101,22 @@ const EditDialog = ({show, type, handleClose, entity, updateTasks}) =>{
         </div>
     );
 }
+
+EditDialog.propTypes = {
+    show: PropTypes.bool,
+    type: PropTypes.string,
+    handleClose: PropTypes.func,
+    entity: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        type: PropTypes.string,
+        dueDateTime: PropTypes.string,
+        reminderDateTime: PropTypes.string,
+        startDateTime: PropTypes.string,
+        endDateTime: PropTypes.string,
+        streak: PropTypes.number,
+      }).isRequired,
+    updateTasks: PropTypes.func,
+};
 
 export default EditDialog;

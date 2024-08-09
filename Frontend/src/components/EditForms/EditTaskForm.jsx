@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const EditTaskForm = ({ formData, handleChange }) => {
   return (
@@ -100,6 +101,19 @@ const EditTaskForm = ({ formData, handleChange }) => {
       </Form.Group>
     </div>
   );
+};
+
+EditTaskForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    dueDateTime: PropTypes.string,
+    reminderDateTime: PropTypes.string,
+    color: PropTypes.string,
+    repeatInterval: PropTypes.string,
+    complete: PropTypes.bool,
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default EditTaskForm;

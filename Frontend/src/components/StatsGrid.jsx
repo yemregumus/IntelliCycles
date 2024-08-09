@@ -2,6 +2,7 @@ import React from 'react'
 import {FaTasks} from 'react-icons/fa'
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { LuAlarmClock, LuCalendarClock } from "react-icons/lu";
+import PropTypes from 'prop-types'
 
 function StatsGrid() {
   return (
@@ -68,6 +69,10 @@ function StatsGrid() {
 
 function BoxWrapper({ children }) {
 	return <div className="bg-black rounded-lg p-4 flex-1 flex items-center">{children}</div>
+}
+
+BoxWrapper.propTypes = {
+    children: PropTypes.node
 }
 
 export default StatsGrid

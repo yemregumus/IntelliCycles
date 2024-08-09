@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Row, Col, Container, Button} from "react-bootstrap";
+import {Row, Col, Container} from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import avatar1 from '../assets/avatar.png';
 import avatar2 from '../assets/avatar2.png';

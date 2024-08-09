@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { getUserIdFromToken, getToken } from '../utils/auth';
+import PropTypes from 'prop-types';
 
 function PasswordDialog({show, handleClose, apiUrl}) {
     const [oldPassword, setOldPassword] = useState('');
@@ -95,5 +96,11 @@ function PasswordDialog({show, handleClose, apiUrl}) {
         </div>
     );
 }
+
+PasswordDialog.propTypes = {
+    show: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    apiUrl: PropTypes.string.isRequired,
+};
 
 export default PasswordDialog;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { InfoCircle } from 'react-bootstrap-icons';
@@ -15,7 +16,7 @@ import PasswordDialog from '../components/PasswordDialog';
 function ProfileSettings() {
     const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
     const navigate = useNavigate();
-    const [confirmPassword, setConfirmPassword] = useState('');
+    //const [confirmPassword, setConfirmPassword] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(avatar5);
     const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
     const [isFormChanged, setIsFormChanged] = useState(false);
@@ -129,8 +130,8 @@ function ProfileSettings() {
             });
 
             if (response.ok && membershipResponse.ok) {
-                const data = await response.json();
-                const membershipData = await membershipResponse.json();
+                //sconst data = await response.json();
+                //const membershipData = await membershipResponse.json();
                 toast.success('Profile update successful');
                 navigate('/account');
             } else {

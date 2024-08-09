@@ -3,8 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { AddTaskForm, AddHabitForm, AddReminderForm, AddEventForm } from "../AddForms";
 import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { createActivity } from "../../../api/activity";
-import { getUserIdFromToken } from "../../utils/auth";
+import PropTypes from "prop-types";
 
 const AddForm = ({ type }) => {
   const navigate = useNavigate();
@@ -65,7 +64,7 @@ const AddForm = ({ type }) => {
     };
     try {
       console.log(activityData);
-      const createdActivity = await createActivity(activityData, getUserIdFromToken(), formData.type);
+      //const createdActivity = await createActivity(activityData, getUserIdFromToken(), formData.type);
       // console.log("Task created with ID: ", createdActivity.activityId);
       navigate("/home"); // Navigate to the tasks page or any other page
     } catch (error) {
@@ -114,5 +113,9 @@ const AddForm = ({ type }) => {
     </Container>
   );
 };
+
+AddForm.propTypes = {
+  type: PropTypes.string,
+};  
 
 export default AddForm;

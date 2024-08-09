@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import {Row, Col} from "react-bootstrap"
+//import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     return(
         <>
             <div className="text-white text-center mt-20 rounded-3xl bg-zinc-950 bg-opacity-60 p-4 h-full w-5/6 mx-auto ">
@@ -12,12 +11,12 @@ const Welcome = () => {
                 </div> 
                 <div className="w-5/6 mx-auto text-lg">
                     <p>
-                        Welcome to Team-3's project INTELLICYCLES an innovative tool for user's to keep
+                        Welcome to Team-3&apos;s project INTELLICYCLES an innovative tool for user&apos;s to keep
                         track of their Tasks, Habits, Reminders and Events in one centralized place.
                        
                     </p>
                     <br />
-                    <p className="text-left"> First let's understand what each one of these mean:-</p>
+                    <p className="text-left"> First let&apos;s understand what each one of these mean:-</p>
                     <ul className="list-disc list-inside text-left">
                       <li>
                         <strong>Task:</strong> Something that needs to be done. For example, get the 
@@ -36,12 +35,12 @@ const Welcome = () => {
                       </li>
                       <li>
                         <strong>Event:</strong> Users can create calendar events, which are essentially 
-                        normal appointment scheduling events. These can also include people’s birthdays, 
+                        normal appointment scheduling events. These can also include people&apos;s birthdays, 
                         anniversaries, and more.
                       </li>
                     </ul>
                     <br />
-                    <p>To this application added are the benefits of AI that helps the user's to automate
+                    <p>To this application added are the benefits of AI that helps the user&apos;s to automate
                         some tedious tasks like creating or editing a new event and obtaining suggestions
                         on improving personal lifestyle with the app.
                     </p>

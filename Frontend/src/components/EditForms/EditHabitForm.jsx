@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { FaFire } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
 const EditHabitForm = ({ formData, handleChange }) => (
   <div>
@@ -104,5 +105,19 @@ const EditHabitForm = ({ formData, handleChange }) => (
     </Form.Group>
   </div>
 );
+
+EditHabitForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    dueDateTime: PropTypes.string,
+    reminderDateTime: PropTypes.string,
+    color: PropTypes.string,
+    repeatInterval: PropTypes.string,
+    complete: PropTypes.bool,
+    streak: PropTypes.number,
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default EditHabitForm;

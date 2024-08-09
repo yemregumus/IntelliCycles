@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const AddTaskForm = ({ formData, handleChange }) => (
   <div>
@@ -92,5 +93,18 @@ const AddTaskForm = ({ formData, handleChange }) => (
     </Form.Group>
   </div>
 );
+
+AddTaskForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    due: PropTypes.string,
+    reminder: PropTypes.string,
+    color: PropTypes.string,
+    repeat: PropTypes.string,
+    complete: PropTypes.bool,
+  }).isRequired,
+  handleChange: PropTypes.func,
+};
 
 export default AddTaskForm;

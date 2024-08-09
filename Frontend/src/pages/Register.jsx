@@ -32,7 +32,7 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { avatar, firstName, lastName, email, username, password, year, month, day, membership } = formData;
+        const { firstName, lastName, email, username, password, year, month, day } = formData;
         const dateOfBirth = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         if(password !== confirmPassword) {
             toast.error('Passwords do not match');

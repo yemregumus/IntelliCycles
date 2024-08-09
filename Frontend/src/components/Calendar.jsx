@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { formatDate } from '@fullcalendar/core';
+//import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import rrulePlugin from '@fullcalendar/rrule'
@@ -11,7 +11,7 @@ import { EditDialog } from './EditForms';
 import { getUserIdFromToken } from '../utils/auth';
 import { getActivitiesByUser } from '../../api';
 import { toast } from 'react-hot-toast';
-import { all } from 'axios';
+//import { all } from 'axios';
 
 function Calendar() {
 
