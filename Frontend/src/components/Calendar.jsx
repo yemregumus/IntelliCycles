@@ -38,10 +38,10 @@ function Calendar() {
   };
 
   const handleEventClick = (info) => {
-    console.log(info.event);
+    console.log("INFO EVENT",info.event);
 
-    const startDate = info.event.start instanceof Date ? info.event.start.toISOString() : info.event.start;
-    const endDate = info.event.end instanceof Date ? info.event.end.toISOString() : info.event.end;
+    const startDate = info.event._instance.range.start instanceof Date ? info.event._instance.range.start.toISOString() : info.event._instance.range.start;
+    const endDate = info.event._instance.range.end instanceof Date ? info.event._instance.range.end.toISOString() : info.event._instance.range.end;
 
     console.log(startDate);
     console.log(endDate);
