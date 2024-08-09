@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getToken } from '../src/utils/auth';
 
 const apiUrl = import.meta.env.VITE_BACKEND_DOMAIN;
