@@ -44,6 +44,18 @@ All the APIs returns an object with the same properties as described below.
 
 **Returns**: name, description, dueDateTime, reminderDatetime, color, repeatInterval, complete, startDateTime, endDateTime, streak.
 
+### `/api/chatbot/question`
+
+**Description**: Get all the questions for the chatbot.
+
+**Returns**: array of question id and question.
+
+### `/api/chatbot/answer/:questionId`
+
+**Description**: Get answer of the question id passed.
+
+**Returns**: answer
+
 ## POST
 
 ### `/api/auth/register-user`
@@ -89,6 +101,14 @@ All the APIs returns an object with the same properties as described below.
 **Expects**:
 
 - Request Body: membershipType.
+
+### `/api/chatbot/question`
+
+**Description**: Create a new question-answer for the chatbot.
+
+**Expects**:
+
+- Request Body: question, answer
 
 ## PATCH
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # This sciprt is the start the backend in development mode.
 
