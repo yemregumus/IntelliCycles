@@ -69,8 +69,8 @@ EditReminderForm.propTypes = {
     reminderDateTime: PropTypes.string,
     repeatInterval: PropTypes.string,
     color: PropTypes.string,
-  }).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  }),
+  handleChange: PropTypes.func,
 };
 
 export default EditReminderForm;

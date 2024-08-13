@@ -94,8 +94,8 @@ EditEventForm.propTypes = {
     endDateTime: PropTypes.string,
     color: PropTypes.string,
     repeatInterval: PropTypes.string,
-  }).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  }),
+  handleChange: PropTypes.func,
 };
 
 export default EditEventForm;

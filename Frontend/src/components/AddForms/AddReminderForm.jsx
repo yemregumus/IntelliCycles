@@ -68,7 +68,7 @@ AddReminderForm.propTypes = {
     reminder: PropTypes.string,
     repeat: PropTypes.string,
     color: PropTypes.string,
-  }).isRequired,
+  }),
   handleChange: PropTypes.func,
 };
 

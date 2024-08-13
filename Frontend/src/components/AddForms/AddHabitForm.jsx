@@ -102,15 +102,15 @@ const AddHabitForm = ({ formData, handleChange }) => (
 
 AddHabitForm.propTypes = {
   formData: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    due: PropTypes.string.isRequired,
-    reminder: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    repeat: PropTypes.string.isRequired,
-    complete: PropTypes.bool.isRequired,
-  }).isRequired,
-  handleChange: PropTypes.func.isRequired,
+    name: PropTypes.string ,
+    description: PropTypes.string ,
+    due: PropTypes.string ,
+    reminder: PropTypes.string ,
+    color: PropTypes.string ,
+    repeat: PropTypes.string ,
+    complete: PropTypes.bool ,
+  }) ,
+  handleChange: PropTypes.func ,
 };
 
 export default AddHabitForm;

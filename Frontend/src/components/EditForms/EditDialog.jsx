@@ -115,7 +115,7 @@ EditDialog.propTypes = {
         startDateTime: PropTypes.string,
         endDateTime: PropTypes.string,
         streak: PropTypes.number,
-      }).isRequired,
+      }),
     updateTasks: PropTypes.func,
 };
 

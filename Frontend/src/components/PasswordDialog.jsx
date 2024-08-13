@@ -98,9 +98,9 @@ function PasswordDialog({show, handleClose, apiUrl}) {
 }
 
 PasswordDialog.propTypes = {
-    show: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired,
-    apiUrl: PropTypes.string.isRequired,
+    show: PropTypes.bool,
+    handleClose: PropTypes.func,
+    apiUrl: PropTypes.string,
 };
 
 export default PasswordDialog;

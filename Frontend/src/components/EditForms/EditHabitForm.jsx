@@ -116,8 +116,8 @@ EditHabitForm.propTypes = {
     repeatInterval: PropTypes.string,
     complete: PropTypes.bool,
     streak: PropTypes.number,
-  }).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  }),
+  handleChange: PropTypes.func,
 };
 
 export default EditHabitForm;

@@ -87,14 +87,14 @@ const AddEventForm = ({ formData, handleChange }) => (
 
 AddEventForm.propTypes = {
   formData: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     description: PropTypes.string,
-    startTime: PropTypes.string.isRequired,
-    endTime: PropTypes.string.isRequired,
+    startTime: PropTypes.string,
+    endTime: PropTypes.string,
     color: PropTypes.string,
     repeat: PropTypes.string,
-  }).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  }),
+  handleChange: PropTypes.func,
 };
 
 export default AddEventForm;

@@ -103,7 +103,7 @@ AddTaskForm.propTypes = {
     color: PropTypes.string,
     repeat: PropTypes.string,
     complete: PropTypes.bool,
-  }).isRequired,
+  }),
   handleChange: PropTypes.func,
 };
 
