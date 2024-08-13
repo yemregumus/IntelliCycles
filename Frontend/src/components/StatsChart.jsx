@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { getActivitiesByUser } from "../../api";
+import { getUserIdFromToken } from '../utils/auth';
 
-const data = [
+var data = [
     {
       name: 'JAN',
       tasks: 0,
@@ -89,6 +91,34 @@ const data = [
 ];
 
 function StatsChart () {
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const activities = await getActivitiesByUser(getUserIdFromToken());
+        if (activities) {
+          // sort activities by month
+          const sortedActivities = activities.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+          console.log('Fetched activities:', sortedActivities);
+          // update data
+          const newData = data.map(month => {
+            const monthActivities = sortedActivities.filter(activity => new Date(activity.createdAt).getMonth() === data.indexOf(month));
+            return {
+              ...month,
+              tasks: monthActivities.filter(activity => activity.type === 'task').length,
+              habits: monthActivities.filter(activity => activity.type === 'habit').length,
+              events: monthActivities.filter(activity => activity.type === 'event').length,
+              reminders: monthActivities.filter(activity => activity.type === 'reminder').length,
+            };
+          });
+          data = newData;
+        }
+      } catch (error) {
+        console.error('Failed to fetch activities:', error);
+      }
+    };
+    fetchActivities();
+  }, []);
+
   return (
     <div className="h-[22rem] bg-black p-10 rounded-sm border border-gray-200 flex flex-col flex-1">
         <div className="mt-3 w-full flex-1 text-xs">

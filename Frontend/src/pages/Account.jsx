@@ -42,6 +42,7 @@ const Account = () => {
                 const data = await response.json();
                 console.log('User data:', data);
                 setUser({firstName: data.body.firstName, lastName: data.body.lastName, email: data.body.email, password: data.body.password, avatar: data.body.avatar});
+
             } else {
                 console.error('Failed to fetch user', response.status, response.statusText);
             }

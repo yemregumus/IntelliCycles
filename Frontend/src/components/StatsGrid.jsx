@@ -1,10 +1,35 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {FaTasks} from 'react-icons/fa'
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { LuAlarmClock, LuCalendarClock } from "react-icons/lu";
 import PropTypes from 'prop-types'
+import { getActivitiesByUser } from "../../api";
+import { getUserIdFromToken } from '../utils/auth';
+
 
 function StatsGrid() {
+    const [totalTasks, setTotalTasks] = useState(0);
+    const [totalHabits, setTotalHabits] = useState(0);
+    const [totalEvents, setTotalEvents] = useState(0);
+    const [totalReminders, setTotalReminders] = useState(0);
+
+    useEffect(() => {
+        const fetchActivities = async () => {
+            try {
+                const fetchedActivities = await getActivitiesByUser(getUserIdFromToken());
+                if (fetchedActivities) {
+                    setTotalTasks(fetchedActivities.filter(activity => activity.type === 'task').length);
+                    setTotalHabits(fetchedActivities.filter(activity => activity.type === 'habit').length);
+                    setTotalEvents(fetchedActivities.filter(activity => activity.type === 'event').length);
+                    setTotalReminders(fetchedActivities.filter(activity => activity.type === 'reminder').length);
+                }
+                console.log("Fetched activities:", fetchedActivities);
+            } catch (error) {
+                console.error('Error fetching activities:', error);
+            }
+        };
+        fetchActivities();
+    }, []);
   return (
     <div className="flex gap-4">
         <BoxWrapper>
@@ -14,8 +39,7 @@ function StatsGrid() {
             <div className="pl-4">
                 <span className="text-sm text-gray-300 font-semibold">Total Habits</span>
                 <div className="flex items-center">
-                    <strong className="text-xl text-gray-700 font-semibold">32</strong>
-                    <span className="text-sm text-green-500 pl-2">+10</span><br/>
+                    <strong className="text-xl font-semibold">{totalHabits}</strong>
                 </div>
                 <span className="text-sm text-gray-300 pl-2 font-light">Last 24 hours</span>
 
@@ -28,8 +52,7 @@ function StatsGrid() {
             <div className="pl-4">
                 <span className="text-sm text-gray-300 font-semibold">Total Tasks</span>
                 <div className="flex items-center">
-                    <strong className="text-xl text-gray-700 font-semibold">50</strong>
-                    <span className="text-sm text-green-500 pl-2">+20</span>
+                    <strong className="text-xl font-semibold">{totalTasks}</strong>
                 </div>
                 <span className="text-sm text-gray-300 pl-2 font-light">Last 24 hours</span>
 
@@ -42,8 +65,7 @@ function StatsGrid() {
             <div className="pl-4">
                 <span className="text-sm text-gray-300 font-semibold">Total Events</span>
                 <div className="flex items-center">
-                    <strong className="text-xl text-gray-700 font-semibold">30</strong>
-                    <span className="text-sm text-red-500 pl-2">-10</span>
+                    <strong className="text-xl font-semibold">{totalEvents}</strong>
                 </div>
                 <span className="text-sm text-gray-300 pl-2 font-light">Last 24 hours</span>
 
@@ -56,8 +78,8 @@ function StatsGrid() {
             <div className="pl-4">
                 <span className="text-sm text-gray-300 font-semibold">Total Reminders</span>
                 <div className="flex items-center">
-                    <strong className="text-xl text-gray-700 font-semibold">10</strong>
-                    <span className="text-sm text-red-500 pl-2">-1</span>
+                    <strong className="text-xl font-semibold">{totalReminders}</strong>
+                    {/* <span className="text-sm text-red-500 pl-2">-1</span> */}
                 </div>
                 <span className="text-sm text-gray-300 pl-2 font-light">Last 24 hours</span>
 
