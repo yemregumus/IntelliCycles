@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { getActivitiesByUser } from "../../api";
 import { getUserIdFromToken } from '../utils/auth';
+import { curveCardinal } from 'd3-shape';
 
 var data = [
     {
@@ -34,17 +35,17 @@ var data = [
     },
     {
       name: 'MAY',
-      tasks: 20,
-      habits: 10,
-      events: 30,
-      reminders: 10,
+      tasks: 0,
+      habits: 0,
+      events: 0,
+      reminders: 0,
     },
     {
       name: 'JUN',
-      tasks: 30,
-      habits: 15,
-      events: 39,
-      reminders: 5,
+      tasks: 0,
+      habits: 0,
+      events: 0,
+      reminders: 0,
     },
     {
       name: 'JUL',
@@ -89,6 +90,8 @@ var data = [
         reminders: 0,
       },
 ];
+
+const cardinal = curveCardinal.tension(0.2);
 
 function StatsChart () {
   useEffect(() => {
@@ -141,10 +144,10 @@ function StatsChart () {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="habits" stackId="1" stroke="#0d9488" fill="#0d9488" />
-                <Area type="monotone" dataKey="tasks" stackId="1" stroke="#7c2d12" fill="#7c2d12" />
-                <Area type="monotone" dataKey="events" stackId="1" stroke="#ca8a04" fill="#ca8a04" />
-                <Area type="monotone" dataKey="reminders" stackId="1" stroke="#4d7c0f" fill="#4d7c0f" />
+                <Area type="monotone" dataKey="reminders" stroke="#4d7c0f" fill="#4d7c0f" fillOpacity={0.3}/>
+                <Area type="monotone" dataKey="events" stroke="#ca8a04" fill="#ca8a04" fillOpacity={0.3}/>
+                <Area type="monotone" dataKey="tasks" stroke="#7c2d12" fill="#7c2d12" fillOpacity={0.3}/>
+                <Area type="monotone" dataKey="habits" stroke="#0d9488" fill="#0d9488" fillOpacity={0.3}/>
                 </AreaChart>
             </ResponsiveContainer>
         </div>
