@@ -1,5 +1,8 @@
 const pool = require("./db");
 
+// Return the current date.
+const currentDate = () => new Date();
+
 // Create a new user task
 const createNewTask = (
   userId,
@@ -13,8 +16,8 @@ const createNewTask = (
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-        INSERT INTO userActivity (userid, type, name, description, due_datetime, reminder_datetime, color, repeat_interval, complete)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        INSERT INTO userActivity (userid, type, name, description, due_datetime, create_datetime, reminder_datetime, color, repeat_interval, complete)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id;
       `;
 
@@ -25,6 +28,7 @@ const createNewTask = (
         name,
         description,
         dueDatetime,
+        currentDate(),
         reminderDateTime,
         color,
         repeatInterval,
@@ -49,8 +53,8 @@ const createNewReminder = (
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-        INSERT INTO userActivity (userid, type, name, reminder_datetime, color, repeat_interval)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO userActivity (userid, type, name, create_datetime, reminder_datetime, color, repeat_interval)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING id;
       `;
     pool
@@ -58,6 +62,7 @@ const createNewReminder = (
         userId,
         "reminder",
         name,
+        currentDate(),
         reminderDateTime,
         color,
         repeatInterval,
@@ -85,8 +90,8 @@ const createNewHabit = (
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-        INSERT INTO userActivity (userid, type, name, description, due_datetime, reminder_datetime, color, repeat_interval, complete, streak)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        INSERT INTO userActivity (userid, type, name, description, due_datetime, create_datetime, reminder_datetime, color, repeat_interval, complete, streak)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         RETURNING id;
       `;
     pool
@@ -96,6 +101,7 @@ const createNewHabit = (
         name,
         description,
         dueDatetime,
+        currentDate(),
         reminderDateTime,
         color,
         repeatInterval,
@@ -124,8 +130,8 @@ const createNewEvent = (
 ) => {
   return new Promise((resolve, reject) => {
     const insertActivityQuery = `
-        INSERT INTO userActivity (userid, type, name, description, reminder_datetime, color, repeat_interval, start_datetime, end_datetime)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        INSERT INTO userActivity (userid, type, name, description, create_datetime, reminder_datetime, color, repeat_interval, start_datetime, end_datetime)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id;
       `;
     pool
@@ -134,6 +140,7 @@ const createNewEvent = (
         "event",
         name,
         description,
+        currentDate(),
         reminderDateTime,
         color,
         repeatInterval,
@@ -176,6 +183,7 @@ const getUserActivities = (userId, type = null) => {
           name: row.name,
           description: row.description,
           dueDateTime: row.due_datetime,
+          createDateTime: row.create_datetime,
           reminderDateTime: row.reminder_datetime,
           color: row.color,
           repeatInterval: row.repeat_interval,
@@ -216,6 +224,7 @@ const getUserActivityById = (activityId) => {
           name: result.rows[0].name,
           description: result.rows[0].description,
           dueDateTime: result.rows[0].due_datetime,
+          createDateTime: row.create_datetime,
           reminderDateTime: result.rows[0].reminder_datetime,
           color: result.rows[0].color,
           repeatInterval: result.rows[0].repeat_interval,
