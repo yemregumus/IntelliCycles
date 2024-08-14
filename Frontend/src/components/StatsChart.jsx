@@ -98,8 +98,9 @@ function StatsChart () {
         if (activities) {
           // sort activities by month
           const sortedActivities = activities.sort((a, b) => new Date(a.createDateTime) - new Date(b.createDateTime));
-          console.log('Fetched activities:', sortedActivities);
+          console.log('Fetched activities in stats chart:', sortedActivities);
           // update data
+          console.log('Old data:', data);
           const newData = data.map(month => {
             const monthActivities = sortedActivities.filter(activity => new Date(activity.createDateTime).getMonth() === data.indexOf(month));
             return {
@@ -112,6 +113,7 @@ function StatsChart () {
           });
           if (newData)
             data = newData;
+          console.log('New data:', data);
         }
       } catch (error) {
         console.error('Failed to fetch activities:', error);
