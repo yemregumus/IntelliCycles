@@ -1,4 +1,4 @@
--- Create the "user" table to store user information
+NM-- Create the "user" table to store user information
 CREATE TABLE IF NOT EXISTS "user" (
     id SERIAL PRIMARY KEY,
     firstname VARCHAR(100) NOT NULL,

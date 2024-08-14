@@ -97,11 +97,11 @@ function StatsChart () {
         const activities = await getActivitiesByUser(getUserIdFromToken());
         if (activities) {
           // sort activities by month
-          const sortedActivities = activities.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+          const sortedActivities = activities.sort((a, b) => new Date(a.createDateTime) - new Date(b.createDateTime));
           console.log('Fetched activities:', sortedActivities);
           // update data
           const newData = data.map(month => {
-            const monthActivities = sortedActivities.filter(activity => new Date(activity.createdAt).getMonth() === data.indexOf(month));
+            const monthActivities = sortedActivities.filter(activity => new Date(activity.createDateTime).getMonth() === data.indexOf(month));
             return {
               ...month,
               tasks: monthActivities.filter(activity => activity.type === 'task').length,
@@ -110,7 +110,8 @@ function StatsChart () {
               reminders: monthActivities.filter(activity => activity.type === 'reminder').length,
             };
           });
-          data = newData;
+          if (newData)
+            data = newData;
         }
       } catch (error) {
         console.error('Failed to fetch activities:', error);
