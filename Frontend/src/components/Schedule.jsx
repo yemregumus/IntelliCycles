@@ -7,6 +7,7 @@ import { getActivitiesByUser } from "../../api";
 import { getUserIdFromToken } from "../utils/auth";
 import { toast } from 'react-hot-toast';
 import moment from 'moment';
+import PropTypes from "prop-types";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -104,6 +105,10 @@ const Schedule = ({ type = "" }) => {
       )}
     </Container>
   );
+};
+
+Schedule.propTypes = {
+  type: PropTypes.string,
 };
 
 export default Schedule;

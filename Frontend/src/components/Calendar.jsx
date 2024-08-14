@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import rrulePlugin from '@fullcalendar/rrule'
@@ -11,7 +10,6 @@ import { EditDialog } from './EditForms';
 import { getUserIdFromToken } from '../utils/auth';
 import { getActivitiesByUser } from '../../api';
 import { toast } from 'react-hot-toast';
-import { all } from 'axios';
 
 function Calendar() {
 
@@ -21,27 +19,11 @@ function Calendar() {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const userId = getUserIdFromToken();
 
-  const handleDateClick = (selected) => {
-    const title = prompt("Please enter a new title for your event");
-    const calendarApi = selected.view.calendar;
-    calendarApi.unselect();
-
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
-    }
-  };
-
   const handleEventClick = (info) => {
-    console.log(info.event);
+    console.log("INFO EVENT",info.event);
 
-    const startDate = info.event.start instanceof Date ? info.event.start.toISOString() : info.event.start;
-    const endDate = info.event.end instanceof Date ? info.event.end.toISOString() : info.event.end;
+    const startDate = info.event._instance.range.start instanceof Date ? info.event._instance.range.start.toISOString() : info.event._instance.range.start;
+    const endDate = info.event._instance.range.end instanceof Date ? info.event._instance.range.end.toISOString() : info.event._instance.range.end;
 
     console.log(startDate);
     console.log(endDate);
@@ -136,7 +118,6 @@ function Calendar() {
                     selectable={true}
                     selectMirror={true}
                     dayMaxEvents={true}
-                    select={handleDateClick}
                     eventClick={handleEventClick}
                     events={currentEvents}
                 />

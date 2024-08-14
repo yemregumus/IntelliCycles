@@ -1,5 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
+
 
 const AddHabitForm = ({ formData, handleChange }) => (
   <div>
@@ -97,5 +99,18 @@ const AddHabitForm = ({ formData, handleChange }) => (
     </Form.Group>
   </div>
 );
+
+AddHabitForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string ,
+    description: PropTypes.string ,
+    due: PropTypes.string ,
+    reminder: PropTypes.string ,
+    color: PropTypes.string ,
+    repeat: PropTypes.string ,
+    complete: PropTypes.bool ,
+  }) ,
+  handleChange: PropTypes.func ,
+};
 
 export default AddHabitForm;

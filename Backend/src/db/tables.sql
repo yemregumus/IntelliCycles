@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS useractivity (
     name VARCHAR(100) NOT NULL,
     description TEXT,
     due_datetime TIMESTAMP,
+    create_datetime TIMESTAMP,
     reminder_datetime TIMESTAMP,
     color VARCHAR(20),
     repeat_interval VARCHAR(20),

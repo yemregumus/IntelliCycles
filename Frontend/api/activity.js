@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getToken } from '../src/utils/auth';
 import { toast } from 'react-hot-toast';
 
