@@ -25,6 +25,7 @@ This web application is designed to help users manage and track their daily acti
 - User Authentication
 - Activities Tracking and Filtering
 - User Statistics
+- ChatBot
 
 ## How to run the project?
 
