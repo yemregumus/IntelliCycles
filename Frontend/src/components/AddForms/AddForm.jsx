@@ -5,6 +5,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { createActivity } from "../../../api/activity";
 import { getUserIdFromToken } from "../../utils/auth";
+import PropTypes from "prop-types";
 
 const AddForm = ({ type }) => {
   const navigate = useNavigate();
@@ -65,8 +66,7 @@ const AddForm = ({ type }) => {
     };
     try {
       console.log(activityData);
-      const createdActivity = await createActivity(activityData, getUserIdFromToken(), formData.type);
-      // console.log("Task created with ID: ", createdActivity.activityId);
+      await createActivity(activityData, getUserIdFromToken(), formData.type);
       navigate("/home"); // Navigate to the tasks page or any other page
     } catch (error) {
       console.error("Failed to create task", error);
@@ -114,5 +114,9 @@ const AddForm = ({ type }) => {
     </Container>
   );
 };
+
+AddForm.propTypes = {
+  type: PropTypes.string,
+};  
 
 export default AddForm;

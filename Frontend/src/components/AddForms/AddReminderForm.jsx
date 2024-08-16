@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const AddReminderForm = ({ formData, handleChange }) => (
   <div>
@@ -60,5 +61,15 @@ const AddReminderForm = ({ formData, handleChange }) => (
     </Form.Group>
   </div>
 );
+
+AddReminderForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    reminder: PropTypes.string,
+    repeat: PropTypes.string,
+    color: PropTypes.string,
+  }),
+  handleChange: PropTypes.func,
+};
 
 export default AddReminderForm;

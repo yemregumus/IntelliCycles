@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import EditDialog from "./EditForms/EditDialog"
+import PropTypes from "prop-types";
 
 // Function to calculate luminance and determine if a color is light or dark
 const getContrastColor = (bgColor) => {
@@ -47,6 +48,11 @@ const Badge = ({ entity, updateTasks }) => {
             />
         </div>
     );
+};
+
+Badge.propTypes = {
+    entity: PropTypes.object,
+    updateTasks: PropTypes.func,
 };
 
 export default Badge;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const AddEventForm = ({ formData, handleChange }) => (
   <div>
@@ -83,5 +84,17 @@ const AddEventForm = ({ formData, handleChange }) => (
     </Form.Group>
   </div>
 );
+
+AddEventForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    startTime: PropTypes.string,
+    endTime: PropTypes.string,
+    color: PropTypes.string,
+    repeat: PropTypes.string,
+  }),
+  handleChange: PropTypes.func,
+};
 
 export default AddEventForm;

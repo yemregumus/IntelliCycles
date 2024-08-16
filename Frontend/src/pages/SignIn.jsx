@@ -16,7 +16,7 @@ const SignIn = () => {
         e.preventDefault();
         const { username, password } = formData;
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/validate-user`, {
+            const response = await fetch(`${apiUrl}/api/auth/validate-user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const SignIn = () => {
                         <Button type="submit" className="bg-teal-800 hover:bg-teal-950 border-2 border-teal-950 transition duration-150 text-2xl rounded-full mx-auto px-4">Sign In</Button>
                     </Col>
                 </Form.Group>
-                <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/register')}>Don't have an account?</div>
+                <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/register')}>Don&apos;t have an account?</div>
                 {/* <div className='text-blue-200 hover:text-blue-400 transition duration-150 cursor-pointer' onClick={() => navigate('/')}>Forgot password or username ?</div> */}
             </Form>
         </Container>

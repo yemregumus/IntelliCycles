@@ -1,6 +1,6 @@
 import React from "react";
-import {Schedule, IntelliWandWindow} from "../components";
-import {Row, Col, Container} from "react-bootstrap"
+//import {Schedule, IntelliWandWindow} from "../components";
+import {Container} from "react-bootstrap"
 import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import Calendar from "../components/Calendar";
