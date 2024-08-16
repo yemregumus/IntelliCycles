@@ -18,7 +18,7 @@ This web application is designed to help users manage and track their daily acti
 
 <img src="https://skillicons.dev/icons?i=postgres" />
 
-## How it looks?
+## [How it looks?](./application-visuals.md)
 
 ## Features
 
