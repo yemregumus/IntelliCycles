@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { getActivitiesByUser } from "../../api";
 import { getUserIdFromToken } from '../utils/auth';
+import { curveCardinal } from 'd3-shape';
 
 var data = [
     {
@@ -34,17 +35,17 @@ var data = [
     },
     {
       name: 'MAY',
-      tasks: 20,
-      habits: 10,
-      events: 30,
-      reminders: 10,
+      tasks: 0,
+      habits: 0,
+      events: 0,
+      reminders: 0,
     },
     {
       name: 'JUN',
-      tasks: 30,
-      habits: 15,
-      events: 39,
-      reminders: 5,
+      tasks: 0,
+      habits: 0,
+      events: 0,
+      reminders: 0,
     },
     {
       name: 'JUL',
@@ -90,6 +91,8 @@ var data = [
       },
 ];
 
+const cardinal = curveCardinal.tension(0.2);
+
 function StatsChart () {
   useEffect(() => {
     const fetchActivities = async () => {
@@ -97,11 +100,12 @@ function StatsChart () {
         const activities = await getActivitiesByUser(getUserIdFromToken());
         if (activities) {
           // sort activities by month
-          const sortedActivities = activities.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-          console.log('Fetched activities:', sortedActivities);
+          const sortedActivities = activities.sort((a, b) => new Date(a.createDateTime) - new Date(b.createDateTime));
+          console.log('Fetched activities in stats chart:', sortedActivities);
           // update data
+          console.log('Old data:', data);
           const newData = data.map(month => {
-            const monthActivities = sortedActivities.filter(activity => new Date(activity.createdAt).getMonth() === data.indexOf(month));
+            const monthActivities = sortedActivities.filter(activity => new Date(activity.createDateTime).getMonth() === data.indexOf(month));
             return {
               ...month,
               tasks: monthActivities.filter(activity => activity.type === 'task').length,
@@ -110,7 +114,9 @@ function StatsChart () {
               reminders: monthActivities.filter(activity => activity.type === 'reminder').length,
             };
           });
-          data = newData;
+          if (newData)
+            data = newData;
+          console.log('New data:', data);
         }
       } catch (error) {
         console.error('Failed to fetch activities:', error);
@@ -138,10 +144,10 @@ function StatsChart () {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="habits" stackId="1" stroke="#0d9488" fill="#0d9488" />
-                <Area type="monotone" dataKey="tasks" stackId="1" stroke="#7c2d12" fill="#7c2d12" />
-                <Area type="monotone" dataKey="events" stackId="1" stroke="#ca8a04" fill="#ca8a04" />
-                <Area type="monotone" dataKey="reminders" stackId="1" stroke="#4d7c0f" fill="#4d7c0f" />
+                <Area type="monotone" dataKey="reminders" stroke="#4d7c0f" fill="#4d7c0f" fillOpacity={0.3}/>
+                <Area type="monotone" dataKey="events" stroke="#ca8a04" fill="#ca8a04" fillOpacity={0.3}/>
+                <Area type="monotone" dataKey="tasks" stroke="#7c2d12" fill="#7c2d12" fillOpacity={0.3}/>
+                <Area type="monotone" dataKey="habits" stroke="#0d9488" fill="#0d9488" fillOpacity={0.3}/>
                 </AreaChart>
             </ResponsiveContainer>
         </div>
