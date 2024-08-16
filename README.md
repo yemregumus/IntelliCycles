@@ -22,6 +22,10 @@ This web application is designed to help users manage and track their daily acti
 
 ## Features
 
+- User Authentication
+- Activities Tracking and Filtering
+- User Statistics
+
 ## How to run the project?
 
 **Note**: You must be in `/Frontend` directory.
