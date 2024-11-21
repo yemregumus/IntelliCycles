@@ -37,14 +37,9 @@ This web application is designed to help users manage and track their daily acti
 npm run dev
 ```
 
-## Author
-
-### Frontend
+## Authors
 
 - <a href="https://github.com/hashmeet02">Hashmeet Singh Saini</a>
 - <a href="https://github.com/okuti2">Toyosi Kuti</a>
-
-### Backend
-
 - <a href="https://github.com/busycaesar">Dev Shah</a>
 - <a href="https://github.com/yemregumus">Yunus Emre Gumus</a>
